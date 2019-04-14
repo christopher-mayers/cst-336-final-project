@@ -1,0 +1,306 @@
+@import "config.scss";
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
+
+.branding {
+	display: inline-block;
+	height: 60px;
+	width: 60px;
+
+	svg {
+		width: 100%;
+		height: 100%;
+	}
+
+	path {
+		fill: $sky;
+	}
+}
+
+.navheader {
+	background-color: $dimwhite;
+	padding: 30px 100px;
+	margin: 0;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	position: relative;
+
+	nav {
+		margin: 0;
+		display: flex;
+	}
+
+	ul {
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+		margin-left: 100px;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+
+		li {
+			display: inline-block;
+
+			&:not(:last-child) {
+				margin-right: 100px;
+			}
+		}
+	}
+
+	.navlink {
+		color: $slate;
+		font-family: 'Roboto', sans-serif;
+		font-size: $nav-text-size;
+		font-weight: 400;
+		text-decoration: none;
+		cursor: pointer;
+	}
+
+	.profile {
+		display: inline-block;
+		margin-left: auto;
+		color: $slate;
+		font-family: 'Roboto', sans-serif;
+		font-size: $nav-text-size;
+		font-weight: 400;
+		cursor: pointer;
+
+		.arrow {
+			display: inline-block;
+
+			svg {
+				height: 0.5em;
+			}
+
+			path {
+				fill: lighten($slate, 30%);
+			}
+		}
+	}
+}
+
+.outer {
+	position: relative;
+}
+
+.splash {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+}
+
+.hero {
+	display: block;
+	flex: 1 1 auto;
+	position: relative;
+	overflow: hidden;
+}
+
+.picker-container {
+	display: flex;
+	align-items: center;
+	position: absolute;
+	justify-content: flex-end;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	pointer-events: none;
+	padding-right: 250px;
+	overflow: hidden;
+	box-sizing: border-box;
+
+	@media only screen and (max-width: 1000px) {
+		justify-content: center;
+		padding-right: 0;
+	}
+}
+
+.picker {
+	display: inline-block;
+	background-color: $coolwhite;
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+	pointer-events: all;
+
+	h5 {
+		font-size: 15px;
+		text-transform: uppercase;
+		color: $aqua;
+		margin: 25px;
+	}
+}
+
+.picker-content {
+	padding: 0;
+
+	.field {
+		position: relative;
+		display: block;
+		align-content: center;
+
+		&:first-child {
+			border-bottom: 1px solid darken(white, 10%);
+		}
+	}
+
+	input[type=text] {
+		outline: none;
+		border: none;
+		font-size: 22px;
+		width: 300px;
+		background-color: $coolwhite;
+		padding: 20px 25px;
+		color: $slate;
+
+		+ label {
+			left: 25px;
+			top: 50%;
+			transform: translateY(-50%);
+			position: absolute;
+			font-size: 20px;
+			white-space: nowrap;
+			vertical-align: text-bottom;
+			color: lighten($slate, 30%);
+			cursor: text;
+			pointer-events: none;
+		}
+
+		&:focus + label {
+			display: none;
+		}
+	}
+
+	.picker-submit {
+		position: relative;
+		width: 100%;
+		outline: none;
+		border: none;
+		padding: 20px 25px;
+		font-family: inherit;
+		font-size: 18px;
+		font-weight: 400;
+		letter-spacing: 0.5px;
+		color: $coolwhite;
+		cursor: pointer;
+		background-image: linear-gradient(to right, #4facfe 0%, #00d5fe 100%);
+
+		> * {
+			z-index: 2;
+		}
+
+		> span {
+			position: relative;
+		}
+
+		&:hover::before {
+			opacity: 0.5;
+		}
+
+		&:active::before {
+			opacity: 1;
+		}
+
+		&::before {
+			z-index: 1;
+			content: '';
+			display: block;
+			position: absolute;
+			left: 0;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			opacity: 0;
+			background-image: linear-gradient(to right, #4facfe 0%, #bff8ff 100%);
+			transition: opacity 0.25s ease;
+		}
+
+		svg {
+			position: absolute;
+			top: 50%;
+			right: 25px;
+			font-size: inherit;
+			height: 1.5em;
+			width: 1.5em;
+			transform: translateY(-50%) rotate(-180deg);
+		}
+
+		path {
+			fill: $coolwhite;
+		}
+
+		&:active {
+			border: none;
+			outline: none;
+		}
+	}
+}
+
+.carousel {
+	display: block;
+	height: 100%;
+	position: relative;
+}
+
+.card {
+	background: url("https://camo.githubusercontent.com/28a47bf388bfcd75ca73cefaf3c63f9a6fdb73fc/68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f2d486643596e4362707177772f557331484e744e7a3030492f41414141414141416b46452f554a4368443762626d6d302f73313932302d77313932302d68313038302d632f4453435f303533372d456469742d456469742d456469742d456469742d456469742d456469742e4a5047");
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	animation-fill-mode: forwards;
+	overflow: hidden;
+
+	.info {
+		position: absolute;
+		bottom: 15%;
+		left: 130px;
+		animation-fill-mode: forwards;
+
+		h1, h2 {
+			padding: 0;
+			margin: 0;
+			color: $white;
+			font-family: 'Roboto', sans-serif;
+			white-space: nowrap;
+		}
+
+		h1 {
+			font-size: 90px;
+			margin-bottom: 10px;
+			font-weight: 500;
+		}
+
+		h2 {
+			font-size: 40px;
+			text-transform: lowercase;
+			font-weight: 400;
+		}
+	}
+}
+
+@keyframes card-slide {
+	from {
+		left: -150px;
+		width: 0px;
+	}
+
+	to {
+		left: 0px;
+		width: 100%;
+	}
+}
+
+@keyframes info-slide {
+	from {
+		left: 50px;
+		opacity: 0;
+	}
+
+	to {
+		left: 130px;
+		opacity: 1;
+	}
+}
