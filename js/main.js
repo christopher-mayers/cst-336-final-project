@@ -10,7 +10,7 @@ fetch("https://raw.githubusercontent.com/dconnolly/chromecast-backgrounds/master
 
 function addCard(title, subtitle, image)
 {
-	document.querySelector(".carousel").innerHTML += `<div class="card" style='background: url("${image}");animation: ${carouselSeconds}s cubic-bezier(0.165, 0.84, 0.44, 1) 0s card-slide;'>` +
+	document.querySelector(".carousel").innerHTML += `<div class="card" style='background: url("${image}");animation: ${carouselSeconds}s cubic-bezier(0.165, 0.84, 0.44, 1) 0s card-slide;width: 0px'>` +
 		`<div class="info" style="animation: ${carouselSeconds}s cubic-bezier(0.165, 0.34, 0.44, 1) 0s info-slide;opacity: 0;">` +
 		`<h1>${title}</h1>` +
 		`<h2>${subtitle}</h2>` +
@@ -21,14 +21,10 @@ function addCard(title, subtitle, image)
 	{
 		const nodes = document.querySelectorAll(".card");
 
-		if (nodes && nodes.length > 1)
-		{
-			nodes[0].parentNode.removeChild(nodes[0]);
-		}
-
 		for (let obj of nodes)
 		{
 			obj.style.animation = "";
+			obj.style.width = "";
 
 			for (let child of obj.children)
 			{
@@ -38,6 +34,11 @@ function addCard(title, subtitle, image)
 					child.style.opacity   = "";
 				}
 			}
+		}
+
+		if (nodes && nodes.length > 1)
+		{
+			nodes[0].parentNode.removeChild(nodes[0]);
 		}
 
 	}, carouselMilli);
