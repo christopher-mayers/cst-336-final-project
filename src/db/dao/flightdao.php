@@ -1,7 +1,10 @@
 <?php /** @noinspection SqlNoDataSourceInspection */
 /** @noinspection SqlResolve */
 
-include dirname(__DIR__) . "/entity/flight.php";
+namespace Valkyrie\DB\Dao;
+
+use PDO;
+use Valkyrie\DB\Entity\Flight;
 
 /**
  * Class FlightDao
@@ -24,7 +27,7 @@ class FlightDao
 	}
 
 	/**
-	 * @return Flight
+	 * @return Flight|null
 	 */
 	public function find($id)
 	{

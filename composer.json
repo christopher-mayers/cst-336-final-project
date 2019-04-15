@@ -1,7 +1,12 @@
 {
     "require": {
-      "vlucas/phpdotenv": "^3.3",
-      "ext-json": "*",
-      "ext-pdo": "*"
+        "vlucas/phpdotenv": "^3.3",
+        "ext-json": "*",
+        "ext-pdo": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Valkyrie\\": "src/"
+        }
     }
 }

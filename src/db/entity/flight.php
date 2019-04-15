@@ -1,5 +1,7 @@
 <?php
 
+namespace Valkyrie\DB\Entity;
+
 /**
  * Class Flight
  */

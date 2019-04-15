@@ -1,6 +1,11 @@
 <?php
 
-include "connection.php";
+namespace Valkyrie\DB;
+
+use PDO;
+use Valkyrie\DB\Dao\FlightDao;
+
+require dirname(__DIR__, 2) . '/vendor/autoload.php';
 
 /**
  * Class Database

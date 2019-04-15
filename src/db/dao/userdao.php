@@ -1,6 +1,8 @@
 <?php
 
-include dirname(__DIR__) . "/entity/user.php";
+namespace Valkyrie\DB\Entity;
+
+use PDO;
 
 /**
  * Class User

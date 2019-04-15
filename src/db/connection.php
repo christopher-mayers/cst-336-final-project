@@ -1,8 +1,12 @@
 <?php
 
-require dirname(__DIR__, 2) . '/vendor/autoload.php';
+namespace Valkyrie\DB;
 
-$dotenv = Dotenv\Dotenv::create(__DIR__);
+use PDO;
+
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::create(__DIR__);
 $dotenv->load();
 
 function getDatabaseConnection()
