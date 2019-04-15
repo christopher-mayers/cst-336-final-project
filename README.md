@@ -22,12 +22,12 @@ When you open your project again, in case anyone has made changes, please update
 This will ensure you have the latest code.
 
 ## Responsibilities
-#### Dylan
+### Dylan
 - [ ] General site design, UI/UX
 - [ ] Database management
 - [ ] PHP resources (DAO classes, framework)
 
-#### Chris & Jerry
+### Chris & Jerry
 - Admin page
   - [ ] Sign-in
   - [ ] Sign-out
@@ -48,7 +48,7 @@ This will ensure you have the latest code.
 
 Dylan: I'll create a skeleton of the API so you guys can fill it in.
 
-#### Junior
+### Junior
 - Cart management
   - Test different ways to store user's cart data. You should probably only store the IDs of flights, and then ask the API for the details of each flight whenever necessary.
     - Could probably just use `localStorage.setItem("cart", JSON.stringify(listOfFlightIDs));`
