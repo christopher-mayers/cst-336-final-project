@@ -35,7 +35,7 @@ class FlightDao
 		$stmt = $this->pdo->prepare($query);
 		$stmt->bindParam(":id", $id);
 		$stmt->execute();
-		$stmt->setFetchMode(PDO::FETCH_CLASS, "Flight");
+		$stmt->setFetchMode(PDO::FETCH_CLASS, Flight::class);
 
 		return $stmt->fetch();
 	}
@@ -48,7 +48,7 @@ class FlightDao
 		$query = "SELECT * FROM {$this->table}";
 		$stmt = $this->pdo->prepare($query);
 		$stmt->execute();
-		$stmt->setFetchMode(PDO::FETCH_CLASS, "Flight");
+		$stmt->setFetchMode(PDO::FETCH_CLASS, Flight::class);
 
 		return $stmt->fetchAll();
 	}

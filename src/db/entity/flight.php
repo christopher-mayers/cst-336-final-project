@@ -2,6 +2,8 @@
 
 namespace Valkyrie\DB\Entity;
 
+use DateTime;
+
 /**
  * Class Flight
  */
@@ -31,4 +33,13 @@ class Flight
 	 * @var int
 	 */
 	public $seats;
+
+	public function __construct()
+	{
+		if (isset($this->departureTime))
+			$this->departureTime = date_create($this->departureTime);
+
+		if (isset($this->boardingTime))
+			$this->boardingTime = date_create($this->boardingTime);
+	}
 }
