@@ -78,6 +78,8 @@ class FlightDao
 	}
 
 	/**
+	 * Update an existing flight in the database.
+	 *
 	 * @param Flight $flight
 	 * @return bool
 	 */
@@ -102,9 +104,9 @@ class FlightDao
 		$stmt = $this->pdo->prepare($query);
 		$stmt->bindParam(":id", $flight->id, PDO::PARAM_INT);
 		$stmt->bindParam(":origin", $flight->origin);
-		$stmt->bindParam(":destination", date("Y-m-d H:i:s", $flight->destination));
-		$stmt->bindParam(":boardingTime", date("Y-m-d H:i:s", $flight->boardingTime));
-		$stmt->bindParam(":departureTime", $flight->departureTime);
+		$stmt->bindParam(":destination", $flight->destination);
+		$stmt->bindValue(":boardingTime", $flight->boardingTime->format("Y-m-d H:i:s"));
+		$stmt->bindValue(":departureTime", $flight->departureTime->format("Y-m-d H:i:s"));
 		$stmt->bindParam(":seats", $flight->seats, PDO::PARAM_INT);
 
 		return $stmt->execute();
@@ -133,9 +135,9 @@ class FlightDao
 
 		$stmt = $this->pdo->prepare($query);
 		$stmt->bindParam(":origin", $flight->origin);
-		$stmt->bindParam(":destination", date("Y-m-d H:i:s", $flight->destination));
-		$stmt->bindParam(":boardingTime", date("Y-m-d H:i:s", $flight->boardingTime));
-		$stmt->bindParam(":departureTime", $flight->departureTime);
+		$stmt->bindParam(":destination", $flight->destination);
+		$stmt->bindValue(":boardingTime", $flight->boardingTime->format("Y-m-d H:i:s"));
+		$stmt->bindValue(":departureTime", $flight->departureTime->format("Y-m-d H:i:s"));
 		$stmt->bindParam(":seats", $flight->seats, PDO::PARAM_INT);
 
 		$result = $stmt->execute();

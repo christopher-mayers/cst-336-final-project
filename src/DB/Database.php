@@ -5,6 +5,7 @@ namespace Valkyrie\DB;
 require dirname(__DIR__) . "/boot.php";
 
 use PDO;
+use Valkyrie\DB\Dao\FlightDao;
 use Valkyrie\DB\Dao\UserDao;
 
 /**
@@ -18,7 +19,7 @@ class Database
 	private $pdo;
 
 	/**
-	 * @var UserDao
+	 * @var FlightDao
 	 */
 	public $flightDao;
 	/**
@@ -44,7 +45,7 @@ class Database
 			$this->pdo = Connection::get($host, $database, $username, $password);
 
 		// Create our DAOs for easy access to MySQL info
-		$this->flightDao = new UserDao($this->pdo);
+		$this->flightDao = new FlightDao($this->pdo);
 		$this->userDao = new UserDao($this->pdo);
 //		$this->logDao = new LogDao($this->pdo);
 	}
