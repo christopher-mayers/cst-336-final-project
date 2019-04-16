@@ -8,7 +8,7 @@ use PDO;
 use Valkyrie\DB\Entity\User;
 
 /**
- * Class FlightDao
+ * Class UserDao
  */
 class UserDao
 {
@@ -28,7 +28,8 @@ class UserDao
 	}
 
 	/**
-	 * @return User|null
+	 * @param int $id
+	 * @return User|false A User object if the user exists, false otherwise.
 	 */
 	public function find($id)
 	{
@@ -41,6 +42,10 @@ class UserDao
 		return $stmt->fetch();
 	}
 
+	/**
+	 * @param string $email The email to search for.
+	 * @return User|false A User object if the user exists, false otherwise.
+	 */
 	public function findByEmail($email)
 	{
 		$query = "SELECT * FROM {$this->table} WHERE email=:email LIMIT 1";
@@ -53,7 +58,10 @@ class UserDao
 	}
 
 	/**
-	 * @return User[]
+	 * Fetch every user in the database. Depending on how many users are present, it would be wise to not use this.
+	 * Use a custom query with "LIMIT offset,count" for paging.
+	 *
+	 * @return User[] All users in the database.
 	 */
 	public function findAll()
 	{

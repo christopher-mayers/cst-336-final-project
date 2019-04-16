@@ -5,7 +5,7 @@
 namespace Valkyrie\DB\Dao;
 
 use PDO;
-use Valkyrie\DB\Entity\User;
+use Valkyrie\DB\Entity\Flight;
 
 /**
  * Class FlightDao
@@ -28,7 +28,8 @@ class FlightDao
 	}
 
 	/**
-	 * @return User|null
+	 * @param int $id
+	 * @return Flight|false
 	 */
 	public function find($id)
 	{
@@ -36,29 +37,51 @@ class FlightDao
 		$stmt = $this->pdo->prepare($query);
 		$stmt->bindParam(":id", $id);
 		$stmt->execute();
-		$stmt->setFetchMode(PDO::FETCH_CLASS, User::class);
+		$stmt->setFetchMode(PDO::FETCH_CLASS, Flight::class);
 
 		return $stmt->fetch();
 	}
 
 	/**
-	 * @return User[]
+	 * Finds all flights which match the given origin and destination.
+	 *
+	 * @param string $origin
+	 * @param string $destination
+	 * @return Flight|false A Flight object if the flight exists, false otherwise.
+	 */
+	public function findByLocationPair($origin, $destination)
+	{
+		$query = "SELECT * FROM {$this->table} WHERE origin=:origin AND destination=:destination";
+		$stmt = $this->pdo->prepare($query);
+		$stmt->bindParam(":origin", $origin);
+		$stmt->bindParam(":destination", $destination);
+		$stmt->execute();
+		$stmt->setFetchMode(PDO::FETCH_CLASS, Flight::class);
+
+		return $stmt->fetch();
+	}
+
+	/**
+	 * Fetch every flight in the database. Depending on how many flights are present, it would be wise to not use this.
+	 * Use a custom query with "LIMIT offset,count" for paging.
+	 *
+	 * @return Flight[] All users in the database.
 	 */
 	public function findAll()
 	{
 		$query = "SELECT * FROM {$this->table}";
 		$stmt = $this->pdo->prepare($query);
 		$stmt->execute();
-		$stmt->setFetchMode(PDO::FETCH_CLASS, User::class);
+		$stmt->setFetchMode(PDO::FETCH_CLASS, Flight::class);
 
 		return $stmt->fetchAll();
 	}
 
 	/**
-	 * @param User $flight
+	 * @param Flight $flight
 	 * @return bool
 	 */
-	public function update(User $flight)
+	public function update(Flight $flight)
 	{
 		if (!isset($flight->id))
 		{
@@ -88,10 +111,13 @@ class FlightDao
 	}
 
 	/**
-	 * @param User $flight
-	 * @return bool
+	 * Saves a flight to the database.
+	 * If the flight object has no ID, this assumes it is a new object and will insert it into the database.
+	 *
+	 * @param Flight $flight
+	 * @return bool True if the operation was successful, false otherwise.
 	 */
-	public function save(User $flight)
+	public function save(Flight $flight)
 	{
 		if (isset($flight->id))
 		{
@@ -120,10 +146,10 @@ class FlightDao
 	}
 
 	/**
-	 * @param User $flight
+	 * @param Flight $flight
 	 * @return bool
 	 */
-	public function delete(User $flight)
+	public function delete(Flight $flight)
 	{
 		if (!isset($flight->id))
 		{
