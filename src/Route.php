@@ -4,8 +4,17 @@ namespace Valkyrie;
 use Closure;
 
 
+/**
+ * Glorified switch statement for executing callbacks based on request method
+ *
+ * Class Route
+ * @package Valkyrie
+ */
 class Route
 {
+	/**
+	 * @param Closure|null $closure
+	 */
 	public static function get(Closure $closure = null)
 	{
 		if ($closure === null)
@@ -19,6 +28,9 @@ class Route
 		}
 	}
 
+	/**
+	 * @param Closure|null $closure
+	 */
 	public static function post(Closure $closure = null)
 	{
 		if ($closure === null)
@@ -32,6 +44,9 @@ class Route
 		}
 	}
 
+	/**
+	 * @param Closure|null $closure
+	 */
 	public static function put(Closure $closure = null)
 	{
 		if ($closure === null)
@@ -47,6 +62,9 @@ class Route
 		}
 	}
 
+	/**
+	 * @param Closure|null $closure
+	 */
 	public static function delete(Closure $closure = null)
 	{
 		if ($closure === null)

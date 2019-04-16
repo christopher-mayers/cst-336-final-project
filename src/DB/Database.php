@@ -10,6 +10,7 @@ use Valkyrie\DB\Dao\UserDao;
 
 /**
  * Class Database
+ * @package Valkyrie\DB
  */
 class Database
 {

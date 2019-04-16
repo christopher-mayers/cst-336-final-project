@@ -14,10 +14,11 @@ header("Access-Control-Allow-Methods: GET,POST,PUT,DELETE");
  * $data contains all the data passed to the API, whether it be $_GET parameters from the url,
  * or $_POST variables.
  *
- * GET — Get all flights. If $data["id"] exists, then they want a specific flight!
- *      Consider checking if parameters like "origin" and "destination" are passed, so you can get a flight that way
- * POST — Someone wants to add a new flight!
- * PUT — Someone wants to update an existing flight!
+ * GET    — Get all flights. If $data["id"] exists, then they want a specific flight!
+ *            Consider checking if parameters like "origin" and "destination" are passed,
+ *            so you can get a flight that way.
+ * POST   — Someone wants to add a new flight!
+ * PUT    — Someone wants to update an existing flight!
  * DELETE — YES
  */
 

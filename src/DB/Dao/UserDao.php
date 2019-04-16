@@ -9,6 +9,7 @@ use Valkyrie\DB\Entity\User;
 
 /**
  * Class UserDao
+ * @package Valkyrie\DB\Dao
  */
 class UserDao
 {

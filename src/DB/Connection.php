@@ -4,8 +4,16 @@ namespace Valkyrie\DB;
 use PDO;
 
 
+/**
+ * Class Connection
+ * @package Valkyrie\DB
+ */
 class Connection
 {
+	/**
+	 * @param string $url
+	 * @return PDO
+	 */
 	public static function getFromUrl($url)
 	{
 		$url = parse_url($url);
@@ -21,6 +29,13 @@ class Connection
 		return $pdo;
 	}
 
+	/**
+	 * @param string $host
+	 * @param string $database
+	 * @param string $username
+	 * @param string $password
+	 * @return PDO
+	 */
 	public static function get($host, $database, $username, $password)
 	{
 		$pdo = new PDO("mysql:host=$host;dbname=$database", $username, $password);

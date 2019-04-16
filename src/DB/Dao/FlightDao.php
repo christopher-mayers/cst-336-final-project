@@ -9,6 +9,7 @@ use Valkyrie\DB\Entity\Flight;
 
 /**
  * Class FlightDao
+ * @package Valkyrie\DB\Dao
  */
 class FlightDao
 {
