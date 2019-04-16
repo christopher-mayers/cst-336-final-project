@@ -113,7 +113,7 @@
 	overflow: hidden;
 	box-sizing: border-box;
 
-	@media only screen and (max-width: 1000px) {
+	@media only screen and (max-width: 1200px) {
 		justify-content: center;
 		padding-right: 0;
 	}
@@ -246,7 +246,7 @@
 }
 
 .card {
-	background: url("https://camo.githubusercontent.com/28a47bf388bfcd75ca73cefaf3c63f9a6fdb73fc/68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f2d486643596e4362707177772f557331484e744e7a3030492f41414141414141416b46452f554a4368443762626d6d302f73313932302d77313932302d68313038302d632f4453435f303533372d456469742d456469742d456469742d456469742d456469742d456469742e4a5047");
+	background-image: url("https://camo.githubusercontent.com/28a47bf388bfcd75ca73cefaf3c63f9a6fdb73fc/68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f2d486643596e4362707177772f557331484e744e7a3030492f41414141414141416b46452f554a4368443762626d6d302f73313932302d77313932302d68313038302d632f4453435f303533372d456469742d456469742d456469742d456469742d456469742d456469742e4a5047");
 	background-repeat: no-repeat;
 	background-size: cover;
 	position: absolute;
@@ -254,6 +254,8 @@
 	height: 100%;
 	animation-fill-mode: forwards;
 	overflow: hidden;
+	-webkit-clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
+	clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
 
 	.info {
 		position: absolute;
@@ -286,12 +288,16 @@
 @keyframes card-slide {
 	from {
 		left: -150px;
-		width: 0px;
+		//width: 0px;
+		-webkit-clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+		clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
 	}
 
 	to {
 		left: 0px;
-		width: 100%;
+		//width: 100%;
+		-webkit-clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
+		clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
 	}
 }
 

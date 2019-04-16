@@ -1,10 +1,11 @@
-<?php /** @noinspection SqlNoDataSourceInspection */
+<?php /** @noinspection SqlWithoutWhere */
+/** @noinspection SqlNoDataSourceInspection */
 /** @noinspection SqlResolve */
 
 namespace Valkyrie\DB\Dao;
 
 use PDO;
-use Valkyrie\DB\Entity\Flight;
+use Valkyrie\DB\Entity\User;
 
 /**
  * Class FlightDao
@@ -27,7 +28,7 @@ class FlightDao
 	}
 
 	/**
-	 * @return Flight|null
+	 * @return User|null
 	 */
 	public function find($id)
 	{
@@ -35,29 +36,29 @@ class FlightDao
 		$stmt = $this->pdo->prepare($query);
 		$stmt->bindParam(":id", $id);
 		$stmt->execute();
-		$stmt->setFetchMode(PDO::FETCH_CLASS, Flight::class);
+		$stmt->setFetchMode(PDO::FETCH_CLASS, User::class);
 
 		return $stmt->fetch();
 	}
 
 	/**
-	 * @return Flight[]
+	 * @return User[]
 	 */
 	public function findAll()
 	{
 		$query = "SELECT * FROM {$this->table}";
 		$stmt = $this->pdo->prepare($query);
 		$stmt->execute();
-		$stmt->setFetchMode(PDO::FETCH_CLASS, Flight::class);
+		$stmt->setFetchMode(PDO::FETCH_CLASS, User::class);
 
 		return $stmt->fetchAll();
 	}
 
 	/**
-	 * @param Flight $flight
+	 * @param User $flight
 	 * @return bool
 	 */
-	public function update(Flight $flight)
+	public function update(User $flight)
 	{
 		if (!isset($flight->id))
 		{
@@ -87,10 +88,10 @@ class FlightDao
 	}
 
 	/**
-	 * @param Flight $flight
+	 * @param User $flight
 	 * @return bool
 	 */
-	public function save(Flight $flight)
+	public function save(User $flight)
 	{
 		if (isset($flight->id))
 		{
@@ -110,6 +111,29 @@ class FlightDao
 		$stmt->bindParam(":boardingTime", date("Y-m-d H:i:s", $flight->boardingTime));
 		$stmt->bindParam(":departureTime", $flight->departureTime);
 		$stmt->bindParam(":seats", $flight->seats, PDO::PARAM_INT);
+
+		$result = $stmt->execute();
+
+		$flight->id = $this->pdo->lastInsertId();
+
+		return $result;
+	}
+
+	/**
+	 * @param User $flight
+	 * @return bool
+	 */
+	public function delete(User $flight)
+	{
+		if (!isset($flight->id))
+		{
+			throw new \LogicException("Cannot delete flight which does not exist in database!");
+		}
+
+		$query = "DELETE FROM {$this->table} WHERE id = :id";
+
+		$stmt = $this->pdo->prepare($query);
+		$stmt->bindParam(":id", $flight->id);
 
 		return $stmt->execute();
 	}

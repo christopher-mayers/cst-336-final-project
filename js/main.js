@@ -10,7 +10,7 @@ fetch("https://raw.githubusercontent.com/dconnolly/chromecast-backgrounds/master
 
 function addCard(title, subtitle, image)
 {
-	document.querySelector(".carousel").innerHTML += `<div class="card" style='background: url("${image}");animation: ${carouselSeconds}s cubic-bezier(0.165, 0.84, 0.44, 1) 0s card-slide;width: 0px'>` +
+	document.querySelector(".carousel").innerHTML += `<div class="card" style='background-image: url("${image}");animation: ${carouselSeconds}s cubic-bezier(0.165, 0.84, 0.44, 1) 0s card-slide;'>` +
 		`<div class="info" style="animation: ${carouselSeconds}s cubic-bezier(0.165, 0.34, 0.44, 1) 0s info-slide;opacity: 0;">` +
 		`<h1>${title}</h1>` +
 		`<h2>${subtitle}</h2>` +
