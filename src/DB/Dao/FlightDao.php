@@ -34,6 +34,7 @@ class FlightDao
 	public function find($id)
 	{
 		$query = "SELECT * FROM {$this->table} WHERE id=:id LIMIT 1";
+
 		$stmt = $this->pdo->prepare($query);
 		$stmt->bindParam(":id", $id);
 		$stmt->execute();
@@ -52,6 +53,7 @@ class FlightDao
 	public function findByLocationPair($origin, $destination)
 	{
 		$query = "SELECT * FROM {$this->table} WHERE origin=:origin AND destination=:destination";
+
 		$stmt = $this->pdo->prepare($query);
 		$stmt->bindParam(":origin", $origin);
 		$stmt->bindParam(":destination", $destination);
@@ -65,11 +67,12 @@ class FlightDao
 	 * Fetch every flight in the database. Depending on how many flights are present, it would be wise to not use this.
 	 * Use a custom query with "LIMIT offset,count" for paging.
 	 *
-	 * @return Flight[] All users in the database.
+	 * @return Flight[] All flights in the database.
 	 */
 	public function findAll()
 	{
 		$query = "SELECT * FROM {$this->table}";
+
 		$stmt = $this->pdo->prepare($query);
 		$stmt->execute();
 		$stmt->setFetchMode(PDO::FETCH_CLASS, Flight::class);

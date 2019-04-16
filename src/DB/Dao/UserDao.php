@@ -34,6 +34,7 @@ class UserDao
 	public function find($id)
 	{
 		$query = "SELECT * FROM {$this->table} WHERE id=:id LIMIT 1";
+
 		$stmt = $this->pdo->prepare($query);
 		$stmt->bindParam(":id", $id);
 		$stmt->execute();
@@ -49,6 +50,7 @@ class UserDao
 	public function findByEmail($email)
 	{
 		$query = "SELECT * FROM {$this->table} WHERE email=:email LIMIT 1";
+
 		$stmt = $this->pdo->prepare($query);
 		$stmt->bindParam(":email", $email);
 		$stmt->execute();
@@ -66,6 +68,7 @@ class UserDao
 	public function findAll()
 	{
 		$query = "SELECT * FROM {$this->table}";
+
 		$stmt = $this->pdo->prepare($query);
 		$stmt->execute();
 		$stmt->setFetchMode(PDO::FETCH_CLASS, User::class);
