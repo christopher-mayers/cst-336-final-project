@@ -51,7 +51,7 @@ class Database
 //		$this->logDao = new LogDao($this->pdo);
 	}
 
-	public function verify($username, $password)
+	public static function verify($username, $password)
 	{
 		$username === getenv("ADMIN_USER")
 		&& password_verify($password, getenv("ADMIN_PASS"));
