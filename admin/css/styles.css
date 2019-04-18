@@ -1,0 +1,12 @@
+body{
+    padding: 15px;
+    font-family: 'Rajdhani', sans-serif;
+}
+
+#submitBtn{
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: 'Rajdhani', sans-serif;
+}
