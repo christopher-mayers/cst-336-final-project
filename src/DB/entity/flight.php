@@ -6,6 +6,7 @@ use DateTime;
 
 /**
  * Class Flight
+ * @package Valkyrie\DB\Entity
  */
 class Flight
 {

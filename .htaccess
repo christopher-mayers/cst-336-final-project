@@ -1,0 +1,3 @@
+<Directory "/api">
+    FallbackResource /api/index.php
+</Directory>

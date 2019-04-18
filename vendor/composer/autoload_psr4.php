@@ -8,5 +8,6 @@ $baseDir = dirname($vendorDir);
 return array(
     'Valkyrie\\' => array($baseDir . '/src'),
     'Symfony\\Polyfill\\Ctype\\' => array($vendorDir . '/symfony/polyfill-ctype'),
+    'Klein\\' => array($vendorDir . '/klein/klein/src/Klein'),
     'Dotenv\\' => array($vendorDir . '/vlucas/phpdotenv/src'),
 );

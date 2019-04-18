@@ -19,6 +19,10 @@ class ComposerStaticInit92985347ef51fbf9c218277772f7f94a
         array (
             'Symfony\\Polyfill\\Ctype\\' => 23,
         ),
+        'K' => 
+        array (
+            'Klein\\' => 6,
+        ),
         'D' => 
         array (
             'Dotenv\\' => 7,
@@ -33,6 +37,10 @@ class ComposerStaticInit92985347ef51fbf9c218277772f7f94a
         'Symfony\\Polyfill\\Ctype\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
+        ),
+        'Klein\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/klein/klein/src/Klein',
         ),
         'Dotenv\\' => 
         array (

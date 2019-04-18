@@ -2,7 +2,8 @@
     "require": {
         "vlucas/phpdotenv": "^3.3",
         "ext-json": "*",
-        "ext-pdo": "*"
+        "ext-pdo": "*",
+        "klein/klein": "^2.1"
     },
     "autoload": {
         "psr-4": {

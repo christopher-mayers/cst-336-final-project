@@ -5,6 +5,7 @@ namespace Valkyrie\DB\Entity;
 
 /**
  * Class User
+ * @package Valkyrie\DB\Entity
  */
 class User
 {
