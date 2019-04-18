@@ -53,7 +53,7 @@ class Database
 
 	public static function verify($username, $password)
 	{
-		$username === getenv("ADMIN_USER")
-		&& password_verify($password, getenv("ADMIN_PASS"));
+		return ($username === getenv("ADMIN_USER")
+		&& password_verify($password, getenv("ADMIN_PASS")));
 	}
 }
