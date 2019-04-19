@@ -1,0 +1,111 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700");
+html {
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #F8FAFF;
+}
+
+.sky {
+  background-color: #476EBA;
+}
+
+.lightsky {
+  background-color: #5078c4;
+}
+
+.gutter {
+  width: 160px;
+  position: relative;
+}
+.gutter .nav {
+  position: absolute;
+  top: calc(40px - 0.5em);
+  display: inline-block;
+  right: 30px;
+  font-size: 0.875rem;
+}
+.gutter .nav svg {
+  display: block;
+  cursor: pointer;
+  height: 28px;
+  width: auto;
+}
+.gutter .nav path {
+  fill: #F9FBFE;
+}
+
+.controls {
+  font-size: 1.125rem;
+  display: flex;
+  flex-direction: row;
+  height: 200px;
+}
+.controls .item {
+  display: inline-block;
+}
+
+.locations {
+  display: inline-flex !important;
+  height: 100%;
+  width: 45%;
+  position: relative;
+}
+.locations .location {
+  display: flex;
+  flex-direction: row;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  width: 50%;
+  position: relative;
+  justify-content: center;
+}
+.locations .location .content {
+  display: flex;
+  flex-direction: column;
+}
+.locations .location h3 {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  color: #B5C9FA;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+.locations .location .name {
+  color: #F9FBFE;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 1.5rem;
+  justify-self: end;
+  margin-top: auto;
+}
+.locations .flight-indicator {
+  left: calc(50% - 0.55em);
+  bottom: calc(40px - 0.05em);
+  display: inline;
+  position: absolute;
+  font-size: 1.5rem;
+  flex: none;
+}
+.locations .flight-indicator svg {
+  display: block;
+  width: auto;
+  height: 1.1em;
+}
+.locations .flight-indicator svg path {
+  fill: #F9FBFE;
+}
+
+.filter-date {
+  display: inline-flex !important;
+  flex-direction: column;
+  width: 55%;
+}
+.filter-date > div {
+  height: 50%;
+}
+
+/*# sourceMappingURL=search.css.map */

@@ -101,7 +101,8 @@ class FlightDao
 		  	destination = :destination,
 		  	boardingTime = :boardingTime,
 		  	departureTime = :departureTime,
-		  	seats = :seats
+		  	seats = :seats,
+			price = :price
 		WHERE id = :id
 		";
 
@@ -112,6 +113,7 @@ class FlightDao
 		$stmt->bindValue(":boardingTime", $flight->boardingTime->format("Y-m-d H:i:s"));
 		$stmt->bindValue(":departureTime", $flight->departureTime->format("Y-m-d H:i:s"));
 		$stmt->bindParam(":seats", $flight->seats, PDO::PARAM_INT);
+		$stmt->bindParam(":price", $flight->price, PDO::PARAM_INT);
 
 		return $stmt->execute();
 	}
@@ -143,6 +145,8 @@ class FlightDao
 		$stmt->bindValue(":boardingTime", $flight->boardingTime->format("Y-m-d H:i:s"));
 		$stmt->bindValue(":departureTime", $flight->departureTime->format("Y-m-d H:i:s"));
 		$stmt->bindParam(":seats", $flight->seats, PDO::PARAM_INT);
+		$stmt->bindParam(":price", $flight->price, PDO::PARAM_INT);
+
 
 		$result = $stmt->execute();
 
