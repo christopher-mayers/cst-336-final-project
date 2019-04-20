@@ -9,6 +9,10 @@ body {
   background-color: #F8FAFF;
 }
 
+body {
+  background-color: #F2F5FB;
+}
+
 .sky {
   background-color: #476EBA;
 }
@@ -18,14 +22,15 @@ body {
 }
 
 .gutter {
-  width: 160px;
+  width: 8.75rem;
   position: relative;
 }
 .gutter .nav {
   position: absolute;
-  top: calc(40px - 0.5em);
+  top: calc(57.5px - 14px);
   display: inline-block;
-  right: 30px;
+  right: 1.875rem;
+  font-size: 14px;
   font-size: 0.875rem;
 }
 .gutter .nav svg {
@@ -42,7 +47,7 @@ body {
   font-size: 1.125rem;
   display: flex;
   flex-direction: row;
-  height: 200px;
+  height: 230px;
 }
 .controls .item {
   display: inline-block;
@@ -51,13 +56,13 @@ body {
 .locations {
   display: inline-flex !important;
   height: 100%;
-  width: 45%;
+  width: calc(50% - 8.75rem);
   position: relative;
 }
 .locations .location {
   display: flex;
   flex-direction: row;
-  padding: 40px 20px;
+  padding: 0 20px;
   box-sizing: border-box;
   width: 50%;
   position: relative;
@@ -67,26 +72,33 @@ body {
   display: flex;
   flex-direction: column;
 }
+.locations .location .content > div {
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .locations .location h3 {
   margin: 0;
   font-family: "Roboto", sans-serif;
   color: #B5C9FA;
   font-weight: 500;
+  font-size: 14px;
   font-size: 0.875rem;
 }
 .locations .location .name {
   color: #F9FBFE;
   font-family: "Roboto", sans-serif;
   font-weight: 400;
+  font-size: 24px;
   font-size: 1.5rem;
-  justify-self: end;
-  margin-top: auto;
 }
 .locations .flight-indicator {
   left: calc(50% - 0.55em);
   bottom: calc(40px - 0.05em);
   display: inline;
   position: absolute;
+  font-size: 24px;
   font-size: 1.5rem;
   flex: none;
 }
@@ -102,10 +114,78 @@ body {
 .filter-date {
   display: inline-flex !important;
   flex-direction: column;
-  width: 55%;
+  width: 50%;
 }
 .filter-date > div {
   height: 50%;
+}
+.filter-date .filters {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.filter-date .date {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #F9FBFE;
+  padding-left: 34px;
+}
+.filter-date .date .date-header {
+  color: #a0a0a0;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  font-size: 0.9375rem;
+  display: inline-block;
+  position: absolute;
+  top: calc(50% - 20.4px - 1em);
+}
+.filter-date .date .date-display {
+  color: #54546A;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 20.4px;
+  font-size: 1.275rem;
+  display: inline-block;
+}
+
+.filter-button {
+  font-size: 15px;
+  font-size: 0.9375rem;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+.filter-button .filter-button-decor {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 1.6em;
+  height: 1.6em;
+  border: 1px solid #7B9BD5;
+  font-family: "Roboto", sans-serif;
+  font-size: inherit;
+}
+.filter-button .filter-button-decor::after {
+  content: "+";
+  font-family: "Roboto", sans-serif;
+  font-size: 1.5em;
+  font-weight: 300;
+  color: rgba(0, 255, 255, 0.8);
+}
+.filter-button .filter-button-text {
+  margin-left: 10px;
+  vertical-align: center;
+  color: #B5C9FA;
+  font-family: "Roboto", sans-serif;
+  font-size: inherit;
 }
 
 /*# sourceMappingURL=search.css.map */

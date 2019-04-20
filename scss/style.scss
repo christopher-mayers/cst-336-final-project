@@ -1,6 +1,12 @@
 @import "config.scss";
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
 
+$nav-text-size: 1.125rem;
+$ad-header: calc(25px + (90 - 35) * ((100vw - 300px) / (1920 - 300)));
+$ad-sub-header: calc(11px + (40 - 11) * ((100vw - 300px) / (1920 - 300)));
+
+$picker-header: calc(8px + (15 - 8) * ((100vw - 300px) / (1920 - 300)));
+
 .branding {
 	display: inline-block;
 	font-size: inherit;
@@ -10,10 +16,7 @@
 	svg {
 		width: 100%;
 		height: 100%;
-	}
-
-	path {
-		fill: $sky;
+		transform: rotate(180deg);
 	}
 }
 

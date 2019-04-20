@@ -1,10 +1,17 @@
 @import "config.scss";
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
 
-$header-size: rem(14px);
-$name-size: rem(24px);
-$gutter-width: 160px;
-$gutter-anchor: 30px;
+$nav-text-size: 1.125rem;
+$header-size: 14px;
+$name-size: 24px;
+$sub-header-size: 15px;
+$gutter-width: rem(140px);
+$gutter-anchor: rem(30px);
+$control-height: 230px;
+
+body {
+	background-color: $dimwhite;
+}
 
 .sky {
 	background-color: $sky;
@@ -20,10 +27,10 @@ $gutter-anchor: 30px;
 
 	.nav {
 		position: absolute;
-		top: calc(40px - 0.5em);
+		top: calc(#{$control-height / 4} - 14px);
 		display: inline-block;
 		right: $gutter-anchor;
-		font-size: $header-size;
+		@include text-size($header-size);
 
 		svg {
 			display: block;
@@ -42,7 +49,7 @@ $gutter-anchor: 30px;
 	font-size: $nav-text-size;
 	display: flex;
 	flex-direction: row;
-	height: 200px;
+	height: $control-height;
 
 	.item {
 		display: inline-block;
@@ -52,13 +59,15 @@ $gutter-anchor: 30px;
 .locations {
 	display: inline-flex !important;
 	height: 100%;
-	width: 45%;
+	width: calc(50% - #{$gutter-width});
 	position: relative;
 
 	.location {
 		display: flex;
 		flex-direction: row;
-		padding: 40px 20px;
+		padding: 0 20px;
+		//padding-top: calc(#{$control-height / 4} - 0.5em);
+		//padding-bottom: 40px;
 		box-sizing: border-box;
 		width: 50%;
 		position: relative;
@@ -67,23 +76,30 @@ $gutter-anchor: 30px;
 		.content {
 			display: flex;
 			flex-direction: column;
+
+			> div {
+				height: 50%;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+			}
 		}
 
 		h3 {
 			margin: 0;
 			font-family: "Roboto", sans-serif;
-			color: #B5C9FA;
+			color: $hint-slate;
 			font-weight: 500;
-			font-size: $header-size;
+			@include text-size($header-size)
 		}
 
 		.name {
 			color: $white;
 			font-family: "Roboto", sans-serif;
 			font-weight: 400;
-			font-size: $name-size;
-			justify-self: end;
-			margin-top: auto;
+			@include text-size($name-size);
+			//justify-self: end;
+			//margin-top: auto;
 		}
 
 		> * {
@@ -96,7 +112,7 @@ $gutter-anchor: 30px;
 		bottom: calc(40px - 0.05em);
 		display: inline;
 		position: absolute;
-		font-size: $name-size;
+		@include text-size($name-size);
 		flex: none;
 
 		svg {
@@ -114,9 +130,81 @@ $gutter-anchor: 30px;
 .filter-date {
 	display: inline-flex !important;
 	flex-direction: column;
-	width: 55%;
+	width: 50%;
 
 	> div {
 		height: 50%;
+	}
+
+	.filters {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+
+	.date {
+		position: relative;
+		box-sizing: border-box;
+		display: flex;
+		align-items: flex-start;
+		justify-content: center;
+		flex-direction: column;
+		background-color: $white;
+		padding-left: ($sub-header-size * 1.6) + 10;
+
+		.date-header {
+			color: $hint;
+			font-family: "Roboto", sans-serif;
+			font-weight: 400;
+			@include text-size($sub-header-size);
+			display: inline-block;
+			position: absolute;
+			top: calc(50% - #{($name-size * 0.85)} - 1em);
+		}
+
+		.date-display {
+			color: $slate;
+			font-family: "Roboto", sans-serif;
+			font-weight: 500;
+			@include text-size($name-size * 0.85);
+			display: inline-block;
+		}
+	}
+}
+
+.filter-button {
+	@include text-size($sub-header-size);
+	display: inline-flex;
+	flex-direction: row;
+	align-items: center;
+	cursor: pointer;
+	user-select: none;
+
+	.filter-button-decor {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		box-sizing: border-box;
+		width: 1.6em;
+		height: 1.6em;
+		border: 1px solid #7B9BD5;
+		font-family: "Roboto", sans-serif;
+		font-size: inherit;
+
+		&::after {
+			content: "+";
+			font-family: "Roboto", sans-serif;
+			font-size: 1.5em;
+			font-weight: 300;
+			color: fade_out(cyan, 0.2);
+		}
+	}
+
+	.filter-button-text {
+		margin-left: 10px;
+		vertical-align: center;
+		color: $hint-slate;
+		font-family: "Roboto", sans-serif;
+		font-size: inherit;
 	}
 }

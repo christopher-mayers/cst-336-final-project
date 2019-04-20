@@ -5,15 +5,17 @@ $coolwhite: #F8FAFF;
 $white: #F9FBFE;
 $aqua: #78C7FF;
 
-$nav-text-size: 1.125rem;
-$ad-header: calc(25px + (90 - 35) * ((100vw - 300px) / (1920 - 300)));
-$ad-sub-header: calc(11px + (40 - 11) * ((100vw - 300px) / (1920 - 300)));
-
-$picker-header: calc(8px + (15 - 8) * ((100vw - 300px) / (1920 - 300)));
+$hint: #a0a0a0;
+$hint-slate: #B5C9FA;
 
 @function rem($var)
 {
-	$size: $var / 16px;
+	@if (unitless($var))
+	{
+		$var: $var * 1px;
+	}
+
+	$size: ($var / 16px);
 
 	@return #{$size}rem;
 }

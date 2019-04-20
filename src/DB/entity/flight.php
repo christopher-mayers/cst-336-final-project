@@ -34,6 +34,10 @@ class Flight
 	 * @var int
 	 */
 	public $seats;
+	/**
+	 * @var float
+	 */
+	public $price;
 
 	public function __construct()
 	{
