@@ -52,18 +52,18 @@ function onLoad()
 		index++;
 	}, 5000);
 
-	// for (let obj of document.querySelectorAll(".picker .field input"))
-	// {
-	// 	obj.addEventListener("input", function(e)
-	// 	{
-	// 		const value = e.currentTarget.value;
-	//
-	// 		if (value.length > 0)
-	// 			obj.nextSibling.style.display = "none";
-	// 		else
-	// 			obj.nextSibling.style.display = "";
-	// 	});
-	// }
+	for (let obj of document.querySelectorAll(".picker .field input"))
+	{
+		obj.addEventListener("input", function(e)
+		{
+			const value = e.currentTarget.value;
+
+			if (value.length > 0)
+				obj.nextElementSibling.style.display = "none";
+			else
+				obj.nextElementSibling.style.display = "";
+		});
+	}
 }
 
 document.addEventListener('DOMContentLoaded', onLoad, false);

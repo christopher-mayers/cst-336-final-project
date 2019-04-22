@@ -2,6 +2,11 @@
 html {
   font-size: 16px;
 }
+@media only screen and (max-device-width: 1440px) {
+  html {
+    font-size: 12px;
+  }
+}
 
 body {
   margin: 0;
@@ -27,7 +32,7 @@ body {
 }
 .gutter .nav {
   position: absolute;
-  top: calc(57.5px - 14px);
+  top: calc(3.59375rem - 0.875rem);
   display: inline-block;
   right: 1.875rem;
   font-size: 14px;
@@ -36,7 +41,7 @@ body {
 .gutter .nav svg {
   display: block;
   cursor: pointer;
-  height: 28px;
+  height: 1.75rem;
   width: auto;
 }
 .gutter .nav path {
@@ -47,7 +52,7 @@ body {
   font-size: 1.125rem;
   display: flex;
   flex-direction: row;
-  height: 230px;
+  height: 14.375rem;
 }
 .controls .item {
   display: inline-block;
@@ -56,13 +61,12 @@ body {
 .locations {
   display: inline-flex !important;
   height: 100%;
-  width: calc(50% - 8.75rem);
+  width: calc(60% - 8.75rem);
   position: relative;
 }
 .locations .location {
   display: flex;
   flex-direction: row;
-  padding: 0 20px;
   box-sizing: border-box;
   width: 50%;
   position: relative;
@@ -71,12 +75,15 @@ body {
 .locations .location .content {
   display: flex;
   flex-direction: column;
+  width: 55%;
 }
-.locations .location .content > div {
+.locations .location .content > * {
   height: 50%;
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-start;
+  position: relative;
 }
 .locations .location h3 {
   margin: 0;
@@ -87,11 +94,46 @@ body {
   font-size: 0.875rem;
 }
 .locations .location .name {
+  display: inline;
+  position: relative;
   color: #F9FBFE;
   font-family: "Roboto", sans-serif;
   font-weight: 400;
+  background-color: transparent;
   font-size: 24px;
   font-size: 1.5rem;
+  overflow: hidden;
+  margin: 0;
+  width: 100%;
+  text-transform: capitalize;
+  border-radius: 2px;
+  padding: 4px 7px;
+  margin: -4px -8px;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  transition: border 0.1s ease, background-color 0.1s ease;
+}
+.locations .location .name + label {
+  top: 50%;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  transform: translateY(-50%);
+  position: absolute;
+  font-size: 20px;
+  font-size: 1.25rem;
+  white-space: nowrap;
+  vertical-align: text-bottom;
+  color: #B5C9FA;
+  cursor: text;
+  pointer-events: none;
+}
+.locations .location .name:focus + label {
+  display: none;
+}
+.locations .location .name:hover, .locations .location .name:focus {
+  border: 1px solid #7B9BD5;
+  background-color: rgba(0, 0, 0, 0.05);
+  outline: 0;
 }
 .locations .flight-indicator {
   left: calc(50% - 0.55em);
@@ -114,7 +156,7 @@ body {
 .filter-date {
   display: inline-flex !important;
   flex-direction: column;
-  width: 50%;
+  width: 40%;
 }
 .filter-date > div {
   height: 50%;
@@ -132,7 +174,7 @@ body {
   justify-content: center;
   flex-direction: column;
   background-color: #F9FBFE;
-  padding-left: 34px;
+  padding-left: 2.125rem;
 }
 .filter-date .date .date-header {
   color: #a0a0a0;
@@ -181,11 +223,143 @@ body {
   color: rgba(0, 255, 255, 0.8);
 }
 .filter-button .filter-button-text {
-  margin-left: 10px;
+  margin-left: 0.625rem;
   vertical-align: center;
   color: #B5C9FA;
   font-family: "Roboto", sans-serif;
   font-size: inherit;
+  transition: color 0.1s ease;
+}
+.filter-button:hover .filter-button-text {
+  color: #e5ecfd;
+}
+
+.flight-card {
+  margin-bottom: 1.25rem;
+  height: 12.5rem;
+  background-color: #F9FBFE;
+  display: flex;
+  flex-direction: row;
+}
+.flight-card .card-button {
+  width: 16%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 2.125rem;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.flight-card .card-button:hover {
+  background-image: linear-gradient(to right, #4facfe 0%, #00d5fe 100%);
+}
+.flight-card .card-button:hover .button-header {
+  color: #F9FBFE;
+}
+.flight-card .card-button:hover .button-price {
+  color: #F9FBFE;
+}
+.flight-card .card-button:hover .button-price .arrow path {
+  fill: #F9FBFE;
+}
+.flight-card .card-button .button-header {
+  color: #a0a0a0;
+  height: 30%;
+  display: flex;
+  align-items: center;
+}
+.flight-card .card-button .button-header h3 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  margin: 0;
+}
+.flight-card .card-button .button-price {
+  height: 70%;
+  display: flex;
+  align-items: center;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 30px;
+  font-size: 1.875rem;
+  position: relative;
+}
+.flight-card .card-button .button-price .price-content {
+  width: 100%;
+  display: inline-block;
+  overflow-wrap: break-word;
+}
+.flight-card .card-button .button-price .arrow {
+  position: absolute;
+  right: 0;
+  transform: rotate(180deg);
+}
+.flight-card .card-button .button-price .arrow svg {
+  display: block;
+  width: auto;
+  height: 1em;
+}
+
+.card-table {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 60%;
+}
+.card-table:last-child {
+  margin-bottom: 0;
+}
+.card-table .card-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 30%;
+  box-sizing: border-box;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.03);
+  width: 100%;
+}
+.card-table .card-header {
+  display: flex;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  color: #a0a0a0;
+}
+.card-table .card-data {
+  display: flex;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  color: #54546A;
+  font-size: 24px;
+  font-size: 1.5rem;
+}
+.card-table .card-body {
+  height: 70%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.card-table .card-number {
+  width: 8.75rem;
+}
+.card-table .card-number > span {
+  margin-left: auto;
+  margin-right: 1.875rem;
+  text-align: right;
+}
+.card-table .card-airline {
+  width: calc((100% - 8.75rem) / 2);
+}
+.card-table .card-airline > span {
+  margin-left: 22.5%;
+}
+.card-table .card-ticket {
+  margin-left: calc((60% - 8.75rem) / 2 + 2.125rem);
+}
+.card-table .card-departure {
+  margin-left: 8.75rem;
+  width: calc((100% - 8.75rem) / 2);
+}
+.card-table .card-departure > span {
+  margin-left: 22.5%;
 }
 
 /*# sourceMappingURL=search.css.map */

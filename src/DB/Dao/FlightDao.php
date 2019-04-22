@@ -101,6 +101,7 @@ class FlightDao
 		  	destination = :destination,
 		  	boardingTime = :boardingTime,
 		  	departureTime = :departureTime,
+			arrivalTime = :arrivalTime,
 		  	seats = :seats,
 			price = :price
 		WHERE id = :id
@@ -112,6 +113,7 @@ class FlightDao
 		$stmt->bindParam(":destination", $flight->destination);
 		$stmt->bindValue(":boardingTime", $flight->boardingTime->format("Y-m-d H:i:s"));
 		$stmt->bindValue(":departureTime", $flight->departureTime->format("Y-m-d H:i:s"));
+		$stmt->bindValue(":arrivalTime", $flight->arrivalTime->format("Y-m-d H:i:s"));
 		$stmt->bindParam(":seats", $flight->seats, PDO::PARAM_INT);
 		$stmt->bindParam(":price", $flight->price, PDO::PARAM_INT);
 
@@ -134,9 +136,9 @@ class FlightDao
 
 		$query = "
 		INSERT INTO {$this->table}
-			(origin, destination, boardingTime, departureTime, seats)
+			(origin, destination, boardingTime, departureTime, arrivalTime, seats, price)
 		VALUES
-			(:origin, :destination, :boardingTime, :departureTime, :seats)
+			(:origin, :destination, :boardingTime, :departureTime, :arrivalTime, :seats, :price)
 		";
 
 		$stmt = $this->pdo->prepare($query);
@@ -144,6 +146,7 @@ class FlightDao
 		$stmt->bindParam(":destination", $flight->destination);
 		$stmt->bindValue(":boardingTime", $flight->boardingTime->format("Y-m-d H:i:s"));
 		$stmt->bindValue(":departureTime", $flight->departureTime->format("Y-m-d H:i:s"));
+		$stmt->bindValue(":arrivalTime", $flight->arrivalTime->format("Y-m-d H:i:s"));
 		$stmt->bindParam(":seats", $flight->seats, PDO::PARAM_INT);
 		$stmt->bindParam(":price", $flight->price, PDO::PARAM_INT);
 

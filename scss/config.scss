@@ -17,7 +17,17 @@ $hint-slate: #B5C9FA;
 
 	$size: ($var / 16px);
 
-	@return #{$size}rem;
+	@return $size * 1rem;
+}
+
+@function strip($number)
+{
+	@if type-of($number) == 'number' and not unitless($number)
+	{
+		@return $number / ($number * 0 + 1);
+	}
+
+	@return $number;
 }
 
 @function textRelative($textSize, $size)
@@ -34,9 +44,9 @@ $hint-slate: #B5C9FA;
 html {
 	font-size: 16px;
 
-	//@media only screen and (max-width: 1200px) {
-	//	font-size: 12px;
-	//}
+	@media only screen and (max-device-width: 1440px) {
+		font-size: 12px;
+	}
 }
 
 body {

@@ -5,9 +5,15 @@ $nav-text-size: 1.125rem;
 $header-size: 14px;
 $name-size: 24px;
 $sub-header-size: 15px;
+
 $gutter-width: rem(140px);
 $gutter-anchor: rem(30px);
-$control-height: 230px;
+$control-height: rem(230px);
+$date-filter-gutter: rem(34px);
+
+$info-size: 60%;
+
+$filter-margin: $date-filter-gutter - rem($sub-header-size) * 1.6;
 
 body {
 	background-color: $dimwhite;
@@ -27,7 +33,7 @@ body {
 
 	.nav {
 		position: absolute;
-		top: calc(#{$control-height / 4} - 14px);
+		top: calc(#{$control-height / 4} - #{rem(14px)});
 		display: inline-block;
 		right: $gutter-anchor;
 		@include text-size($header-size);
@@ -35,7 +41,7 @@ body {
 		svg {
 			display: block;
 			cursor: pointer;
-			height: 28px;
+			height: rem(28px);
 			width: auto;
 		}
 
@@ -59,15 +65,12 @@ body {
 .locations {
 	display: inline-flex !important;
 	height: 100%;
-	width: calc(50% - #{$gutter-width});
+	width: calc(#{$info-size} - #{$gutter-width});
 	position: relative;
 
 	.location {
 		display: flex;
 		flex-direction: row;
-		padding: 0 20px;
-		//padding-top: calc(#{$control-height / 4} - 0.5em);
-		//padding-bottom: 40px;
 		box-sizing: border-box;
 		width: 50%;
 		position: relative;
@@ -76,12 +79,15 @@ body {
 		.content {
 			display: flex;
 			flex-direction: column;
+			width: 55%;
 
-			> div {
+			> * {
 				height: 50%;
-				display: flex;
+				display: inline-flex;
 				flex-direction: column;
 				justify-content: center;
+				align-items: flex-start;
+				position: relative;
 			}
 		}
 
@@ -94,16 +100,47 @@ body {
 		}
 
 		.name {
+			display: inline;
+			position: relative;
 			color: $white;
 			font-family: "Roboto", sans-serif;
 			font-weight: 400;
+			background-color: transparent;
 			@include text-size($name-size);
-			//justify-self: end;
-			//margin-top: auto;
-		}
+			overflow: hidden;
+			margin: 0;
+			width: 100%;
+			text-transform: capitalize;
+			border-radius: 2px;
+			padding: 4px 7px;
+			margin: -4px -8px;
+			box-sizing: border-box;
+			border: 1px solid transparent;
+			transition: border 0.1s ease, background-color 0.1s ease;
 
-		> * {
-			//flex: 1 1 auto;
+			+ label {
+				top: 50%;
+				font-family: "Roboto", sans-serif;
+				font-weight: 400;
+				transform: translateY(-50%);
+				position: absolute;
+				@include text-size(20px);
+				white-space: nowrap;
+				vertical-align: text-bottom;
+				color: $hint-slate;
+				cursor: text;
+				pointer-events: none;
+			}
+
+			&:focus + label {
+				display: none;
+			}
+
+			&:hover, &:focus {
+				border: 1px solid #7B9BD5;
+				background-color: rgba(0, 0, 0, 0.05);
+				outline: 0;
+			}
 		}
 	}
 
@@ -130,7 +167,7 @@ body {
 .filter-date {
 	display: inline-flex !important;
 	flex-direction: column;
-	width: 50%;
+	width: #{100% - $info-size};
 
 	> div {
 		height: 50%;
@@ -150,7 +187,7 @@ body {
 		justify-content: center;
 		flex-direction: column;
 		background-color: $white;
-		padding-left: ($sub-header-size * 1.6) + 10;
+		padding-left: $date-filter-gutter;
 
 		.date-header {
 			color: $hint;
@@ -201,10 +238,164 @@ body {
 	}
 
 	.filter-button-text {
-		margin-left: 10px;
+		margin-left: $filter-margin;
 		vertical-align: center;
 		color: $hint-slate;
 		font-family: "Roboto", sans-serif;
 		font-size: inherit;
+		transition: color 0.1s ease;
+	}
+
+	&:hover .filter-button-text {
+		color: lighten($hint-slate, 10%);
+	}
+}
+
+.flight-card {
+	margin-bottom: rem(20px);
+	height: rem(200px);
+	background-color: $white;
+	display: flex;
+	flex-direction: row;
+
+	.card-button {
+		width: (100% - $info-size) / 2.5;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: 0 $date-filter-gutter;
+		box-sizing: border-box;
+		cursor: pointer;
+
+		&:hover {
+			background-image: linear-gradient(to right, #4facfe 0%, #00d5fe 100%);
+
+			.button-header {
+				color: $white;
+			}
+
+			.button-price {
+				color: $white;
+
+				.arrow path {
+					fill: $white;
+				}
+			}
+		}
+
+		.button-header {
+			color: $hint;
+			height: 30%;
+			display: flex;
+			align-items: center;
+
+			h3 {
+				font-family: "Roboto", sans-serif;
+				font-weight: 400;
+				margin: 0;
+			}
+		}
+
+		.button-price {
+			height: 70%;
+			display: flex;
+			align-items: center;
+			font-family: "Roboto", sans-serif;
+			font-weight: 400;
+			@include text-size(30px);
+			position: relative;
+
+			.price-content {
+				width: 100%;
+				display: inline-block;
+				overflow-wrap: break-word;
+			}
+
+			.arrow {
+				position: absolute;
+				right: 0;
+				transform: rotate(180deg);
+
+				svg {
+					display: block;
+					width: auto;
+					height: 1em;
+				}
+			}
+		}
+	}
+}
+
+.card-table {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	width: $info-size;
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+
+	.card-info {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		height: 30%;
+		box-sizing: border-box;
+		border-bottom: 2px solid rgba(0, 0, 0, 0.03);
+		width: 100%;
+	}
+
+	.card-header {
+		display: flex;
+		font-family: "Roboto", sans-serif;
+		font-weight: 400;
+		color: $hint;
+	}
+
+	.card-data {
+		display: flex;
+		font-family: "Roboto", sans-serif;
+		font-weight: 400;
+		color: $slate;
+		@include text-size(24px);
+	}
+
+	.card-body {
+		height: 70%;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+
+	.card-number {
+		width: $gutter-width;
+
+		> span {
+			margin-left: auto;
+			margin-right: $gutter-anchor;
+			text-align: right;
+		}
+	}
+
+	.card-airline {
+		width: calc((100% - #{$gutter-width}) / 2);
+
+		> span {
+			margin-left: 22.5%;
+		}
+	}
+
+	.card-ticket {
+		margin-left: calc((#{$info-size} - #{$gutter-width}) / 2 + #{$date-filter-gutter});
+	}
+
+	.card-departure {
+		margin-left: $gutter-width;
+		width: calc((100% - #{$gutter-width}) / 2);
+
+		> span {
+			margin-left: 22.5%;
+		}
 	}
 }
