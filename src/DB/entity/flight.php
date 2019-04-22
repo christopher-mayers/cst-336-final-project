@@ -31,6 +31,10 @@ class Flight
 	 */
 	public $departureTime;
 	/**
+	 * @var DateTime
+	 */
+	public $arrivalTime;
+	/**
 	 * @var int
 	 */
 	public $seats;

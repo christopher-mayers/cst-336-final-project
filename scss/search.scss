@@ -17,6 +17,7 @@ $filter-margin: $date-filter-gutter - rem($sub-header-size) * 1.6;
 
 body {
 	background-color: $dimwhite;
+	overflow: hidden;
 }
 
 .sky {
@@ -252,7 +253,7 @@ body {
 }
 
 .flight-card {
-	margin-bottom: rem(20px);
+	margin-bottom: rem(10px);
 	height: rem(200px);
 	background-color: $white;
 	display: flex;
@@ -304,6 +305,7 @@ body {
 			font-weight: 400;
 			@include text-size(30px);
 			position: relative;
+			color: $aqua;
 
 			.price-content {
 				width: 100%;
@@ -320,10 +322,19 @@ body {
 					display: block;
 					width: auto;
 					height: 1em;
+
+					path {
+						fill: $aqua;
+					}
 				}
 			}
 		}
 	}
+}
+
+.flight-list {
+	height: calc(100vh - #{$control-height});
+	width: 100%;
 }
 
 .card-table {
@@ -358,7 +369,7 @@ body {
 		font-family: "Roboto", sans-serif;
 		font-weight: 400;
 		color: $slate;
-		@include text-size(24px);
+		@include text-size(28px);
 	}
 
 	.card-body {
@@ -366,6 +377,8 @@ body {
 		display: flex;
 		flex-direction: row;
 		align-items: center;
+		position: relative;
+		margin-left: $gutter-width;
 	}
 
 	.card-number {
@@ -386,13 +399,70 @@ body {
 		}
 	}
 
+	.card-time {
+		width: calc((100% - #{$gutter-width}) / 2);
+
+		.card-time-container {
+			padding: 0.2em 0.3em;
+			border: rem(2px) solid fade_out($hint, 0.5);
+			margin-left: 22.5%;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+
+			> svg {
+				display: block;
+				height: 1em;
+				width: auto;
+
+				path {
+					fill: $hint;
+				}
+			}
+
+			> span {
+				margin-left: 0.3em;
+			}
+		}
+	}
+
 	.card-ticket {
 		margin-left: calc((#{$info-size} - #{$gutter-width}) / 2 + #{$date-filter-gutter});
 	}
 
 	.card-departure {
-		margin-left: $gutter-width;
-		width: calc((100% - #{$gutter-width}) / 2);
+		//margin-left: $gutter-width;
+		width: 50%;
+
+		> span {
+			margin-left: 22.5%;
+		}
+	}
+
+	.card-decor {
+		position: absolute;
+		left: calc(#{25% + 11.25%} + #{(rem(69px) / 2)});
+		transform: translateX(-50%);
+		width: calc(35% - #{rem(69px)});
+		background-image: linear-gradient(to right, $sky 20%, transparent 0%);
+		background-position: bottom;
+		background-size: rem(20px) rem(20px);
+		background-repeat: repeat-x;
+		height: 2px;
+
+		> svg {
+			display: block;
+			height: 1em;
+			width: auto;
+
+			line {
+				fill: $sky;
+			}
+		}
+	}
+
+	.card-arrival {
+		width: 50%;
 
 		> span {
 			margin-left: 22.5%;
