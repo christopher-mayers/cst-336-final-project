@@ -3,7 +3,7 @@ header("Access-Control-Allow-Methods: GET,POST,PUT,DELETE");
 
 require dirname(__DIR__) . "/vendor/autoload.php";
 
-define("APP_PATH", "valkyrie/api/");
+define("APP_PATH", "api/");
 
 $request = \Klein\Request::createFromGlobals();
 $uri = $request->server()->get('REQUEST_URI');
@@ -61,6 +61,63 @@ $router->with('/flights', function() use ($router)
 	{
 		return "Hi, " . $request->id;
 	});
+});
+
+$router->respond("POST", "/logout", function()
+{
+	session_start();
+
+	$_SESSION = [];
+
+	if (ini_get("session.use_cookies"))
+	{
+		$params = session_get_cookie_params();
+		setcookie(session_name(), '', time() - 42000,
+			$params["path"], $params["domain"],
+			$params["secure"], $params["httponly"]
+		);
+	}
+
+	session_destroy();
+});
+
+$router->respond("POST", "/login", function($request, $response, $service, $app)
+{
+	/** @var \Valkyrie\DB\Dao\UserDao $userDao */
+	$userDao = $app->db->userDao;
+
+	$user = $userDao->findByEmail($request->email);
+
+	if ($user == null)
+	{
+		header("HTTP/1.1 404 Not Found");
+
+		$response->json(["status" => "invalid"]);
+
+		die();
+	}
+
+	if (password_verify($request->password, $user->password))
+	{
+		header("HTTP/1.1 200 OK");
+
+		session_start();
+
+		$_SESSION["auth"] = true;
+		$_SESSION["userid"] = $user->id;
+
+		$response->json(["status" => "accepted"]);
+
+		die();
+	}
+	else
+	{
+		header("HTTP/1.1 403 Forbidden");
+
+		$response->json(["status" => "denied"]);
+
+		die();
+	}
 });
 
 $router->dispatch($request);

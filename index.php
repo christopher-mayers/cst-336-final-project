@@ -1,3 +1,20 @@
+<?php
+session_start();
+
+require "vendor/autoload.php";
+
+$auth=isset($_SESSION["auth"]) && $_SESSION["auth"]?true:false;
+
+if ($auth)
+{
+	$db = new \Valkyrie\DB\Database();
+	$userDao = $db->userDao;
+
+	$user = $userDao->find($_SESSION["userid"]);
+	$name = $user->firstName . " " . $user->lastName;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,13 +65,16 @@
 			</nav>
 
 			<div class="profile">
-				<span class="pfp"></span>
-				<span class="username">Dylan Montgomery</span>
+				<?php if ($auth): ?>
+				<span class="username"><?= $name ?></span>
 				<span class="arrow">
 					<svg xmlns="http://www.w3.org/2000/svg" width="28.935" height="17.287" viewBox="0 0 28.935 17.287">
 						<path id="Path_10" data-name="arrow" d="M10.682-55.529,21.667-41.54v.956L10.643-26.594H4.38L15.97-41.071,4.38-55.529Z" transform="translate(-26.594 -4.38) rotate(90)" fill="#fff"/>
 					</svg>
 				</span>
+				<?php else: ?>
+				<span class="username" onclick="window.location='login.php'">Login</span>
+				<?php endif; ?>
 			</div>
 		</header>
 
@@ -73,18 +93,18 @@
 			<h5>Find flights</h5>
 
 			<div class="picker-content">
-				<form>
+				<form method="get" action="search.html">
 					<span class="field">
-						<input type="text" name="from" id="from"><label for="from">Origin</label>
+						<input type="text" name="origin" id="from"><label for="from">Origin</label>
 					</span>
 					<span class="field">
-						<input type="text" name="from" id="to"><label for="to">Destination</label>
+						<input type="text" name="destination" id="to"><label for="to">Destination</label>
 					</span>
+					<button class="picker-submit" type="submit">
+						<span>Search</span>
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+					</button>
 				</form>
-				<button class="picker-submit">
-					<span>Search</span>
-					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
-				</button>
 			</div>
 		</div>
 	</div>

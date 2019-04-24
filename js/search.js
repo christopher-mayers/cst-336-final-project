@@ -21,7 +21,7 @@ function getCardTemplate(i, departureTime, arrivalTime, price)
 					<span>${i.toString().padStart(2, "0")}</span>
 				</div>
 				<div class="card-header card-airline">
-					<span>Valkyrie Air</span>
+					<span>Valkyrie Airline Flight</span>
 				</div>
 				<div class="card-header card-time">
 					<div class="card-time-container">

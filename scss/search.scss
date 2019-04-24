@@ -25,7 +25,7 @@ body {
 }
 
 .lightsky {
-	background-color: #5078c4;
+	background-color: darken(saturate(#5078c4, 3%), 1%);
 }
 
 .gutter {
@@ -293,6 +293,7 @@ body {
 			h3 {
 				font-family: "Roboto", sans-serif;
 				font-weight: 400;
+				font-style: italic;
 				margin: 0;
 			}
 		}
@@ -364,14 +365,6 @@ body {
 		color: $hint;
 	}
 
-	.card-data {
-		display: flex;
-		font-family: "Roboto", sans-serif;
-		font-weight: 400;
-		color: $slate;
-		@include text-size(28px);
-	}
-
 	.card-body {
 		height: 70%;
 		display: flex;
@@ -379,6 +372,14 @@ body {
 		align-items: center;
 		position: relative;
 		margin-left: $gutter-width;
+	}
+
+	.card-data {
+		display: flex;
+		font-family: "Roboto", sans-serif;
+		font-weight: 400;
+		color: $slate;
+		@include text-size(28px);
 	}
 
 	.card-number {
@@ -426,12 +427,7 @@ body {
 		}
 	}
 
-	.card-ticket {
-		margin-left: calc((#{$info-size} - #{$gutter-width}) / 2 + #{$date-filter-gutter});
-	}
-
 	.card-departure {
-		//margin-left: $gutter-width;
 		width: 50%;
 
 		> span {
@@ -444,21 +440,14 @@ body {
 		left: calc(#{25% + 11.25%} + #{(rem(69px) / 2)});
 		transform: translateX(-50%);
 		width: calc(35% - #{rem(69px)});
-		background-image: linear-gradient(to right, $sky 20%, transparent 0%);
-		background-position: bottom;
-		background-size: rem(20px) rem(20px);
-		background-repeat: repeat-x;
-		height: 2px;
-
-		> svg {
-			display: block;
-			height: 1em;
-			width: auto;
-
-			line {
-				fill: $sky;
-			}
-		}
+		//background-image: linear-gradient(to right, $sky 10%, transparent 0%);
+		//background-position: bottom;
+		//background-size: rem(30px) rem(30px);
+		//background-repeat: repeat-x;
+		border-bottom-style: dotted;
+		border-bottom-color: $sky;
+		border-bottom-width: 4px;
+		height: 1px;
 	}
 
 	.card-arrival {
