@@ -63,6 +63,22 @@ function onLoad()
 			else
 				obj.nextElementSibling.style.display = "";
 		});
+
+		const event = new Event("input");
+		obj.dispatchEvent(event);
+	}
+
+	const logout = document.querySelector("a[name='logout']");
+
+	if (logout !== null)
+	{
+		logout.addEventListener("click", function (e)
+		{
+			fetch("api/logout", {
+				method: "POST",
+			})
+				.then(() => window.location = "index.php");
+		})
 	}
 }
 

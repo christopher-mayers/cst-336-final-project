@@ -1,0 +1,205 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700");
+html {
+  font-size: 16px;
+}
+@media only screen and (max-device-width: 1023px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #F8FAFF;
+}
+
+body {
+  background-color: #F2F5FB;
+}
+
+.branding {
+  position: absolute;
+  display: inline-block;
+  font-size: inherit;
+  height: 5rem;
+  width: 5rem;
+  top: 1.875rem;
+  left: calc(50% - 2.5rem);
+}
+.branding svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(180deg);
+}
+
+.fullpage {
+  height: 100vh;
+  pointer-events: none;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+
+.container {
+  pointer-events: auto;
+}
+
+.template-holder[data-pad] {
+  margin-bottom: 3.875rem;
+}
+
+.form-container {
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
+}
+
+.controls {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  z-index: 0;
+}
+.controls .option {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 20px 0;
+  cursor: pointer;
+  font-family: "Roboto", sans-serif;
+  font-size: 15px;
+  font-size: 0.9375rem;
+  color: #78C7FF;
+  text-transform: uppercase;
+  background-color: #F9FBFE;
+  transition: background-color 0.2s ease;
+}
+.controls .option::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  transition: box-shadow 0.2s ease;
+  box-shadow: 0 8px 0 0 rgba(0, 0, 0, 0.1);
+}
+.controls .option[data-selected=true]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1);
+}
+.controls .option[data-selected=false] {
+  background-color: #F2F5FB;
+  z-index: 1;
+}
+
+.field {
+  position: relative;
+  display: block;
+  align-content: center;
+  font-family: "Roboto", sans-serif;
+  border-bottom: 1px solid #e6e6e6;
+}
+.field:last-of-type {
+  border-bottom: none;
+}
+
+input[type=text], input[type=password] {
+  outline: none;
+  border: none;
+  font-size: 18px;
+  font-size: 1.125rem;
+  width: 18.75rem;
+  background-color: #F9FBFE;
+  padding: 1.1111111111em 1.3888888889em;
+  color: #54546A;
+}
+input[type=text] + label, input[type=password] + label {
+  left: 1.7857142857em;
+  top: 50%;
+  transform: translateY(-50%);
+  position: absolute;
+  font-size: 14px;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  vertical-align: text-bottom;
+  color: #a2a2b5;
+  cursor: text;
+  pointer-events: none;
+}
+input[type=text]:focus + label, input[type=password]:focus + label {
+  display: none;
+}
+
+.form-submit {
+  position: relative;
+  width: 100%;
+  outline: none;
+  border: none;
+  padding: 1.25em 1.5625em;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  color: #F8FAFF;
+  cursor: pointer;
+  background-image: linear-gradient(to right, #4facfe 0%, #00d5fe 100%);
+}
+.form-submit > * {
+  z-index: 2;
+}
+.form-submit > span {
+  position: relative;
+}
+.form-submit:hover::before {
+  opacity: 0.5;
+}
+.form-submit:active::before {
+  opacity: 1;
+}
+.form-submit::before {
+  z-index: 1;
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  background-image: linear-gradient(to right, #4facfe 0%, #bff8ff 100%);
+  transition: opacity 0.25s ease;
+}
+.form-submit svg {
+  position: absolute;
+  top: 50%;
+  right: 25px;
+  font-size: inherit;
+  height: 1.5em;
+  width: 1.5em;
+  transform: translateY(-50%) rotate(-180deg);
+}
+.form-submit path {
+  fill: #F8FAFF;
+}
+.form-submit:active {
+  border: none;
+  outline: none;
+}
+
+/*# sourceMappingURL=login.css.map */

@@ -2,7 +2,7 @@
 html {
   font-size: 16px;
 }
-@media only screen and (max-device-width: 1440px) {
+@media only screen and (max-device-width: 1023px) {
   html {
     font-size: 12px;
   }
@@ -44,7 +44,7 @@ body {
   list-style-type: none;
   padding: 0;
   margin: 0;
-  margin-left: 100px;
+  margin-left: 5em;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -53,7 +53,7 @@ body {
   display: inline-block;
 }
 .navheader ul li:not(:last-child) {
-  margin-right: 100px;
+  margin-right: 5em;
 }
 .navheader .navlink {
   color: #54546A;
@@ -64,6 +64,7 @@ body {
   cursor: pointer;
 }
 .navheader .profile {
+  position: relative;
   display: inline-block;
   margin-left: auto;
   color: #54546A;
@@ -80,6 +81,45 @@ body {
 }
 .navheader .profile .arrow path {
   fill: #a2a2b5;
+}
+.navheader .profile:hover .dropdown-content {
+  display: block;
+}
+.navheader .profile .dropdown-content {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.125rem;
+  font-weight: 400;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  background-color: #F9FBFE;
+  z-index: 100;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+.navheader .profile .dropdown-content a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #54546A;
+  font-family: inherit;
+  font-size: inherit;
+  text-align: center;
+  padding: 20px 50px;
+  white-space: nowrap;
+}
+.navheader .profile .dropdown-content a:nth-child(even) {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+.navheader .profile .dropdown-content a:hover {
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .outer {
@@ -143,7 +183,7 @@ body {
   display: block;
   align-content: center;
 }
-.picker-content .field:first-child {
+.picker-content .field:first-of-type {
   border-bottom: 1px solid #e6e6e6;
 }
 .picker-content input[type=text] {
@@ -151,7 +191,7 @@ body {
   border: none;
   font-size: 22px;
   font-size: 1.375rem;
-  width: 300px;
+  width: 18.75rem;
   background-color: #F8FAFF;
   padding: 0.9090909091em 1.1363636364em;
   color: #54546A;

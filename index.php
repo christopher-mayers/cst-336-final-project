@@ -72,6 +72,10 @@ if ($auth)
 						<path id="Path_10" data-name="arrow" d="M10.682-55.529,21.667-41.54v.956L10.643-26.594H4.38L15.97-41.071,4.38-55.529Z" transform="translate(-26.594 -4.38) rotate(90)" fill="#fff"/>
 					</svg>
 				</span>
+				<div class="dropdown-content">
+					<a href="booked.php">Manage Bookings</a>
+					<a href="#" name="logout">Logout</a>
+				</div>
 				<?php else: ?>
 				<span class="username" onclick="window.location='login.php'">Login</span>
 				<?php endif; ?>

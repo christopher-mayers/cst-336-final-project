@@ -37,6 +37,11 @@ $router->respond(function($request, $response, $service, $app)
 	{
 		return new Database();
 	});
+
+	if ($request->headers()->get('Content-Type') === "application/json" && in_array($request->method(), ['PUT', 'POST', 'DELETE']))
+	{
+		$request->paramsPost()->merge(json_decode($request->body(), true));
+	}
 });
 
 $router->with('/flights', function() use ($router)
@@ -83,21 +88,30 @@ $router->respond("POST", "/logout", function()
 
 $router->respond("POST", "/login", function($request, $response, $service, $app)
 {
+
+	if (!($request->param("email", false) && $request->param("password", false)))
+	{
+		$response->json(["status" => "error"]);
+
+		return;
+	}
+
 	/** @var \Valkyrie\DB\Dao\UserDao $userDao */
 	$userDao = $app->db->userDao;
 
-	$user = $userDao->findByEmail($request->email);
+	$email = $request->param("email");
+	$password = $request->param("password");
+
+	$user = $userDao->findByEmail($email);
 
 	if ($user == null)
 	{
 		header("HTTP/1.1 404 Not Found");
 
 		$response->json(["status" => "invalid"]);
-
-		die();
 	}
 
-	if (password_verify($request->password, $user->password))
+	if (password_verify($password, $user->password))
 	{
 		header("HTTP/1.1 200 OK");
 
@@ -107,16 +121,12 @@ $router->respond("POST", "/login", function($request, $response, $service, $app)
 		$_SESSION["userid"] = $user->id;
 
 		$response->json(["status" => "accepted"]);
-
-		die();
 	}
 	else
 	{
 		header("HTTP/1.1 403 Forbidden");
 
 		$response->json(["status" => "denied"]);
-
-		die();
 	}
 });
 
