@@ -26,6 +26,7 @@ if ($auth)
 
 	<link rel="preconnect" href="https://lh6.googleusercontent.com/">
 	<link href="search.html" rel="prefetch">
+	<link href="login.php" rel="prefetch">
 
 	<script src="https://cdn.jsdelivr.net/npm/animejs@3.0.1/lib/anime.min.js"></script>
 	<script src="js/main.js"></script>

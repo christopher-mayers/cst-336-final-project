@@ -15,7 +15,10 @@ function load()
 		{
 			const target = this.getAttribute("data-target");
 			const targetTemplate = template(target);
-			const currentForm = document.querySelector(`form`);
+			const currentForm = document.querySelector(`.template-holder`);
+
+			if (currentForm.getAttribute("data-option") === target)
+				return;
 
 			for (let button of document.querySelectorAll(".option[data-selected=true]"))
 			{
@@ -28,6 +31,13 @@ function load()
 			formContainer.appendChild(targetTemplate);
 		})
 	}
+
+	document.querySelector(".container").removeAttribute("hidden")
+
+	// document.querySelector(".branding").addEventListener("click", function()
+	// {
+	// 	window.location = "index.php"
+	// })
 }
 
 document.addEventListener("DOMContentLoaded", load, false);

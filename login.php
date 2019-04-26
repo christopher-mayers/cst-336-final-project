@@ -17,11 +17,13 @@ if (isset($_SESSION["auth"]) && $_SESSION["auth"])
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	<title>Valkyrie Air - Login</title>
 
+	<link href="index.php" rel="prefetch">
+
 	<link rel="stylesheet" href="build/login.css">
 	<script src="js/login.js"></script>
 
 	<template id="loginForm">
-		<div class="template-holder" data-option="signin" data-pad="true">
+		<div class="template-holder" data-option="loginForm" data-pad="true">
 			<span class="field">
 				<input type="text" name="email" id="email"><label for="email">Email</label>
 			</span>
@@ -32,46 +34,46 @@ if (isset($_SESSION["auth"]) && $_SESSION["auth"])
 				<span>Login</span>
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
 			</button>
-		</div>
 
-		<script>
-			for (let obj of document.querySelectorAll(".field input"))
-			{
-				obj.addEventListener("input", function(e)
+			<script>
+				for (let obj of document.querySelectorAll(".field input"))
 				{
-					const value = e.currentTarget.value;
+					obj.addEventListener("input", function(e)
+					{
+						const value = e.currentTarget.value;
 
-					if (value.length > 0)
-						obj.nextElementSibling.style.display = "none";
-					else
-						obj.nextElementSibling.style.display = "";
-				});
-			}
+						if (value.length > 0)
+							obj.nextElementSibling.style.display = "none";
+						else
+							obj.nextElementSibling.style.display = "";
+					});
+				}
 
-			const submit = document.querySelector("button.form-submit");
-			submit.addEventListener("click", function(e)
-			{
-				const email = document.querySelector("input#email").value;
-				const password = document.querySelector("input#password").value;
+				const submit = document.querySelector("button.form-submit");
+				submit.addEventListener("click", function(e)
+				{
+					const email = document.querySelector("input#email").value;
+					const password = document.querySelector("input#password").value;
 
-				const data = {email, password};
+					const data = {email, password};
 
-				fetch("api/login", {
-					method: "POST",
-					headers: {"Content-Type": "application/json"},
-					body: JSON.stringify(data)
-				})
-					.then((r) => r.json())
-					.then((r) => {
-						if (r.status === "accepted")
-							window.location = "index.php"
+					fetch("api/login", {
+						method: "POST",
+						headers: {"Content-Type": "application/json"},
+						body: JSON.stringify(data)
 					})
-			})
-		</script>
+						.then((r) => r.json())
+						.then((r) => {
+							if (r.status === "accepted")
+								window.location = "index.php"
+						})
+				})
+			</script>
+		</div>
 	</template>
 
 	<template id="registerForm">
-		<div data-option="register">
+		<div class="template-holder" data-option="registerForm">
 			<span class="field">
 				<input type="text" name="name" id="name"><label for="name">Full Name</label>
 			</span>
@@ -85,27 +87,27 @@ if (isset($_SESSION["auth"]) && $_SESSION["auth"])
 				<span>Register</span>
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
 			</button>
-		</div>
 
-		<script>
-			for (let obj of document.querySelectorAll(".field input"))
-			{
-				obj.addEventListener("input", function(e)
+			<script>
+				for (let obj of document.querySelectorAll(".field input"))
 				{
-					const value = e.currentTarget.value;
+					obj.addEventListener("input", function(e)
+					{
+						const value = e.currentTarget.value;
 
-					if (value.length > 0)
-						obj.nextElementSibling.style.display = "none";
-					else
-						obj.nextElementSibling.style.display = "";
-				});
-			}
-		</script>
+						if (value.length > 0)
+							obj.nextElementSibling.style.display = "none";
+						else
+							obj.nextElementSibling.style.display = "";
+					});
+				}
+			</script>
+		</div>
 	</template>
 </head>
 <body>
 
-<span class="branding">
+<a class="branding" href="index.php">
 	<svg height="167pt" version="1.1" viewBox="0 0 154 167" width="154pt"
 	     xmlns="http://www.w3.org/2000/svg">
 		<g id="#e2e8f7ff">
@@ -119,10 +121,10 @@ if (isset($_SESSION["auth"]) && $_SESSION["auth"])
 		      opacity="1.00"/>
 		</g>
 	</svg>
-</span>
+</a>
 
 <div class="fullpage center">
-	<div class="container">
+	<div class="container" hidden>
 		<div class="controls">
 			<div class="option" data-selected="true" role="button" data-target="loginForm">
 				<span>Sign In</span>

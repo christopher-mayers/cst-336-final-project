@@ -26,6 +26,7 @@ body {
   width: 5rem;
   top: 1.875rem;
   left: calc(50% - 2.5rem);
+  cursor: pointer;
 }
 .branding svg {
   width: 100%;

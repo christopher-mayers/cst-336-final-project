@@ -12,18 +12,6 @@ $request->server()->set('REQUEST_URI', rtrim(substr($uri, strlen(APP_PATH)), "/"
 /*
  * These are your callbacks for when a specific request is made to this page.
  * Depending on what kind of method was used, one of these callbacks will activate.
- *
- * If you need the user to be authenticated, use session_start() INSIDE the callback function, then check
- * $_SESSION stuff like normal.
- *
- * Put the appropriate logic inside each.
- *
- * GET    — Get all flights. If $data["id"] exists, then they want a specific flight!
- *            Consider checking if parameters like "origin" and "destination" are passed,
- *            so you can get a flight that way.
- * POST   — Someone wants to add a new flight!
- * PUT    — Someone wants to update an existing flight!
- * DELETE — YES
  */
 
 use Klein\Klein;
@@ -109,6 +97,8 @@ $router->respond("POST", "/login", function($request, $response, $service, $app)
 		header("HTTP/1.1 404 Not Found");
 
 		$response->json(["status" => "invalid"]);
+
+		return;
 	}
 
 	if (password_verify($password, $user->password))
