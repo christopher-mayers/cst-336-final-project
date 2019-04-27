@@ -38,7 +38,11 @@ body {
 	pointer-events: auto;
 }
 
-.template-holder[data-pad] {
+login-form, register-form {
+	display: block;
+}
+
+login-form {
 	margin-bottom: rem(18px) + rem(44px);
 }
 

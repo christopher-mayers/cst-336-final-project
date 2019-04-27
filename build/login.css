@@ -50,7 +50,11 @@ body {
   pointer-events: auto;
 }
 
-.template-holder[data-pad] {
+login-form, register-form {
+  display: block;
+}
+
+login-form {
   margin-bottom: 3.875rem;
 }
 

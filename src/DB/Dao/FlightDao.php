@@ -78,7 +78,7 @@ class FlightDao
 		$stmt->execute();
 		$stmt->setFetchMode(PDO::FETCH_CLASS, Flight::class);
 
-		return $stmt->fetchAll();
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	/**

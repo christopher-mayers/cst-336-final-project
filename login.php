@@ -22,87 +22,33 @@ if (isset($_SESSION["auth"]) && $_SESSION["auth"])
 	<link rel="stylesheet" href="build/login.css">
 	<script src="js/login.js"></script>
 
-	<template id="loginForm">
-		<div class="template-holder" data-option="loginForm" data-pad="true">
-			<span class="field">
-				<input type="text" name="email" id="email"><label for="email">Email</label>
-			</span>
-			<span class="field">
-				<input type="password" name="password" id="password"><label for="password">Password</label>
-			</span>
-			<button class="form-submit">
-				<span>Login</span>
-				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
-			</button>
-
-			<script>
-				for (let obj of document.querySelectorAll(".field input"))
-				{
-					obj.addEventListener("input", function(e)
-					{
-						const value = e.currentTarget.value;
-
-						if (value.length > 0)
-							obj.nextElementSibling.style.display = "none";
-						else
-							obj.nextElementSibling.style.display = "";
-					});
-				}
-
-				const submit = document.querySelector("button.form-submit");
-				submit.addEventListener("click", function(e)
-				{
-					const email = document.querySelector("input#email").value;
-					const password = document.querySelector("input#password").value;
-
-					const data = {email, password};
-
-					fetch("api/login", {
-						method: "POST",
-						headers: {"Content-Type": "application/json"},
-						body: JSON.stringify(data)
-					})
-						.then((r) => r.json())
-						.then((r) => {
-							if (r.status === "accepted")
-								window.location = "index.php"
-						})
-				})
-			</script>
-		</div>
+	<template id="login-form">
+		<span class="field">
+			<input type="text" name="email" id="email"><label for="email">Email</label>
+		</span>
+		<span class="field">
+			<input type="password" name="password" id="password"><label for="password">Password</label>
+		</span>
+		<button class="form-submit">
+			<span>Login</span>
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+		</button>
 	</template>
 
-	<template id="registerForm">
-		<div class="template-holder" data-option="registerForm">
-			<span class="field">
-				<input type="text" name="name" id="name"><label for="name">Full Name</label>
-			</span>
-			<span class="field">
-				<input type="text" name="email" id="email"><label for="email">Email</label>
-			</span>
-			<span class="field">
-				<input type="password" name="password" id="password"><label for="password">Password</label>
-			</span>
-			<button class="form-submit">
-				<span>Register</span>
-				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
-			</button>
-
-			<script>
-				for (let obj of document.querySelectorAll(".field input"))
-				{
-					obj.addEventListener("input", function(e)
-					{
-						const value = e.currentTarget.value;
-
-						if (value.length > 0)
-							obj.nextElementSibling.style.display = "none";
-						else
-							obj.nextElementSibling.style.display = "";
-					});
-				}
-			</script>
-		</div>
+	<template id="register-form">
+		<span class="field">
+			<input type="text" name="name" id="name"><label for="name">Full Name</label>
+		</span>
+		<span class="field">
+			<input type="text" name="email" id="email"><label for="email">Email</label>
+		</span>
+		<span class="field">
+			<input type="password" name="password" id="password"><label for="password">Password</label>
+		</span>
+		<button class="form-submit">
+			<span>Register</span>
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+		</button>
 	</template>
 </head>
 <body>
@@ -126,14 +72,15 @@ if (isset($_SESSION["auth"]) && $_SESSION["auth"])
 <div class="fullpage center">
 	<div class="container" hidden>
 		<div class="controls">
-			<div class="option" data-selected="true" role="button" data-target="loginForm">
+			<div class="option" data-selected="true" role="button" data-target="login-form">
 				<span>Sign In</span>
 			</div>
-			<div class="option" data-selected="false" role="button" data-target="registerForm">
+			<div class="option" data-selected="false" role="button" data-target="register-form">
 				<span>Register</span>
 			</div>
 		</div>
 		<div class="form-container">
+			<login-form></login-form>
 		</div>
 	</div>
 </div>
