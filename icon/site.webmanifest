@@ -1,0 +1,14 @@
+{
+    "name": "Valkyrie Air",
+    "short_name": "Valkyrie Air",
+    "icons": [
+        {
+            "src": "/icon/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#406abc",
+    "background_color": "#406abc",
+    "display": "standalone"
+}
