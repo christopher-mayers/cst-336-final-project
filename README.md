@@ -27,9 +27,15 @@ This will ensure you have the latest code.
 
 ## Responsibilities
 ### Dylan
-- [ ] General site design, UI/UX
-- [ ] Database management
-- [ ] PHP resources (DAO classes, framework)
+- [x] General site design, UI/UX
+  - Search System
+    - [ ] Filter by price
+    - [ ] Date picker
+    - [ ] Use real data
+    - [ ] Lead to checkout process
+- [x] Database management
+- [x] PHP resources (DAO classes, framework)
+- [x] General API (WIP but basically done)
 
 ### Chris & Jerry
 - Admin page
@@ -40,17 +46,6 @@ This will ensure you have the latest code.
   - [ ] Add objects
   - [ ] Delete objects
   - [ ] Update objects
-- General API
-  - We will no doubt, using javascript or PHP, need to send requests to perform the above data management.<br>
-  If you'd like to structure the API nicely, maybe look at the guidelines for REST APIs, and have one PHP api file for
-  each database table (`flights.php`, `users.php`...). In each file change what the API does based on
-  `$_SERVER["REQUEST_METHOD"]`.
-    - `"GET"` should get all objects, and if `?id=` is given in the url/data, get just the object with that ID
-    - `"POST"` should create a new object based on given data
-    - `"PUT"` should update an existing object. This method requires some manual implementation, as `$_PUT` does not normally exist in PHP
-    - `"DELETE"` should delete an object with the given ID
-
-Dylan: I'll create a skeleton of the API so you guys can fill it in.
 
 ### Junior
 - Cart management
