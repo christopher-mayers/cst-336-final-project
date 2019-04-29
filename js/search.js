@@ -99,11 +99,10 @@ function onLoad()
 
 	let depart = new Date("2019-04-21 08:00:00");
 	let arrive = new Date("2019-04-21 09:25:00");
-	let flight = getCardTemplate(1, depart, arrive, 129.99);
 
 	for (let i = 0; i < 20; i++)
 	{
-		let flight = getCardTemplate(1, depart, arrive, 129.99);
+		let flight = getCardTemplate(i + 1, depart, arrive, 129.99);
 		document.querySelector(".flight-list").appendChild(flight);
 	}
 

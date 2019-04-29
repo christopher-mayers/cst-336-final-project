@@ -18,7 +18,6 @@ body {
 	svg {
 		width: 100%;
 		height: 100%;
-		transform: rotate(180deg);
 	}
 }
 
@@ -36,6 +35,7 @@ body {
 
 .container {
 	pointer-events: auto;
+	position: relative;
 }
 
 login-form, register-form {
@@ -115,7 +115,9 @@ login-form {
 	}
 }
 
-input[type=text], input[type=password] {
+input[type=text],
+input[type=password],
+input[type=email]{
 	$main-size: 18px;
 
 	outline: none;
@@ -206,5 +208,32 @@ input[type=text], input[type=password] {
 	&:active {
 		border: none;
 		outline: none;
+	}
+}
+
+error-message {
+	position: absolute;
+	padding: 25px 10px 25px 6px;
+	box-sizing: border-box;
+	border-left: 4px solid red;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+	left: 50%;
+	transform: translateX(-50%);
+	min-width: rem(400px);
+	display: flex;
+	top: 120%;
+	background-color: $white;
+	border-radius: 2px;
+
+	span {
+		justify-self: center;
+		margin: 0 auto;
+		font-family: "Roboto", sans-serif;
+		color: $slate;
+		@include text-size(16px);
+	}
+
+	&[hidden] {
+		display: none;
 	}
 }

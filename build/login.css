@@ -31,7 +31,6 @@ body {
 .branding svg {
   width: 100%;
   height: 100%;
-  transform: rotate(180deg);
 }
 
 .fullpage {
@@ -48,6 +47,7 @@ body {
 
 .container {
   pointer-events: auto;
+  position: relative;
 }
 
 login-form, register-form {
@@ -123,7 +123,9 @@ login-form {
   border-bottom: none;
 }
 
-input[type=text], input[type=password] {
+input[type=text],
+input[type=password],
+input[type=email] {
   outline: none;
   border: none;
   font-size: 18px;
@@ -133,7 +135,9 @@ input[type=text], input[type=password] {
   padding: 1.1111111111em 1.3888888889em;
   color: #54546A;
 }
-input[type=text] + label, input[type=password] + label {
+input[type=text] + label,
+input[type=password] + label,
+input[type=email] + label {
   left: 1.7857142857em;
   top: 50%;
   transform: translateY(-50%);
@@ -146,7 +150,9 @@ input[type=text] + label, input[type=password] + label {
   cursor: text;
   pointer-events: none;
 }
-input[type=text]:focus + label, input[type=password]:focus + label {
+input[type=text]:focus + label,
+input[type=password]:focus + label,
+input[type=email]:focus + label {
   display: none;
 }
 
@@ -205,6 +211,32 @@ input[type=text]:focus + label, input[type=password]:focus + label {
 .form-submit:active {
   border: none;
   outline: none;
+}
+
+error-message {
+  position: absolute;
+  padding: 25px 10px 25px 6px;
+  box-sizing: border-box;
+  border-left: 4px solid red;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 25rem;
+  display: flex;
+  top: 120%;
+  background-color: #F9FBFE;
+  border-radius: 2px;
+}
+error-message span {
+  justify-self: center;
+  margin: 0 auto;
+  font-family: "Roboto", sans-serif;
+  color: #54546A;
+  font-size: 16px;
+  font-size: 1rem;
+}
+error-message[hidden] {
+  display: none;
 }
 
 /*# sourceMappingURL=login.css.map */

@@ -2,11 +2,18 @@ const other = "https://camo.githubusercontent.com/0fa6afcb113bd8cdcf805fb9a47d47
 const carouselMilli = 800;
 const carouselSeconds = carouselMilli / 1000;
 var imageData;
-var index = 0;
 
 fetch("https://raw.githubusercontent.com/dconnolly/chromecast-backgrounds/master/backgrounds.json")
 	.then(result => result.json())
 	.then(result => imageData = result);
+
+function random(min, max)
+{
+	min = Math.ceil(min);
+	max = Math.floor(max);
+
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 function addCard(title, subtitle, image)
 {
@@ -48,8 +55,7 @@ function onLoad()
 {
 	setInterval(function()
 	{
-		addCard("San Pedro", "from $500", imageData[index % imageData.length].url);
-		index++;
+		addCard("San Pedro", "from $500", imageData[random(0, imageData.length - 1)].url);
 	}, 5000);
 
 	for (let obj of document.querySelectorAll(".picker .field input"))

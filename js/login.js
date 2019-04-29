@@ -31,11 +31,19 @@ class LoginForm extends HTMLElement
 			})
 		}
 
-		let submit = this.querySelector("button.form-submit")
+		const submit = this.querySelector("button.form-submit")
 		submit.addEventListener("click", (e) =>
 		{
-			const email    = this.querySelector("input#email").value
-			const password = this.querySelector("input#password").value
+			const email    = this.querySelector("input#email").value,
+			      password = this.querySelector("input#password").value,
+			      error    = document.querySelector("error-message")
+
+			if (!email || !password)
+			{
+				error.show("Please fill out all fields!")
+
+				return
+			}
 
 			const data = {email, password}
 
@@ -47,8 +55,21 @@ class LoginForm extends HTMLElement
 				.then((r) => r.json())
 				.then((r) =>
 				{
-					if (r.status === "accepted")
-						window.location = "index.php"
+					switch (r.status)
+					{
+						case "accepted":
+							window.location = "index.php"
+							break
+						case "invalid":
+							error.show("Hmm, we don't have a record of that email.")
+							break
+						case "denied":
+							error.show("Those credentials don't seem to be right.")
+							break
+						default:
+							error.show("Something is reeaaally wrong. Try again in a bit!")
+							break
+					}
 				})
 		})
 	}
@@ -81,9 +102,86 @@ class RegisterForm extends HTMLElement
 					obj.nextElementSibling.style.display = ""
 			})
 		}
+
+		const submit = this.querySelector("button.form-submit")
+		submit.addEventListener("click", (e) =>
+		{
+			const name     = this.querySelector("input#name").value,
+			      email    = this.querySelector("input#email").value,
+			      password = this.querySelector("input#password").value,
+			      error    = document.querySelector("error-message")
+
+			if (!email || !password || !name)
+			{
+				error.show("Please fill out all fields!")
+
+				return
+			}
+
+			const data = {name, email, password}
+
+			fetch("api/register", {
+				method: "POST",
+				headers: {"Content-Type": "application/json"},
+				body: JSON.stringify(data)
+			})
+				.then((r) => r.json())
+				.then((r) =>
+				{
+					switch (r.status)
+					{
+						case "accepted":
+							window.location = "index.php"
+							break
+						case "invalid":
+							error.show("Sorry, that email is already in use! Try another one.")
+							break
+						case "denied":
+							error.show("Those credentials don't seem to be right.")
+							break
+						default:
+							error.show("Something is reeaaally wrong. Try again in a bit!")
+							break
+					}
+				})
+		})
 	}
 }
 customElements.define("register-form", RegisterForm)
+
+class ErrorMessage extends HTMLElement
+{
+	constructor()
+	{
+		super()
+
+		this.content = template("error-message")
+	}
+
+	static get observedAttributes()
+	{
+		return ["message"]
+	}
+
+	connectedCallback()
+	{
+		this.appendChild(this.content)
+		this.text = this.querySelector("span")
+		this.setAttribute("hidden", "true")
+	}
+
+	show(msg)
+	{
+		this.removeAttribute("hidden")
+		this.text.textContent = msg
+	}
+
+	hide()
+	{
+		this.setAttribute("hidden", "")
+	}
+}
+customElements.define("error-message", ErrorMessage)
 
 function load()
 {
@@ -94,6 +192,7 @@ function load()
 		obj.addEventListener("click", function(e)
 		{
 			const target = this.getAttribute("data-target")
+			const error = document.querySelector("error-message")
 
 			if (this.getAttribute("data-selected") == true)
 				return
@@ -108,6 +207,8 @@ function load()
 			formContainer.innerHTML = ""
 
 			formContainer.appendChild(document.createElement(target))
+
+			error.hide()
 		})
 	}
 

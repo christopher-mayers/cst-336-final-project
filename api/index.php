@@ -16,6 +16,7 @@ $request->server()->set('REQUEST_URI', rtrim(substr($uri, strlen(APP_PATH)), "/"
 
 use Klein\Klein;
 use Valkyrie\DB\Database;
+use Valkyrie\DB\Entity\User;
 
 $router = new Klein();
 
@@ -79,6 +80,7 @@ $router->respond("POST", "/login", function($request, $response, $service, $app)
 
 	if (!($request->param("email", false) && $request->param("password", false)))
 	{
+		$response->code(400);
 		$response->json(["status" => "error"]);
 
 		return;
@@ -94,8 +96,7 @@ $router->respond("POST", "/login", function($request, $response, $service, $app)
 
 	if ($user == null)
 	{
-		header("HTTP/1.1 404 Not Found");
-
+		$response->code(404);
 		$response->json(["status" => "invalid"]);
 
 		return;
@@ -103,13 +104,12 @@ $router->respond("POST", "/login", function($request, $response, $service, $app)
 
 	if (password_verify($password, $user->password))
 	{
-		header("HTTP/1.1 200 OK");
-
 		session_start();
 
 		$_SESSION["auth"] = true;
 		$_SESSION["userid"] = $user->id;
 
+		$response->code(200);
 		$response->json(["status" => "accepted"]);
 	}
 	else
@@ -118,6 +118,55 @@ $router->respond("POST", "/login", function($request, $response, $service, $app)
 
 		$response->json(["status" => "denied"]);
 	}
+});
+
+$router->respond("POST", "/register", function($request, $response, $service, $app)
+{
+
+	if (!($request->param("name", false) && $request->param("email", false) && $request->param("password", false)))
+	{
+		$response->code(400);
+		$response->json(["status" => "error"]);
+
+		return;
+	}
+
+	/** @var \Valkyrie\DB\Dao\UserDao $userDao */
+	$userDao = $app->db->userDao;
+
+	$fullName = explode(" ", $request->param("name"));
+	$firstName = $fullName[0];
+	$lastName = join(" ", array_slice($fullName, 1));
+	$email = $request->param("email");
+	$password = $request->param("password");
+
+	$user = $userDao->findByEmail($email);
+
+	if ($user != null)
+	{
+		$response->code(403);
+		$response->json(["status" => "invalid"]);
+
+		return;
+	}
+
+	$hash = password_hash($password, PASSWORD_BCRYPT);
+
+	$user = new User();
+	$user->email = $email;
+	$user->lastName = $lastName;
+	$user->firstName = $firstName;
+	$user->password = $hash;
+
+	$userDao->save($user);
+
+	session_start();
+
+	$_SESSION["auth"] = true;
+	$_SESSION["userid"] = $user->id;
+
+	$response->code(201);
+	$response->json(["status" => "accepted"]);
 });
 
 $router->dispatch($request);

@@ -24,7 +24,7 @@ if (isset($_SESSION["auth"]) && $_SESSION["auth"])
 
 	<template id="login-form">
 		<span class="field">
-			<input type="text" name="email" id="email"><label for="email">Email</label>
+			<input type="email" name="email" id="email"><label for="email">Email</label>
 		</span>
 		<span class="field">
 			<input type="password" name="password" id="password"><label for="password">Password</label>
@@ -40,7 +40,7 @@ if (isset($_SESSION["auth"]) && $_SESSION["auth"])
 			<input type="text" name="name" id="name"><label for="name">Full Name</label>
 		</span>
 		<span class="field">
-			<input type="text" name="email" id="email"><label for="email">Email</label>
+			<input type="email" name="email" id="email"><label for="email">Email</label>
 		</span>
 		<span class="field">
 			<input type="password" name="password" id="password"><label for="password">Password</label>
@@ -50,21 +50,27 @@ if (isset($_SESSION["auth"]) && $_SESSION["auth"])
 			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
 		</button>
 	</template>
+
+	<template id="error-message">
+		<span></span>
+	</template>
 </head>
 <body>
 
 <a class="branding" href="index.php">
-	<svg height="167pt" version="1.1" viewBox="0 0 154 167" width="154pt"
-	     xmlns="http://www.w3.org/2000/svg">
-		<g id="#e2e8f7ff">
-		</g>
-		<g id="#4f78c2ff">
-		<path d=" M 66.74 7.57 C 74.36 7.31 82.00 7.36 89.61 7.52 C 90.43 8.49 90.64 9.81 91.13 10.96 C 106.21 52.52 121.57 93.97 136.57 135.55 C 121.09 135.45 104.53 132.82 92.04 122.99 C 83.95 116.66 79.45 106.96 77.63 97.04 C 77.97 106.59 72.57 115.51 65.78 121.85 C 53.36 132.58 36.28 135.15 20.42 135.76 C 35.52 92.92 51.58 50.40 66.74 7.57 Z" fill="#4f78c2"
-		      opacity="1.00"/>
-		</g>
-		<g id="#70bbfeff">
-		<path d=" M 77.63 97.04 C 79.45 106.96 83.95 116.66 92.04 122.99 C 104.53 132.82 121.09 135.45 136.57 135.55 L 136.84 135.55 C 139.30 142.58 141.78 149.60 144.50 156.53 C 145.15 158.21 145.87 159.96 145.58 161.81 C 126.02 157.86 106.25 150.49 92.02 135.99 C 84.94 128.70 79.77 119.32 78.67 109.12 C 76.58 123.11 67.84 135.38 56.44 143.45 C 43.22 153.19 27.32 158.85 11.23 161.61 C 13.90 152.87 17.18 144.30 20.42 135.76 C 36.28 135.15 53.36 132.58 65.78 121.85 C 72.57 115.51 77.97 106.59 77.63 97.04 Z" fill="#70bbfe"
-		      opacity="1.00"/>
+	<svg version="1.2" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg" x="0px"
+	     y="0px" width="218.04px" height="248.82px" viewBox="0 0 218.04 248.82" xml:space="preserve">
+		<g>
+			<g>
+				<path fill="#4A77BC" d="M200.17,49.31c-24.2,66.52-48.39,133.05-72.57,199.51c-12.49,0-24.24,0-36.59,0
+					c-4.93-13.27-9.88-26.41-14.71-39.61C61.76,169.47,47.27,129.7,32.75,89.95c-4.94-13.52-12.5-33.78-17.44-47.29
+					c1.27-0.01,0.98-0.01,2.62,0c17.01,0.37,34.13,2.53,50.16,9.14c20.86,8.61,35.27,23.71,41.46,48.94
+					c5.75-22.41,17.09-37.05,35.51-46.07c17.62-8.63,37.9-11.75,57.54-12.01C201.75,45.44,200.64,47.57,200.17,49.31z"/>
+				<path fill="#71B6E5" d="M202.61,42.65c0,0,0,0-1.5,0.03c-19.71,0.68-38.41,3.36-56.04,11.99c-18.42,9.02-29.76,23.66-35.51,46.07
+					c-6.19-25.23-20.6-40.34-41.46-48.94c-16.03-6.61-33.15-8.78-50.16-9.14c-2.07,0-0.3-0.02-2.62,0c-2.35-6.13-2.16-5.49-4.43-11.65
+					C7.41,21.56,4.04,12.07,0,0.86c25.03,3.63,46.58,11.77,66.47,24.32c20.37,12.86,35.68,29.95,42.12,55.27
+					C126.84,28.18,168.98,11.65,218.04,0c-2.92,8.2-4.91,13.87-6.96,19.52C207.46,29.46,206.25,32.73,202.61,42.65z"/>
+			</g>
 		</g>
 	</svg>
 </a>
@@ -82,6 +88,8 @@ if (isset($_SESSION["auth"]) && $_SESSION["auth"])
 		<div class="form-container">
 			<login-form></login-form>
 		</div>
+
+		<error-message></error-message>
 	</div>
 </div>
 

@@ -91,8 +91,8 @@ class UserDao
 		$query = "
 		UPDATE {$this->table}
 		SET
-			last_name = :lastName,
-			first_name = :firstName,
+			lastName = :lastName,
+			firstName = :firstName,
 			email = :email,
 			password = :password
 		WHERE id = :id
@@ -121,7 +121,7 @@ class UserDao
 
 		$query = "
 		INSERT INTO {$this->table}
-			(last_name, first_name, email, password)
+			(lastName, firstName, email, password)
 		VALUES
 			(:lastName, :firstName, :email, :password)
 		";
