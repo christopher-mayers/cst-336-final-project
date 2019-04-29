@@ -9,7 +9,6 @@ if (isset($_SESSION["auth"]) && $_SESSION["auth"])
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

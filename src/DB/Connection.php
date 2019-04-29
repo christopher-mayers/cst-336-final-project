@@ -3,6 +3,7 @@
 namespace Valkyrie\DB;
 use PDO;
 
+require dirname(__DIR__) . "/boot.php";
 
 /**
  * Class Connection

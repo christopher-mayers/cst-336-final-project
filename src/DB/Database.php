@@ -2,8 +2,6 @@
 
 namespace Valkyrie\DB;
 
-require dirname(__DIR__) . "/boot.php";
-
 use PDO;
 use Valkyrie\DB\Dao\FlightDao;
 use Valkyrie\DB\Dao\UserDao;
