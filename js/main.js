@@ -89,3 +89,7 @@ function onLoad()
 }
 
 document.addEventListener('DOMContentLoaded', onLoad, false);
+
+console.log("%cWoah there!", "background-color: #ffafaf; font-size: 64px; font-weight: bold; color: red; -webkit-text-stroke: 2px black;")
+console.log("%cDon't break anything.", "font-size: 32px; font-weight: bold; color: red;")
+console.log("%cIf you're going to snoop, tell me if you find any issues.", "font-size: 28px; font-weight: bold; color: #476EBA;")

@@ -77,7 +77,6 @@ $router->respond("POST", "/logout", function()
 
 $router->respond("POST", "/login", function($request, $response, $service, $app)
 {
-
 	if (!($request->param("email", false) && $request->param("password", false)))
 	{
 		$response->code(400);
@@ -96,7 +95,7 @@ $router->respond("POST", "/login", function($request, $response, $service, $app)
 
 	if ($user == null)
 	{
-		$response->code(404);
+		$response->code(404); // Not Found
 		$response->json(["status" => "invalid"]);
 
 		return;
@@ -109,23 +108,21 @@ $router->respond("POST", "/login", function($request, $response, $service, $app)
 		$_SESSION["auth"] = true;
 		$_SESSION["userid"] = $user->id;
 
-		$response->code(200);
+		$response->code(200); // OK
 		$response->json(["status" => "accepted"]);
 	}
 	else
 	{
-		header("HTTP/1.1 403 Forbidden");
-
+		$response->code(401); // Unauthorized
 		$response->json(["status" => "denied"]);
 	}
 });
 
 $router->respond("POST", "/register", function($request, $response, $service, $app)
 {
-
 	if (!($request->param("name", false) && $request->param("email", false) && $request->param("password", false)))
 	{
-		$response->code(400);
+		$response->code(400); // Bad Request
 		$response->json(["status" => "error"]);
 
 		return;
@@ -144,7 +141,7 @@ $router->respond("POST", "/register", function($request, $response, $service, $a
 
 	if ($user != null)
 	{
-		$response->code(403);
+		$response->code(409); // Conflict
 		$response->json(["status" => "invalid"]);
 
 		return;
@@ -165,7 +162,7 @@ $router->respond("POST", "/register", function($request, $response, $service, $a
 	$_SESSION["auth"] = true;
 	$_SESSION["userid"] = $user->id;
 
-	$response->code(201);
+	$response->code(201); // Created
 	$response->json(["status" => "accepted"]);
 });
 
