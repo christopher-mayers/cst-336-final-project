@@ -1,71 +1,139 @@
-function getCardTemplate(i, departureTime, arrivalTime, price)
+"use strict";
+
+function template(id)
 {
-	let diff = Math.abs(arrivalTime - departureTime) / 36e5;
-	let hours = Math.floor(diff);
-	let minutes = Math.floor((diff - hours) * 60);
-
-	departureTime = departureTime.getHours().toString().padStart(2, "0")
-		+ ":"
-		+ departureTime.getMinutes().toString().padStart(2, "0");
-
-	arrivalTime = arrivalTime.getHours().toString().padStart(2, "0")
-		+ ":"
-		+ arrivalTime.getMinutes().toString().padStart(2, "0");
-
-	let element = document.createElement("DIV");
-
-	element.innerHTML = `
-		<div class="card-table">
-			<div class="card-info">
-				<div class="card-header card-number">
-					<span>${i.toString().padStart(2, "0")}</span>
-				</div>
-				<div class="card-header card-airline">
-					<span>Valkyrie Airline Flight</span>
-				</div>
-				<div class="card-header card-time">
-					<div class="card-time-container">
-						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-							<path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
-							<path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
-						</svg>
-						<span>${hours}h ${minutes}m</span>
-					</div>
-				</div>
-			</div>
-			<div class="card-body">
-				<div class="card-data card-departure">
-					<span>${departureTime}</span>
-				</div>
-				<div class="card-data card-decor">
-					<!--<svg viewBox="0 0 700 200">-->
-						<!--<line x1="40" x2="700" y1="100" y2="100" stroke="#5184AF" stroke-width="20" stroke-linecap="round" stroke-dasharray="1, 30"></line>-->
-					<!--</svg>-->
-				</div>
-				<div class="card-data card-arrival">
-					<span>${arrivalTime}</span>
-				</div>
-			</div>
-		</div>
-		<div class="card-button">
-			<div class="button-header">
-				<h3>Regular Fare</h3>
-			</div>
-			<div class="button-price" role="button">
-				<span class="price-content">$${price}</span>
-				<span class="arrow">
-					<svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
-				</span>
-			</div>
-		</div>
-	`;
-
-	element.classList.add("flight-card");
-
-	return element;
+	const t = document.querySelector(`template#${id}`)
+	return document.importNode(t.content, true)
 }
 
-function populate(from, to, time)
+class FlightCard extends HTMLElement
+{
+	constructor()
+	{
+		super()
+
+		this.content = template("flight-card")
+		this._index = 0
+		this._price = 0
+		this._departureTime = "0000-00-00 00:00:00"
+		this._arrivalTime = "0000-00-00 00:00:00"
+	}
+
+	static get observedAttributes()
+	{
+		return ["departure-time", "arrival-time", "price", "index"]
+	}
+
+	/* Getters and setters */
+	get index()
+	{
+		return this._index
+	}
+
+	set index(value)
+	{
+		this.setAttribute("index", value)
+	}
+
+	get price()
+	{
+		return this._price
+	}
+
+	set price(value)
+	{
+		this.setAttribute("price", value)
+	}
+
+	get departureTime()
+	{
+		return this._departureTime
+	}
+
+	set departureTime(value)
+	{
+		this.setAttribute("departure-time", value)
+	}
+
+	get arrivalTime()
+	{
+		return this._arrivalTime
+	}
+
+	set arrivalTime(value)
+	{
+		this.setAttribute("arrival-time", value)
+	}
+
+	connectedCallback()
+	{
+		this.appendChild(this.content)
+
+		this.update()
+	}
+
+	update()
+	{
+		/*
+			If for some stupid reason we don't have children yet (yes it happens)
+			then don't bother
+		*/
+		if (!this.hasChildNodes())
+			return
+
+		if (this.ownerDocument.defaultView !== document.defaultView)
+			return
+
+		this.calculateTimes()
+		this.querySelector(".price-content").textContent = "$" + Number(this.price).toFixed(2)
+		this.querySelector(".card-number > span").textContent = `${this.index.toString().padStart(2, "0")}`
+	}
+
+	calculateTimes()
+	{
+		let arrivalTime   = moment(this.arrivalTime),
+		    departureTime = moment(this.departureTime),
+		    duration      = moment.duration(arrivalTime.diff(departureTime))
+
+//		departureTime = departureTime.getHours().toString().padStart(2, "0")
+//			+ ":"
+//			+ departureTime.getMinutes().toString().padStart(2, "0");
+//
+//		arrivalTime = arrivalTime.getHours().toString().padStart(2, "0")
+//			+ ":"
+//			+ arrivalTime.getMinutes().toString().padStart(2, "0");
+
+		this.querySelector(".card-departure > span").textContent = departureTime.format("hh:mm")
+		this.querySelector(".card-arrival > span").textContent = arrivalTime.format("hh:mm")
+		this.querySelector(".card-time-container > span").textContent = `${duration.hours()}h ${duration.minutes()}m`
+	}
+
+	attributeChangedCallback(attr, oldValue, newValue)
+	{
+		switch (attr)
+		{
+			case "price":
+				this._price = newValue
+				break
+			case "index":
+				this._index = newValue
+				break
+			case "departure-time":
+				this._departureTime = newValue
+				break
+			case "arrival-time":
+				this._arrivalTime = newValue
+				break
+			default:
+				break
+		}
+
+		this.update()
+	}
+}
+customElements.define("flight-card", FlightCard)
+
+function populate(from, to, time, target)
 {
 	let url = `api/flights/search?origin=${from}&destination=${to}`
 
@@ -83,15 +151,21 @@ function populate(from, to, time)
 		.then((r) => {
 			let i = 1
 
-			document.querySelector(".flight-list").innerHTML = ""
+			target.innerHTML = ""
 
 			for (let flight of r)
 			{
-				let departure = new Date(flight.departureTime)
-				let arrival = new Date(flight.arrivalTime)
+				const departure = flight.departureTime,
+				      arrival   = flight.arrivalTime
 
-				let card = getCardTemplate(i, departure, arrival, flight.price)
-				document.querySelector(".flight-list").appendChild(card)
+				const card         = new FlightCard()
+				card.index         = i
+				card.price         = flight.price
+				card.departureTime = departure
+				card.arrivalTime   = arrival
+				card.id            = flight.id
+
+				target.appendChild(card)
 
 				i++
 			}
@@ -104,9 +178,11 @@ function populate(from, to, time)
 
 function onLoad()
 {
-	const url = new URL(window.location);
-	const origin = url.searchParams.get("origin");
-	const destination = url.searchParams.get("destination");
+	const url         = new URL(window.location),
+	      origin      = url.searchParams.get("origin"),
+	      destination = url.searchParams.get("destination")
+
+	const simplebar = new SimpleBar(document.querySelector(".flight-list"), {autoHide: false})
 
 	for (let obj of document.querySelectorAll("input.name"))
 	{
@@ -123,24 +199,24 @@ function onLoad()
 		if (obj.id === "origin")
 			obj.addEventListener("blur", function(e)
 			{
-				const value = e.currentTarget.value
-				const other = document.querySelector(`input#destination`)
+				const value = e.currentTarget.value,
+				      other = document.querySelector(`input#destination`)
 
 				if (value.length <= 0 || other.value.length <= 0)
 					return
 
-				populate(value, other.value)
+				populate(value, other.value, simplebar.getContentElement())
 			})
 		else
 			obj.addEventListener("blur", function(e)
 			{
-				const value = e.currentTarget.value
-				const other = document.querySelector(`input#origin`)
+				const value = e.currentTarget.value,
+				      other = document.querySelector(`input#origin`)
 
 				if (value.length <= 0 || other.value.length <= 0)
 					return
 
-				populate(other.value, value)
+				populate(other.value, value, simplebar.getContentElement())
 			})
 	}
 
@@ -149,20 +225,20 @@ function onLoad()
 		'cancelable': true
 	});
 
-	const originEl = document.querySelector("#origin")
-	const destinationEl = document.querySelector("#destination")
-	const datePicker = document.querySelector(".date-display")
+	const originEl      = document.querySelector("#origin"),
+	      destinationEl = document.querySelector("#destination"),
+	      datePicker    = document.querySelector(".date-display")
 
 	originEl.value = origin;
 	originEl.dispatchEvent(event);
 	destinationEl.value = destination;
 	destinationEl.dispatchEvent(event);
 
-	datePicker.textContent = moment().format("MMMM D, YYYY")
+	const today = moment()
 
-	populate(originEl.value, destinationEl.value, moment().format("YYYY-MM-DD"))
+	datePicker.textContent = today.format("MMMM D, YYYY")
 
-	const simplebar = new SimpleBar(document.querySelector(".flight-list"), {autoHide: false})
+	populate(originEl.value, destinationEl.value, today.format("YYYY-MM-DD"), simplebar.getContentElement())
 }
 
 document.addEventListener('DOMContentLoaded', onLoad, false);

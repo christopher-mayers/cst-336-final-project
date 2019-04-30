@@ -1,3 +1,5 @@
+"use strict";
+
 function template(id)
 {
 	const t = document.querySelector(`template#${id}`)

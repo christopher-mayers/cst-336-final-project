@@ -58,15 +58,13 @@ $router->with('/flights', function() use ($router)
 			if ($date)
 			{
 				$date = new DateTime($date);
-				$date->setTimezone(new DateTimeZone("America/Los_Angeles"));
 				$final = [];
 
 				foreach ($results as $flight)
 				{
 					$departure = new DateTime($flight->departureTime);
-					$departure->setTimezone(new DateTimeZone("America/Los_Angeles"));
 
-					if ($departure->diff($date)->days <= 0)
+					if ($departure->format("d") === $date->format("d"))
 						array_push($final, $flight);
 				}
 

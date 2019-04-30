@@ -236,14 +236,14 @@ body {
   color: #e5ecfd;
 }
 
-.flight-card {
+flight-card {
   margin-bottom: 0.625rem;
   height: 12.5rem;
   background-color: #F9FBFE;
   display: flex;
   flex-direction: row;
 }
-.flight-card .card-button {
+flight-card .card-button {
   width: 16%;
   display: flex;
   flex-direction: column;
@@ -252,31 +252,31 @@ body {
   box-sizing: border-box;
   cursor: pointer;
 }
-.flight-card .card-button:hover {
+flight-card .card-button:hover {
   background-image: linear-gradient(to right, #4facfe 0%, #00d5fe 100%);
 }
-.flight-card .card-button:hover .button-header {
+flight-card .card-button:hover .button-header {
   color: #F9FBFE;
 }
-.flight-card .card-button:hover .button-price {
+flight-card .card-button:hover .button-price {
   color: #F9FBFE;
 }
-.flight-card .card-button:hover .button-price .arrow path {
+flight-card .card-button:hover .button-price .arrow path {
   fill: #F9FBFE;
 }
-.flight-card .card-button .button-header {
+flight-card .card-button .button-header {
   color: #a0a0a0;
   height: 30%;
   display: flex;
   align-items: center;
 }
-.flight-card .card-button .button-header h3 {
+flight-card .card-button .button-header h3 {
   font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-style: italic;
   margin: 0;
 }
-.flight-card .card-button .button-price {
+flight-card .card-button .button-price {
   height: 70%;
   display: flex;
   align-items: center;
@@ -287,22 +287,22 @@ body {
   position: relative;
   color: #78C7FF;
 }
-.flight-card .card-button .button-price .price-content {
+flight-card .card-button .button-price .price-content {
   width: 100%;
   display: inline-block;
   overflow-wrap: break-word;
 }
-.flight-card .card-button .button-price .arrow {
+flight-card .card-button .button-price .arrow {
   position: absolute;
   right: 0;
   transform: rotate(180deg);
 }
-.flight-card .card-button .button-price .arrow svg {
+flight-card .card-button .button-price .arrow svg {
   display: block;
   width: auto;
   height: 1em;
 }
-.flight-card .card-button .button-price .arrow svg path {
+flight-card .card-button .button-price .arrow svg path {
   fill: #78C7FF;
 }
 

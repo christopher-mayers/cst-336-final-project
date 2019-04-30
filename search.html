@@ -22,6 +22,49 @@
 
 	<script src="https://momentjs.com/downloads/moment.js"></script>
 	<script src="js/search.js"></script>
+
+	<template id="flight-card">
+		<div class="card-table">
+			<div class="card-info">
+				<div class="card-header card-number">
+					<span></span>
+				</div>
+				<div class="card-header card-airline">
+					<span>Valkyrie Airline Flight</span>
+				</div>
+				<div class="card-header card-time">
+					<div class="card-time-container">
+						<svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+							<path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
+							<path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+						</svg>
+						<span></span>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="card-data card-departure">
+					<span></span>
+				</div>
+				<div class="card-data card-decor">
+				</div>
+				<div class="card-data card-arrival">
+					<span></span>
+				</div>
+			</div>
+		</div>
+		<div class="card-button">
+			<div class="button-header">
+				<h3>Regular Fare</h3>
+			</div>
+			<div class="button-price" role="button">
+				<span class="price-content"></span>
+				<span class="arrow">
+					<svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+				</span>
+			</div>
+		</div>
+	</template>
 </head>
 <body>
 
