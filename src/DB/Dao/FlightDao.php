@@ -49,11 +49,14 @@ class FlightDao
 	 *
 	 * @param string $origin
 	 * @param string $destination
-	 * @return Flight|false A Flight object if the flight exists, false otherwise.
+	 * @return array
 	 */
 	public function findByLocationPair($origin, $destination)
 	{
-		$query = "SELECT * FROM {$this->table} WHERE origin=:origin AND destination=:destination";
+		$query = "
+		SELECT * FROM {$this->table}
+		WHERE origin LIKE CONCAT(:origin, '%') AND destination LIKE CONCAT(:destination, '%')
+		";
 
 		$stmt = $this->pdo->prepare($query);
 		$stmt->bindParam(":origin", $origin);
@@ -61,7 +64,7 @@ class FlightDao
 		$stmt->execute();
 		$stmt->setFetchMode(PDO::FETCH_CLASS, Flight::class);
 
-		return $stmt->fetch();
+		return $stmt->fetchAll(PDO::FETCH_CLASS);
 	}
 
 	/**
@@ -78,7 +81,7 @@ class FlightDao
 		$stmt->execute();
 		$stmt->setFetchMode(PDO::FETCH_CLASS, Flight::class);
 
-		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+		return $stmt->fetchAll(PDO::FETCH_CLASS);
 	}
 
 	/**

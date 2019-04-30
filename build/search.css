@@ -194,6 +194,7 @@ body {
   font-size: 20.4px;
   font-size: 1.275rem;
   display: inline-block;
+  cursor: pointer;
 }
 
 .filter-button {

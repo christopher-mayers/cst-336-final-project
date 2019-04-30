@@ -37,17 +37,51 @@ $router->with('/flights', function() use ($router)
 {
 	$router->respond("GET", '/?', function($request, $response, $service, $app)
 	{
-		$range = $request->param("range");
+		$dao = $app->db->flightDao;
 
-		if ($range)
-		{
-			return;
-		}
-		else
+		$response->json($dao->findAll());
+	});
+
+	$router->respond("GET", "/search/?", function($request, $response, $service, $app)
+	{
+		$origin = $request->param("origin", false);
+		$destination = $request->param("destination", false);
+		$date = $request->param("time", false);
+
+		if ($origin && $destination)
 		{
 			$dao = $app->db->flightDao;
 
-			$response->json($dao->findAll());
+			/** @var Valkyrie\DB\Entity\Flight[] $results */
+			$results = $dao->findByLocationPair($origin, $destination);
+
+			if ($date)
+			{
+				$date = new DateTime($date);
+				$date->setTimezone(new DateTimeZone("America/Los_Angeles"));
+				$final = [];
+
+				foreach ($results as $flight)
+				{
+					$departure = new DateTime($flight->departureTime);
+					$departure->setTimezone(new DateTimeZone("America/Los_Angeles"));
+
+					if ($departure->diff($date)->days <= 0)
+						array_push($final, $flight);
+				}
+
+				$response->code(200);
+				$response->json($final);
+
+				return;
+			}
+
+			$response->code(200);
+			$response->json($results);
+		}
+		else
+		{
+			$response->code(400);
 		}
 	});
 

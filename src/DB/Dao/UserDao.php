@@ -74,7 +74,7 @@ class UserDao
 		$stmt->execute();
 		$stmt->setFetchMode(PDO::FETCH_CLASS, User::class);
 
-		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+		return $stmt->fetchAll(PDO::FETCH_CLASS);
 	}
 
 	/**

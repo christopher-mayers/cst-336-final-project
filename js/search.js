@@ -65,6 +65,43 @@ function getCardTemplate(i, departureTime, arrivalTime, price)
 	return element;
 }
 
+function populate(from, to, time)
+{
+	let url = `api/flights/search?origin=${from}&destination=${to}`
+
+	if (time)
+		url += `&time=${time}`
+
+	fetch(encodeURI(url))
+		.then((r) => {
+			if (r.status === 400)
+				throw Error("Bad request")
+
+			return r
+		})
+		.then((r) => r.json())
+		.then((r) => {
+			let i = 1
+
+			document.querySelector(".flight-list").innerHTML = ""
+
+			for (let flight of r)
+			{
+				let departure = new Date(flight.departureTime)
+				let arrival = new Date(flight.arrivalTime)
+
+				let card = getCardTemplate(i, departure, arrival, flight.price)
+				document.querySelector(".flight-list").appendChild(card)
+
+				i++
+			}
+		})
+		.catch((error) =>
+		{
+
+		})
+}
+
 function onLoad()
 {
 	const url = new URL(window.location);
@@ -82,6 +119,29 @@ function onLoad()
 			else
 				obj.nextElementSibling.style.display = "";
 		});
+
+		if (obj.id === "origin")
+			obj.addEventListener("blur", function(e)
+			{
+				const value = e.currentTarget.value
+				const other = document.querySelector(`input#destination`)
+
+				if (value.length <= 0 || other.value.length <= 0)
+					return
+
+				populate(value, other.value)
+			})
+		else
+			obj.addEventListener("blur", function(e)
+			{
+				const value = e.currentTarget.value
+				const other = document.querySelector(`input#origin`)
+
+				if (value.length <= 0 || other.value.length <= 0)
+					return
+
+				populate(other.value, value)
+			})
 	}
 
 	const event = new Event('input', {
@@ -89,22 +149,18 @@ function onLoad()
 		'cancelable': true
 	});
 
-	const originEl = document.querySelector("#origin");
-	const destinationEl = document.querySelector("#destination");
+	const originEl = document.querySelector("#origin")
+	const destinationEl = document.querySelector("#destination")
+	const datePicker = document.querySelector(".date-display")
 
 	originEl.value = origin;
 	originEl.dispatchEvent(event);
 	destinationEl.value = destination;
 	destinationEl.dispatchEvent(event);
 
-	let depart = new Date("2019-04-21 08:00:00");
-	let arrive = new Date("2019-04-21 09:25:00");
+	datePicker.textContent = moment().format("MMMM D, YYYY")
 
-	for (let i = 0; i < 20; i++)
-	{
-		let flight = getCardTemplate(i + 1, depart, arrive, 129.99);
-		document.querySelector(".flight-list").appendChild(flight);
-	}
+	populate(originEl.value, destinationEl.value, moment().format("YYYY-MM-DD"))
 
 	const simplebar = new SimpleBar(document.querySelector(".flight-list"), {autoHide: false})
 }

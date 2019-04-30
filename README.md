@@ -31,7 +31,7 @@ This will ensure you have the latest code.
   - Search System
     - [ ] Filter by price
     - [ ] Date picker
-    - [ ] Use real data
+    - [x] Use real data
     - [ ] Lead to checkout process
 - [x] Database management
 - [x] PHP resources (DAO classes, framework)
