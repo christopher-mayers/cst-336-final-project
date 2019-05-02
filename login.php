@@ -4,7 +4,7 @@ session_start();
 // They are logged in already, no need to be here.
 if (isset($_SESSION["auth"]) && $_SESSION["auth"])
 {
-	header("location: index.php");
+	header("currentUrl: index.php");
 	die();
 }
 ?>
