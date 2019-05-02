@@ -280,8 +280,3 @@ const datePicker = new MaterialDatepicker(".date-display", {
 		populate(originEl.value, destinationEl.value, date.format("YYYY-MM-DD"), simplebar.getContentElement())
 	}
 })
-
-dateDisplay.addEventListener("click", function(e)
-{
-	datePicker.open()
-})

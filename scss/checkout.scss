@@ -2,6 +2,12 @@
 
 $section-padding: rem(50px);
 
+html {
+	@media only screen and (max-device-width: 1440px) {
+		font-size: 12px;
+	}
+}
+
 body {
 	display: flex;
 	align-items: center;
@@ -12,7 +18,7 @@ body {
 	background-color: white;
 	max-width: rem(600px);
 	width: 100%;
-	height: 80vh;
+	min-height: rem(1000px);
 	margin: 0 auto;
 	display: flex;
 	flex-direction: column;
@@ -29,6 +35,7 @@ body {
 	padding-left: $section-padding;
 	padding-right: $section-padding;
 	padding-bottom: $section-padding;
+	padding-top: $section-padding * 2;
 	border-bottom: 2px solid rgba(0, 0, 0, 0.05);
 
 	h1 {
