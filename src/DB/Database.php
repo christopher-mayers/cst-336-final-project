@@ -25,10 +25,6 @@ class Database
 	 * @var UserDao
 	 */
 	public $userDao;
-	/**
-	 * @var LogDao
-	 */
-	public $logDao;
 
 	/**
 	 * Database constructor.
@@ -46,7 +42,6 @@ class Database
 		// Create our DAOs for easy access to MySQL info
 		$this->flightDao = new FlightDao($this->pdo);
 		$this->userDao = new UserDao($this->pdo);
-//		$this->logDao = new LogDao($this->pdo);
 	}
 
 	public static function verify($username, $password)
