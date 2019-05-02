@@ -42,8 +42,7 @@ body {
 .navheader ul {
   list-style-type: none;
   padding: 0;
-  margin: 0;
-  margin-left: 5em;
+  margin: 0 0 0 5em;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -95,8 +94,8 @@ body {
   position: absolute;
   background-color: #F9FBFE;
   z-index: 100;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  padding: 0px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  padding: 0;
   left: 50%;
   transform: translateX(-50%);
   border-radius: 2px;
@@ -317,7 +316,7 @@ body {
     clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
   }
   to {
-    left: 0px;
+    left: 0;
     -webkit-clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
     clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
   }
