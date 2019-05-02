@@ -2,9 +2,9 @@
 session_start();
 
 // They are logged in already, no need to be here.
-if (isset($_SESSION["auth"]) && $_SESSION["auth"])
+if (isset($_SESSION["auth"]))
 {
-	header("currentUrl: index.php");
+	header("location: index.php");
 	die();
 }
 ?>
@@ -31,19 +31,22 @@ if (isset($_SESSION["auth"]) && $_SESSION["auth"])
 	<link rel="stylesheet" href="build/login.css">
 
 	<template id="login-form">
+		<form>
 		<span class="field">
 			<input type="email" name="email" id="email"><label for="email">Email</label>
 		</span>
 		<span class="field">
 			<input type="password" name="password" id="password"><label for="password">Password</label>
 		</span>
-		<button class="form-submit">
+		<button class="form-submit" type="submit">
 			<span>Login</span>
 			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path></svg>
 		</button>
+		</form>
 	</template>
 
 	<template id="register-form">
+		<form>
 		<span class="field">
 			<input type="text" name="name" id="name"><label for="name">Full Name</label>
 		</span>
@@ -53,10 +56,11 @@ if (isset($_SESSION["auth"]) && $_SESSION["auth"])
 		<span class="field">
 			<input type="password" name="password" id="password"><label for="password">Password</label>
 		</span>
-		<button class="form-submit">
+		<button class="form-submit" type="submit">
 			<span>Register</span>
 			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path></svg>
 		</button>
+		</form>
 	</template>
 
 	<template id="error-message">
