@@ -1,6 +1,8 @@
 <?php
 
-    require "vendor/autoload.php";
+    session_start();
+
+    require "../../vendor/autoload.php";
     
     use Valkyrie\DB\Database;
 
@@ -9,14 +11,15 @@
     
     $loginResult = Database::verify($username, $password);
 
-    $result = array();
-
-    if ($loginResult == true)
+    if ($loginResult)
     {
         echo ("Success");
+        
+        $_SESSION['username'] = $username;
+        header('location: flights.php');
     }
     else
     {
-        echo ("fail");
+        echo ("Incorrect username of password");
     }
 ?>
