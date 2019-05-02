@@ -27,8 +27,8 @@ if (isset($_SESSION["auth"]) && $_SESSION["auth"])
 
 	<link href="index.php" rel="prefetch">
 
+	<link rel="stylesheet" href="https://use.typekit.net/peh1sjo.css">
 	<link rel="stylesheet" href="build/login.css">
-	<script src="js/login.js"></script>
 
 	<template id="login-form">
 		<span class="field">
@@ -101,5 +101,6 @@ if (isset($_SESSION["auth"]) && $_SESSION["auth"])
 	</div>
 </div>
 
+<script src="js/login.js"></script>
 </body>
 </html>

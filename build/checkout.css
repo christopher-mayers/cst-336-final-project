@@ -1,0 +1,183 @@
+html {
+  font-size: 16px;
+}
+@media only screen and (max-device-width: 1023px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #F8FAFF;
+}
+
+.content {
+  background-color: white;
+  max-width: 37.5rem;
+  width: 100%;
+  height: 80vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+.content > * {
+  box-sizing: border-box;
+}
+
+.heading {
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  padding-left: 3.125rem;
+  padding-right: 3.125rem;
+  padding-bottom: 3.125rem;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+}
+.heading h1 {
+  margin: 0;
+  margin-top: auto;
+  font-family: neue-haas-grotesk-display, sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 32px;
+  font-size: 2rem;
+  width: 100%;
+  color: #333744;
+}
+
+.sections {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.sections > * {
+  box-sizing: border-box;
+}
+
+.subsection {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  padding: 3.125rem;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+  font-family: neue-haas-grotesk-text, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #333744;
+}
+.subsection td {
+  padding: 0.5rem 0;
+}
+.subsection td:last-of-type {
+  width: 25%;
+}
+
+.total {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  padding: 0 3.125rem;
+  height: auto;
+  font-family: neue-haas-grotesk-text, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #333744;
+  flex: 1;
+}
+.total td {
+  padding: 0.5rem 0;
+}
+.total td:last-of-type {
+  width: 25%;
+}
+
+span.main {
+  font-family: neue-haas-grotesk-text, sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  color: #333744;
+}
+
+span.subtle {
+  font-family: neue-haas-grotesk-text, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #adadad;
+}
+
+span.important {
+  font-family: neue-haas-grotesk-text, sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  color: #406abc;
+  font-size: 24px;
+  font-size: 1.5rem;
+}
+
+.buttons {
+  height: 7.5rem;
+}
+
+button.submit {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border: none;
+  padding: 1.1111111111em 1.3888888889em;
+  font-family: neue-haas-grotesk-text, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 22px;
+  font-size: 1.375rem;
+  color: #F8FAFF;
+  cursor: pointer;
+  background-image: linear-gradient(to right, #4facfe 0%, #00d5fe 100%);
+}
+button.submit > * {
+  z-index: 2;
+}
+button.submit > span {
+  position: relative;
+}
+button.submit:hover::before {
+  opacity: 0.5;
+}
+button.submit:active::before {
+  opacity: 1;
+}
+button.submit::before {
+  z-index: 1;
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  background-image: linear-gradient(to right, #4facfe 0%, #bff8ff 100%);
+  transition: opacity 0.25s ease;
+}
+button.submit svg {
+  position: absolute;
+  top: 50%;
+  right: 3.125rem;
+  font-size: inherit;
+  height: 1.5em;
+  width: 1.5em;
+  transform: translateY(-50%) rotate(-180deg);
+}
+button.submit path {
+  fill: #F8FAFF;
+}
+button.submit:active {
+  border: none;
+  outline: none;
+}
+
+/*# sourceMappingURL=checkout.css.map */

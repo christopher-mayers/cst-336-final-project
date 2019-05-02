@@ -36,9 +36,6 @@ if ($auth)
 	<link rel="preconnect" href="https://lh6.googleusercontent.com/">
 	<link href="search.html" rel="prefetch">
 	<link href="login.php" rel="prefetch">
-
-	<script src="https://cdn.jsdelivr.net/npm/animejs@3.0.1/lib/anime.min.js"></script>
-	<script src="js/main.js"></script>
 </head>
 <body>
 
@@ -47,9 +44,6 @@ if ($auth)
 		<header class="navheader">
 			<nav>
 				<span class="branding">
-					<!--<svg xmlns="http://www.w3.org/2000/svg" width="82.35" height="85.522" viewBox="0 0 82.35 85.522">-->
-						<!--<path id="Path_1" data-name="Path 1" d="M2.623,0,41.175-85.522H22.265L.061-36.966-22.265-85.522h-18.91L-2.5,0Z" transform="translate(41.175 85.522)" fill="#fff"/>-->
-					<!--</svg>-->
 				<svg version="1.2" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg" x="0px"
 				     y="0px" width="218.04px" height="248.82px" viewBox="0 0 218.04 248.82" xml:space="preserve">
 					<g>
@@ -126,5 +120,6 @@ if ($auth)
 	</div>
 </div>
 
+<script src="js/main.js"></script>
 </body>
 </html>

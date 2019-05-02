@@ -60,7 +60,7 @@ class LoginForm extends HTMLElement
 					switch (r.status)
 					{
 						case "accepted":
-							window.location = "index.php"
+							window.location = r.redirect || "index.php"
 							break
 						case "invalid":
 							error.show("Hmm, we don't have a record of that email.")
@@ -133,7 +133,7 @@ class RegisterForm extends HTMLElement
 					switch (r.status)
 					{
 						case "accepted":
-							window.location = "index.php"
+							window.location = r.redirect || "index.php"
 							break
 						case "invalid":
 							error.show("Sorry, that email is already in use! Try another one.")
@@ -185,36 +185,31 @@ class ErrorMessage extends HTMLElement
 }
 customElements.define("error-message", ErrorMessage)
 
-function load()
+const formContainer = document.querySelector(".form-container")
+
+for (let obj of document.querySelectorAll(".option"))
 {
-	const formContainer = document.querySelector(".form-container")
-
-	for (let obj of document.querySelectorAll(".option"))
+	obj.addEventListener("click", function(e)
 	{
-		obj.addEventListener("click", function(e)
+		const target = this.getAttribute("data-target")
+		const error = document.querySelector("error-message")
+
+		if (this.getAttribute("data-selected") == true)
+			return
+
+		for (let button of document.querySelectorAll(".option[data-selected=true]"))
 		{
-			const target = this.getAttribute("data-target")
-			const error = document.querySelector("error-message")
+			button.setAttribute("data-selected", false)
+		}
 
-			if (this.getAttribute("data-selected") == true)
-				return
+		this.setAttribute("data-selected", true)
 
-			for (let button of document.querySelectorAll(".option[data-selected=true]"))
-			{
-				button.setAttribute("data-selected", false)
-			}
+		formContainer.innerHTML = ""
 
-			this.setAttribute("data-selected", true)
+		formContainer.appendChild(document.createElement(target))
 
-			formContainer.innerHTML = ""
-
-			formContainer.appendChild(document.createElement(target))
-
-			error.hide()
-		})
-	}
-
-	document.querySelector(".container").removeAttribute("hidden")
+		error.hide()
+	})
 }
 
-document.addEventListener("DOMContentLoaded", load, false)
+document.querySelector(".container").removeAttribute("hidden")

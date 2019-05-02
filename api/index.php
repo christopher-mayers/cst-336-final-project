@@ -64,7 +64,7 @@ $router->with('/flights', function() use ($router)
 				{
 					$departure = new DateTime($flight->departureTime);
 
-					if ($departure->format("d") === $date->format("d"))
+					if ($departure->format("Y-m-d") === $date->format("Y-m-d"))
 						array_push($final, $flight);
 				}
 
@@ -109,6 +109,8 @@ $router->respond("POST", "/logout", function()
 
 $router->respond("POST", "/login", function($request, $response, $service, $app)
 {
+	session_start();
+
 	if (!($request->param("email", false) && $request->param("password", false)))
 	{
 		$response->code(400);
@@ -128,6 +130,7 @@ $router->respond("POST", "/login", function($request, $response, $service, $app)
 	if ($user == null)
 	{
 		$response->code(404); // Not Found
+
 		$response->json(["status" => "invalid"]);
 
 		return;
@@ -135,13 +138,15 @@ $router->respond("POST", "/login", function($request, $response, $service, $app)
 
 	if (password_verify($password, $user->password))
 	{
-		session_start();
-
 		$_SESSION["auth"] = true;
 		$_SESSION["userid"] = $user->id;
 
 		$response->code(200); // OK
-		$response->json(["status" => "accepted"]);
+
+		if (isset($_SESSION["checkout"]))
+			$response->json(["status" => "accepted", "redirect" => "checkout.php"]);
+		else
+			$response->json(["status" => "accepted"]);
 	}
 	else
 	{
@@ -152,6 +157,8 @@ $router->respond("POST", "/login", function($request, $response, $service, $app)
 
 $router->respond("POST", "/register", function($request, $response, $service, $app)
 {
+	session_start();
+
 	if (!($request->param("name", false) && $request->param("email", false) && $request->param("password", false)))
 	{
 		$response->code(400); // Bad Request
@@ -189,13 +196,34 @@ $router->respond("POST", "/register", function($request, $response, $service, $a
 
 	$userDao->save($user);
 
-	session_start();
-
 	$_SESSION["auth"] = true;
 	$_SESSION["userid"] = $user->id;
 
 	$response->code(201); // Created
-	$response->json(["status" => "accepted"]);
+
+	if (isset($_SESSION["checkout"]))
+		$response->json(["status" => "accepted", "redirect" => "checkout.php"]);
+	else
+		$response->json(["status" => "accepted"]);
+});
+
+$router->respond("POST", "/precheckout", function($request, $response, $service, $app)
+{
+	session_start();
+
+	$flightDao = $app->db->flightDao;
+	$flightId = $request->param("flight", false);
+	$flight = $flightDao->find($flightId);
+
+	if (!$flightId || !$flight)
+	{
+		$response->code(400);
+
+		return;
+	}
+
+	$response->code(200);
+	$_SESSION["checkout"] = $flightId;
 });
 
 $router->dispatch($request);

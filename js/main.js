@@ -53,45 +53,42 @@ function addCard(title, subtitle, image)
 	}, carouselMilli);
 }
 
-function onLoad()
+
+setInterval(function()
 {
-	setInterval(function()
+	let rand = imageData[random(0, imageData.length - 1)].url
+
+	addCard("San Pedro", "from $500", rand);
+}, 5000);
+
+for (let obj of document.querySelectorAll(".picker .field input"))
+{
+	obj.addEventListener("input", function(e)
 	{
-		addCard("San Pedro", "from $500", imageData[random(0, imageData.length - 1)].url);
-	}, 5000);
+		const value = e.currentTarget.value;
 
-	for (let obj of document.querySelectorAll(".picker .field input"))
-	{
-		obj.addEventListener("input", function(e)
-		{
-			const value = e.currentTarget.value;
+		if (value.length > 0)
+			obj.nextElementSibling.style.display = "none";
+		else
+			obj.nextElementSibling.style.display = "";
+	});
 
-			if (value.length > 0)
-				obj.nextElementSibling.style.display = "none";
-			else
-				obj.nextElementSibling.style.display = "";
-		});
-
-		const event = new Event("input");
-		obj.dispatchEvent(event);
-	}
-
-	const logout = document.querySelector("a[name='logout']");
-
-	if (logout !== null)
-	{
-		logout.addEventListener("click", function (e)
-		{
-			fetch("api/logout", {
-				method: "POST",
-			})
-				.then(() => window.location = "index.php");
-		})
-	}
+	const event = new Event("input");
+	obj.dispatchEvent(event);
 }
 
-document.addEventListener('DOMContentLoaded', onLoad, false);
+const logout = document.querySelector("a[name='logout']");
+
+if (logout !== null)
+{
+	logout.addEventListener("click", function (e)
+	{
+		fetch("api/logout", {
+			method: "POST",
+		})
+			.then(() => window.location = "index.php");
+	})
+}
 
 console.log("%cWoah there!", "background-color: #ffafaf; font-size: 64px; font-weight: bold; color: red; -webkit-text-stroke: 2px black;")
-console.log("%cDon't break anything.", "font-size: 32px; font-weight: bold; color: red;")
-console.log("%cIf you're going to snoop, tell me if you find any issues.", "font-size: 28px; font-weight: bold; color: #476EBA;")
+console.log("%cThere's no need to be extreme...", "font-size: 32px; font-weight: bold; color: red;")

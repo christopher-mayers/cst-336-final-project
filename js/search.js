@@ -70,6 +70,23 @@ class FlightCard extends HTMLElement
 		this.appendChild(this.content)
 
 		this.update()
+
+		this.querySelector(".card-button").addEventListener("click", (e) =>
+		{
+			fetch(`api/precheckout`, {
+				headers: {
+					"Content-Type": "application/json"
+				},
+				method: "POST",
+				body: JSON.stringify({flight: this.id})
+			})
+				.then((r) => {
+					if (r.status !== 200)
+						return
+
+					window.location = "checkout.php"
+				})
+		})
 	}
 
 	update()
@@ -94,14 +111,6 @@ class FlightCard extends HTMLElement
 		let arrivalTime   = moment(this.arrivalTime),
 		    departureTime = moment(this.departureTime),
 		    duration      = moment.duration(arrivalTime.diff(departureTime))
-
-//		departureTime = departureTime.getHours().toString().padStart(2, "0")
-//			+ ":"
-//			+ departureTime.getMinutes().toString().padStart(2, "0");
-//
-//		arrivalTime = arrivalTime.getHours().toString().padStart(2, "0")
-//			+ ":"
-//			+ arrivalTime.getMinutes().toString().padStart(2, "0");
 
 		this.querySelector(".card-departure > span").textContent = departureTime.format("hh:mm")
 		this.querySelector(".card-arrival > span").textContent = arrivalTime.format("hh:mm")
@@ -132,6 +141,9 @@ class FlightCard extends HTMLElement
 	}
 }
 customElements.define("flight-card", FlightCard)
+
+let departureDate = moment()
+let simplebar
 
 function populate(from, to, time, target)
 {
@@ -170,19 +182,23 @@ function populate(from, to, time, target)
 				i++
 			}
 		})
-		.catch((error) =>
-		{
-
-		})
+		.catch((error) => {})
 }
 
-function onLoad()
+function setupInputs()
 {
 	const url         = new URL(window.location),
 	      origin      = url.searchParams.get("origin"),
 	      destination = url.searchParams.get("destination")
 
-	const simplebar = new SimpleBar(document.querySelector(".flight-list"), {autoHide: false})
+	// Synthetic event to trigger the label hiding
+	const event = new Event('input', {
+		'bubbles': true,
+		'cancelable': true
+	});
+
+	const originEl      = document.querySelector("#origin"),
+	      destinationEl = document.querySelector("#destination")
 
 	for (let obj of document.querySelectorAll("input.name"))
 	{
@@ -202,10 +218,14 @@ function onLoad()
 				const value = e.currentTarget.value,
 				      other = document.querySelector(`input#destination`)
 
+				url.searchParams.set("origin", value)
+
 				if (value.length <= 0 || other.value.length <= 0)
 					return
 
-				populate(value, other.value, simplebar.getContentElement())
+				history.pushState("Flight Search", document.title, url.toString())
+
+				populate(value, other.value, departureDate.format("YYYY-MM-DD"), simplebar.getContentElement())
 			})
 		else
 			obj.addEventListener("blur", function(e)
@@ -213,32 +233,50 @@ function onLoad()
 				const value = e.currentTarget.value,
 				      other = document.querySelector(`input#origin`)
 
+				url.searchParams.set("destination", value)
+
 				if (value.length <= 0 || other.value.length <= 0)
 					return
 
-				populate(other.value, value, simplebar.getContentElement())
+				history.pushState("Flight Search", document.title, url.toString())
+
+				populate(other.value, value, departureDate.format("YYYY-MM-DD"), simplebar.getContentElement())
 			})
 	}
-
-	const event = new Event('input', {
-		'bubbles': true,
-		'cancelable': true
-	});
-
-	const originEl      = document.querySelector("#origin"),
-	      destinationEl = document.querySelector("#destination"),
-	      datePicker    = document.querySelector(".date-display")
 
 	originEl.value = origin;
 	originEl.dispatchEvent(event);
 	destinationEl.value = destination;
 	destinationEl.dispatchEvent(event);
 
-	const today = moment()
-
-	datePicker.textContent = today.format("MMMM D, YYYY")
-
-	populate(originEl.value, destinationEl.value, today.format("YYYY-MM-DD"), simplebar.getContentElement())
+	if (originEl.value && destinationEl.value)
+		populate(originEl.value, destinationEl.value, departureDate.format("YYYY-MM-DD"), simplebar.getContentElement())
 }
 
-document.addEventListener('DOMContentLoaded', onLoad, false);
+
+simplebar = new SimpleBar(document.querySelector(".flight-list"), {autoHide: false})
+
+setupInputs(simplebar.getContentElement())
+
+const dateDisplay = document.querySelector(".date-display")
+
+const originEl      = document.querySelector("#origin"),
+      destinationEl = document.querySelector("#destination")
+
+const datePicker = new MaterialDatepicker(".date-display", {
+	outputElement: ".date-display",
+	color: "#406ABC",
+	outputFormat: "MMMM D, YYYY",
+	orientation: "portrait",
+	onNewDate: function(date)
+	{
+		date = moment(date)
+		departureDate = date
+		populate(originEl.value, destinationEl.value, date.format("YYYY-MM-DD"), simplebar.getContentElement())
+	}
+})
+
+dateDisplay.addEventListener("click", function(e)
+{
+	datePicker.open()
+})
