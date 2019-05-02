@@ -89,9 +89,19 @@ $router->with('/flights', function() use ($router)
 	});
 });
 
-$router->respond("POST", "/logout", function()
+$router->respond("POST", "/logout", function($request, $response, $service, $app)
 {
 	session_start();
+
+	if (isset($_SESSION["userid"]))
+	{
+		$userDao = $app->db->userDao;
+
+		$user = $userDao->find($_SESSION["userid"]);
+
+		if ($user)
+			\Valkyrie\DB\Logger::log("logout", "(" . $user->email . ":" . $user->id . ") logged out");
+	}
 
 	$_SESSION = [];
 
@@ -142,6 +152,8 @@ $router->respond("POST", "/login", function($request, $response, $service, $app)
 		$_SESSION["userid"] = $user->id;
 
 		$response->code(200); // OK
+
+		\Valkyrie\DB\Logger::log("login", "(" . $user->email . ":" . $user->id . ") logged in");
 
 		if (isset($_SESSION["checkout"]))
 			$response->json(["status" => "accepted", "redirect" => "checkout.php"]);
@@ -201,6 +213,8 @@ $router->respond("POST", "/register", function($request, $response, $service, $a
 
 	$response->code(201); // Created
 
+	\Valkyrie\DB\Logger::log("register", "(" . $user->email . ":" . $user->id . ") registered");
+
 	if (isset($_SESSION["checkout"]))
 		$response->json(["status" => "accepted", "redirect" => "checkout.php"]);
 	else
@@ -224,6 +238,39 @@ $router->respond("POST", "/precheckout", function($request, $response, $service,
 
 	$response->code(200);
 	$_SESSION["checkout"] = $flightId;
+});
+
+$router->respond("POST", "/checkout", function($request, $response, $service, $app)
+{
+	session_start();
+
+	if (!isset($_SESSION["checkout"]) || !isset($_SESSION["auth"]))
+	{
+		$response->code(400);
+		$response->json(["status" => "denied"]);
+
+		return;
+	}
+
+	$flightDao = $app->db->flightDao;
+	$userDao = $app->db->userDao;
+	$flightId = $_SESSION["checkout"];
+	$flight = $flightDao->find($flightId);
+
+	$user = $userDao->find($_SESSION["userid"]);
+
+	if (!$flight)
+	{
+		$response->code(400);
+		$response->json(["status" => "denied"]);
+
+		return;
+	}
+
+	$response->code(200);
+	$response->json(["status" => "accepted"]);
+
+	\Valkyrie\DB\Logger::log("purchase", "(" . $user->email . ":" . $user->id . ") purchased ticket for flight " . $flightId);
 });
 
 $router->dispatch($request);

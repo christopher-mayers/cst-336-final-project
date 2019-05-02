@@ -13,6 +13,12 @@ body {
   background-color: #F8FAFF;
 }
 
+body {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+}
+
 .content {
   background-color: white;
   max-width: 37.5rem;

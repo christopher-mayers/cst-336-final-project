@@ -2,6 +2,12 @@
 
 $section-padding: rem(50px);
 
+body {
+	display: flex;
+	align-items: center;
+	height: 100vh;
+}
+
 .content {
 	background-color: white;
 	max-width: rem(600px);
