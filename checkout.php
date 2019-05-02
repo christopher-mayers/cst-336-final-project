@@ -7,7 +7,7 @@ $auth=isset($_SESSION["auth"]) && $_SESSION["auth"]?true:false;
 
 if (!$auth)
 {
-	header("location: login.php");
+	header("currentUrl: login.php");
 
 	die();
 }
@@ -21,7 +21,7 @@ if (isset($_SESSION["checkout"]))
 // We didn't find a flight, they should be barred from the page
 if (!$flight)
 {
-	header("location: index.php");
+	header("currentUrl: index.php");
 
 	die();
 }

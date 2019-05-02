@@ -142,7 +142,9 @@ class FlightCard extends HTMLElement
 }
 customElements.define("flight-card", FlightCard)
 
-let departureDate = moment()
+let currentUrl    = new URL(window.location)
+let queryDate     = currentUrl.searchParams.get("date")
+let departureDate = queryDate ? moment(queryDate) : moment()
 let simplebar
 
 function populate(from, to, time, target)
@@ -187,7 +189,7 @@ function populate(from, to, time, target)
 
 function setupInputs()
 {
-	const url         = new URL(window.location),
+	const url         = currentUrl,
 	      origin      = url.searchParams.get("origin"),
 	      destination = url.searchParams.get("destination")
 
@@ -223,7 +225,7 @@ function setupInputs()
 				if (value.length <= 0 || other.value.length <= 0)
 					return
 
-				history.pushState("Flight Search", document.title, url.toString())
+				history.replaceState("Flight Search", document.title, url.toString())
 
 				populate(value, other.value, departureDate.format("YYYY-MM-DD"), simplebar.getContentElement())
 			})
@@ -238,7 +240,7 @@ function setupInputs()
 				if (value.length <= 0 || other.value.length <= 0)
 					return
 
-				history.pushState("Flight Search", document.title, url.toString())
+				history.replaceState("Flight Search", document.title, url.toString())
 
 				populate(other.value, value, departureDate.format("YYYY-MM-DD"), simplebar.getContentElement())
 			})
@@ -268,15 +270,13 @@ const datePicker = new MaterialDatepicker(".date-display", {
 	color: "#406ABC",
 	outputFormat: "MMMM D, YYYY",
 	orientation: "portrait",
+	date: departureDate.toDate(),
 	onNewDate: function(date)
 	{
 		date = moment(date)
 		departureDate = date
+		currentUrl.searchParams.set("date", date.format("YYYY-MM-DD"))
+		history.replaceState("Flight Search", document.title, currentUrl.toString())
 		populate(originEl.value, destinationEl.value, date.format("YYYY-MM-DD"), simplebar.getContentElement())
 	}
-})
-
-dateDisplay.addEventListener("click", function(e)
-{
-	datePicker.open()
 })

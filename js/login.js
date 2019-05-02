@@ -33,9 +33,12 @@ class LoginForm extends HTMLElement
 			})
 		}
 
-		const submit = this.querySelector("button.form-submit")
-		submit.addEventListener("click", (e) =>
+		const form = this.querySelector("form")
+		form.addEventListener("submit", (e) =>
 		{
+			e.preventDefault()
+			e.stopPropagation()
+
 			const email    = this.querySelector("input#email").value,
 			      password = this.querySelector("input#password").value,
 			      error    = document.querySelector("error-message")
@@ -105,9 +108,12 @@ class RegisterForm extends HTMLElement
 			})
 		}
 
-		const submit = this.querySelector("button.form-submit")
-		submit.addEventListener("click", (e) =>
+		const form = this.querySelector("form")
+		form.addEventListener("submit", (e) =>
 		{
+			e.preventDefault()
+			e.stopPropagation()
+
 			const name     = this.querySelector("input#name").value,
 			      email    = this.querySelector("input#email").value,
 			      password = this.querySelector("input#password").value,
