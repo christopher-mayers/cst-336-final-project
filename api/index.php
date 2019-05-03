@@ -9,11 +9,6 @@ $request = \Klein\Request::createFromGlobals();
 $uri = $request->server()->get('REQUEST_URI');
 $request->server()->set('REQUEST_URI', rtrim(substr($uri, strlen(APP_PATH)), "/"));
 
-/*
- * These are your callbacks for when a specific request is made to this page.
- * Depending on what kind of method was used, one of these callbacks will activate.
- */
-
 use Klein\Klein;
 use Valkyrie\DB\Database;
 use Valkyrie\DB\Entity\User;
@@ -83,9 +78,11 @@ $router->with('/flights', function() use ($router)
 		}
 	});
 
-	$router->respond("GET", '/[i:id]', function($request, $response)
+	$router->respond("GET", '/[i:id]', function($request, $response, $service, $app)
 	{
-		return "Hi, " . $request->id;
+		$dao = $app->db->flightDao;
+
+		$response->json($dao->find($request->param("id")));
 	});
 });
 

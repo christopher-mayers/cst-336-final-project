@@ -17,11 +17,13 @@ class FlightCard extends HTMLElement
 		this._departureTime = "0000-00-00 00:00:00"
 		this._arrivalTime = "0000-00-00 00:00:00"
 		this._id = 0
+		this._origin = ""
+		this._destination = ""
 	}
 
 	static get observedAttributes()
 	{
-		return ["departure-time", "arrival-time", "index", "flight"]
+		return ["departure-time", "arrival-time", "index", "flight", "origin", "destination"]
 	}
 
 	/* Getters and setters */
@@ -43,6 +45,26 @@ class FlightCard extends HTMLElement
 	set price(value)
 	{
 		this.setAttribute("price", value)
+	}
+
+	get origin()
+	{
+		return this._origin
+	}
+
+	set origin(value)
+	{
+		this.setAttribute("origin", value)
+	}
+
+	get destination()
+	{
+		return this._destination
+	}
+
+	set destination(value)
+	{
+		this.setAttribute("destination", value)
 	}
 
 	get departureTime()
@@ -68,6 +90,8 @@ class FlightCard extends HTMLElement
 	connectedCallback()
 	{
 		this.appendChild(this.content)
+
+		this.init = true
 
 		this.update()
 
@@ -95,18 +119,9 @@ class FlightCard extends HTMLElement
 
 	update()
 	{
-		/*
-		 If for some stupid reason we don't have children yet (yes it happens)
-		 then don't bother
-		 */
-		if (!this.hasChildNodes())
-			return
-
-		if (this.ownerDocument.defaultView !== document.defaultView)
-			return
-
 		this.calculateTimes()
 		this.querySelector(".card-number > span").textContent = `${this.index.toString().padStart(2, "0")}`
+		this.querySelector(".card-airline > span").textContent = `${this.origin} → ${this.destination}`
 	}
 
 	calculateTimes()
@@ -124,6 +139,12 @@ class FlightCard extends HTMLElement
 	{
 		switch (attr)
 		{
+			case "origin":
+				this._origin = newValue
+				break
+			case "destination":
+				this._destination = newValue
+				break
 			case "price":
 				this._price = newValue
 				break
@@ -146,7 +167,8 @@ class FlightCard extends HTMLElement
 				break
 		}
 
-		this.update()
+		if (this.init)
+			this.update()
 	}
 }
 customElements.define("flight-card", FlightCard)

@@ -7,7 +7,7 @@ $auth=isset($_SESSION["auth"]) && $_SESSION["auth"]?true:false;
 
 if (!$auth)
 {
-	header("currentUrl: login.php");
+	header("location: login.php");
 
 	die();
 }

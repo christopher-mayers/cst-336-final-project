@@ -97,7 +97,9 @@ else
 				index="<?= $index + 1 ?>"
 				departure-time="<?= $flight->departureTime->format("Y-m-d H:i:s") ?>"
 				arrival-time="<?= $flight->arrivalTime->format("Y-m-d H:i:s") ?>"
-				flight="<?= $flight->id ?>">
+				flight="<?= $flight->id ?>"
+				origin="<?= $flight->origin ?>"
+				destination="<?= $flight->destination ?>">
 		</flight-card>
 	<?php endforeach; ?>
 </div>
