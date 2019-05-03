@@ -62,7 +62,7 @@ $router->with('/flights', function() use ($router)
 
 				foreach ($results as $flight)
 				{
-					$departure = new DateTime($flight->departureTime);
+					$departure = $flight->departureTime;
 
 					if ($departure->format("Y-m-d") === $date->format("Y-m-d"))
 						array_push($final, $flight);
@@ -252,8 +252,9 @@ $router->respond("POST", "/checkout", function($request, $response, $service, $a
 		return;
 	}
 
-	$flightDao = $app->db->flightDao;
-	$userDao = $app->db->userDao;
+	$db = $app->db;
+	$flightDao = $db->flightDao;
+	$userDao = $db->userDao;
 	$flightId = $_SESSION["checkout"];
 	$flight = $flightDao->find($flightId);
 
@@ -270,7 +271,74 @@ $router->respond("POST", "/checkout", function($request, $response, $service, $a
 	$response->code(200);
 	$response->json(["status" => "accepted"]);
 
+	$query = "
+	INSERT INTO valkyrie_bookings
+		(flight, user)
+	VALUES
+		(:flightId, :userId)
+	";
+
+	$stmt = $db->pdo->prepare($query);
+	$stmt->bindParam(":flightId", $flight->id);
+	$stmt->bindParam(":userId", $user->id);
+	$stmt->execute();
+
+	unset($_SESSION["checkout"]);
+
 	\Valkyrie\DB\Logger::log("purchase", "(" . $user->email . ":" . $user->id . ") purchased ticket for flight " . $flightId);
+});
+
+$router->respond("POST", "/cancel", function($request, $response, $service, $app)
+{
+	session_start();
+
+	$flightId = $request->param("flight", false);
+
+	if (!$flightId)
+	{
+		$response->code(400);
+		$response->json(["status" => "denied"]);
+
+		return;
+	}
+
+	if (!isset($_SESSION["auth"]))
+	{
+		$response->code(403);
+		$response->json(["status" => "denied"]);
+
+		return;
+	}
+
+	$db = $app->db;
+	$flightDao = $db->flightDao;
+	$userDao = $db->userDao;
+
+	$flight = $flightDao->find($flightId);
+	$user = $userDao->find($_SESSION["userid"]);
+
+	if (!$flight)
+	{
+		$response->code(404);
+		$response->json(["status" => "invalid"]);
+
+		return;
+	}
+
+	$response->code(200);
+	$response->json(["status" => "accepted"]);
+
+	$query = "
+	DELETE FROM valkyrie_bookings
+	WHERE flight=:id
+	LIMIT 1
+	";
+
+	$stmt = $db->pdo->prepare($query);
+	$stmt->bindParam(":id", $flightId);
+	$stmt->execute();
+
+	\Valkyrie\DB\Logger::log("cancellation", "(" . $user->email . ":" . $user->id . ") canceled reservation for flight " . $flightId);
 });
 
 $router->dispatch($request);

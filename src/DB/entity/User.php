@@ -29,4 +29,5 @@ class User
 	 * @var string
 	 */
 	public $password;
+	public $flights;
 }

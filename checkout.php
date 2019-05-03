@@ -21,7 +21,7 @@ if (isset($_SESSION["checkout"]))
 // We didn't find a flight, they should be barred from the page
 if (!$flight)
 {
-	header("currentUrl: index.php");
+	header("location: index.php");
 
 	die();
 }

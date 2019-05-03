@@ -15,7 +15,7 @@ class Database
 	/**
 	 * @var PDO
 	 */
-	private $pdo;
+	public $pdo;
 
 	/**
 	 * @var FlightDao

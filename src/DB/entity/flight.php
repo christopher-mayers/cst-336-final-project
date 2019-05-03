@@ -50,5 +50,8 @@ class Flight
 
 		if (isset($this->boardingTime))
 			$this->boardingTime = date_create($this->boardingTime);
+
+		if (isset($this->arrivalTime))
+			$this->arrivalTime = date_create($this->arrivalTime);
 	}
 }

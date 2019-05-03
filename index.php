@@ -62,9 +62,6 @@ if ($auth)
 				</span>
 				<ul>
 					<li>
-						<a class="navlink">Book & Manage</a>
-					</li>
-					<li>
 						<a class="navlink">Prepare</a>
 					</li>
 				</ul>
@@ -79,7 +76,7 @@ if ($auth)
 					</svg>
 				</span>
 				<div class="dropdown-content">
-					<a href="booked.php">Manage Bookings</a>
+					<a href="bookings.php">Manage Bookings</a>
 					<a href="#" name="logout">Logout</a>
 				</div>
 				<?php else: ?>

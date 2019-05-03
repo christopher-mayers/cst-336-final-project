@@ -1,0 +1,235 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700");
+html {
+  font-size: 16px;
+}
+@media only screen and (max-device-width: 1023px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #F8FAFF;
+}
+
+body {
+  background-color: #F2F5FB;
+  overflow: hidden;
+}
+
+header {
+  position: relative;
+  background-color: #406abc;
+  height: 14.375rem;
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+}
+header h1 {
+  margin: 2.5rem 9.375rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #F9FBFE;
+  align-self: flex-end;
+}
+
+.gutter {
+  width: 8.75rem;
+  position: relative;
+}
+.gutter .nav {
+  position: absolute;
+  top: calc(3.59375rem - 0.875rem);
+  display: inline-block;
+  right: 1.875rem;
+  font-size: 14px;
+  font-size: 0.875rem;
+}
+.gutter .nav svg {
+  display: block;
+  cursor: pointer;
+  height: 1.75rem;
+  width: auto;
+}
+.gutter .nav path {
+  fill: #F9FBFE;
+}
+
+.flight-list {
+  height: calc(100vh - 14.375rem);
+  width: 100%;
+}
+
+flight-card {
+  margin-bottom: 0.625rem;
+  height: 12.5rem;
+  background-color: #F9FBFE;
+  display: flex;
+  flex-direction: row;
+}
+flight-card .card-button {
+  width: 16%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 2.125rem;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+flight-card .card-button:hover {
+  background-image: linear-gradient(to right, #4facfe 0%, #00d5fe 100%);
+}
+flight-card .card-button:hover .button-header {
+  color: #F9FBFE;
+}
+flight-card .card-button:hover .button-price {
+  color: #F9FBFE;
+}
+flight-card .card-button:hover .button-price .arrow path {
+  fill: #F9FBFE;
+}
+flight-card .card-button .button-header {
+  color: #a0a0a0;
+  height: 30%;
+  display: flex;
+  align-items: center;
+}
+flight-card .card-button .button-header h3 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+  margin: 0;
+}
+flight-card .card-button .button-price {
+  height: 70%;
+  display: flex;
+  align-items: center;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 30px;
+  font-size: 1.875rem;
+  position: relative;
+  color: #78C7FF;
+}
+flight-card .card-button .button-price .price-content {
+  width: 100%;
+  display: inline-block;
+  overflow-wrap: break-word;
+}
+flight-card .card-button .button-price .arrow {
+  position: absolute;
+  right: 0;
+  transform: rotate(180deg);
+}
+flight-card .card-button .button-price .arrow svg {
+  display: block;
+  width: auto;
+  height: 1em;
+}
+flight-card .card-button .button-price .arrow svg path {
+  fill: #78C7FF;
+}
+
+.card-table {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 60%;
+}
+.card-table:last-child {
+  margin-bottom: 0;
+}
+.card-table .card-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 30%;
+  box-sizing: border-box;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.03);
+  width: 100%;
+}
+.card-table .card-header {
+  display: flex;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  color: #a0a0a0;
+}
+.card-table .card-body {
+  height: 70%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  margin-left: 8.75rem;
+}
+.card-table .card-data {
+  display: flex;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  color: #54546A;
+  font-size: 28px;
+  font-size: 1.75rem;
+}
+.card-table .card-number {
+  width: 8.75rem;
+}
+.card-table .card-number > span {
+  margin-left: auto;
+  margin-right: 1.875rem;
+  text-align: right;
+}
+.card-table .card-airline {
+  width: calc((100% - 8.75rem) / 2);
+}
+.card-table .card-airline > span {
+  margin-left: 22.5%;
+}
+.card-table .card-time {
+  width: calc((100% - 8.75rem) / 2);
+}
+.card-table .card-time .card-time-container {
+  padding: 0.2em 0.3em;
+  border: 0.125rem solid rgba(160, 160, 160, 0.5);
+  margin-left: 22.5%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.card-table .card-time .card-time-container > svg {
+  display: block;
+  height: 1em;
+  width: auto;
+}
+.card-table .card-time .card-time-container > svg path {
+  fill: #a0a0a0;
+}
+.card-table .card-time .card-time-container > span {
+  margin-left: 0.3em;
+}
+.card-table .card-departure {
+  width: 50%;
+}
+.card-table .card-departure > span {
+  margin-left: 22.5%;
+}
+.card-table .card-decor {
+  position: absolute;
+  left: calc(36.25% + 2.15625rem);
+  transform: translateX(-50%);
+  width: calc(35% - 4.3125rem);
+  border-bottom-style: dotted;
+  border-bottom-color: #406abc;
+  border-bottom-width: 4px;
+  height: 1px;
+}
+.card-table .card-arrival {
+  width: 50%;
+}
+.card-table .card-arrival > span {
+  margin-left: 22.5%;
+}
+
+/*# sourceMappingURL=bookings.css.map */

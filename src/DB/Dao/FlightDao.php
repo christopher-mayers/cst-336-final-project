@@ -64,7 +64,7 @@ class FlightDao
 		$stmt->execute();
 		$stmt->setFetchMode(PDO::FETCH_CLASS, Flight::class);
 
-		return $stmt->fetchAll(PDO::FETCH_CLASS);
+		return $stmt->fetchAll(PDO::FETCH_CLASS, Flight::class);
 	}
 
 	/**
@@ -81,7 +81,7 @@ class FlightDao
 		$stmt->execute();
 		$stmt->setFetchMode(PDO::FETCH_CLASS, Flight::class);
 
-		return $stmt->fetchAll(PDO::FETCH_CLASS);
+		return $stmt->fetchAll(PDO::FETCH_CLASS, Flight::class);
 	}
 
 	/**
