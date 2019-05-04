@@ -58,7 +58,11 @@ setInterval(function()
 {
 	let rand = imageData[random(0, imageData.length - 1)].url
 
-	addCard("San Pedro", "from $500", rand);
+	fetch("api/flights/random")
+		.then((r) => r.json())
+		.then((r) => {
+			addCard(r.destination, "from $" + Math.floor(Number(r.price)), rand);
+		})
 }, 5000);
 
 for (let obj of document.querySelectorAll(".picker .field input"))

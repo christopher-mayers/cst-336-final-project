@@ -28,7 +28,7 @@ header {
   box-sizing: border-box;
 }
 header h1 {
-  margin: 2.5rem 9.375rem;
+  margin: 2.5rem 4.6875rem;
   font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -80,7 +80,12 @@ flight-card .card-button {
   cursor: pointer;
 }
 flight-card .card-button:hover {
-  background-image: linear-gradient(to right, #4facfe 0%, #00d5fe 100%);
+  background: #ED213A;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #c61c17, #ED213A);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #C61C17, #ED213A);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 flight-card .card-button:hover .button-header {
   color: #F9FBFE;
@@ -91,30 +96,19 @@ flight-card .card-button:hover .button-price {
 flight-card .card-button:hover .button-price .arrow path {
   fill: #F9FBFE;
 }
-flight-card .card-button .button-header {
-  color: #a0a0a0;
-  height: 30%;
-  display: flex;
-  align-items: center;
-}
-flight-card .card-button .button-header h3 {
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  font-style: italic;
-  margin: 0;
-}
 flight-card .card-button .button-price {
   height: 70%;
   display: flex;
   align-items: center;
   font-family: "Roboto", sans-serif;
   font-weight: 400;
-  font-size: 30px;
-  font-size: 1.875rem;
+  font-size: 24px;
+  font-size: 1.5rem;
   position: relative;
-  color: #78C7FF;
+  color: #d91e18;
 }
 flight-card .card-button .button-price .price-content {
+  font-size: inherit;
   width: 100%;
   display: inline-block;
   overflow-wrap: break-word;
@@ -130,7 +124,7 @@ flight-card .card-button .button-price .arrow svg {
   height: 1em;
 }
 flight-card .card-button .button-price .arrow svg path {
-  fill: #78C7FF;
+  fill: #d91e18;
 }
 
 .card-table {

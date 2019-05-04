@@ -17,6 +17,13 @@ $router = new Klein();
 
 $router->respond(function($request, $response, $service, $app)
 {
+	/**
+	 * @var \Klein\Request $request
+	 * @var \Klein\Response $response
+	 * @var \Klein\ServiceProvider $service
+	 * @var \Klein\App $app
+	 */
+
 	$app->register("db", function()
 	{
 		return new Database();
@@ -32,13 +39,43 @@ $router->with('/flights', function() use ($router)
 {
 	$router->respond("GET", '/?', function($request, $response, $service, $app)
 	{
+		/**
+		 * @var \Klein\Request $request
+		 * @var \Klein\Response $response
+		 * @var \Klein\ServiceProvider $service
+		 * @var \Klein\App $app
+		 */
+
 		$dao = $app->db->flightDao;
 
 		$response->json($dao->findAll());
 	});
 
+	$router->respond("GET", '/random', function($request, $response, $service, $app)
+	{
+		/**
+		 * @var \Klein\Request $request
+		 * @var \Klein\Response $response
+		 * @var \Klein\ServiceProvider $service
+		 * @var \Klein\App $app
+		 */
+
+		$query = "SELECT destination, price FROM valkyrie_flights ORDER BY RAND() LIMIT 1;";
+		$stmt = $app->db->pdo->prepare($query);
+		$stmt->execute();
+
+		$response->json($stmt->fetch(PDO::FETCH_ASSOC));
+	});
+
 	$router->respond("GET", "/search/?", function($request, $response, $service, $app)
 	{
+		/**
+		 * @var \Klein\Request $request
+		 * @var \Klein\Response $response
+		 * @var \Klein\ServiceProvider $service
+		 * @var \Klein\App $app
+		 */
+
 		$origin = $request->param("origin", false);
 		$destination = $request->param("destination", false);
 		$date = $request->param("time", false);
@@ -80,6 +117,13 @@ $router->with('/flights', function() use ($router)
 
 	$router->respond("GET", '/[i:id]', function($request, $response, $service, $app)
 	{
+		/**
+		 * @var \Klein\Request $request
+		 * @var \Klein\Response $response
+		 * @var \Klein\ServiceProvider $service
+		 * @var \Klein\App $app
+		 */
+
 		$dao = $app->db->flightDao;
 
 		$response->json($dao->find($request->param("id")));
@@ -88,6 +132,13 @@ $router->with('/flights', function() use ($router)
 
 $router->respond("POST", "/logout", function($request, $response, $service, $app)
 {
+	/**
+	 * @var \Klein\Request $request
+	 * @var \Klein\Response $response
+	 * @var \Klein\ServiceProvider $service
+	 * @var \Klein\App $app
+	 */
+
 	session_start();
 
 	if (isset($_SESSION["userid"]))
@@ -116,6 +167,13 @@ $router->respond("POST", "/logout", function($request, $response, $service, $app
 
 $router->respond("POST", "/login", function($request, $response, $service, $app)
 {
+	/**
+	 * @var \Klein\Request $request
+	 * @var \Klein\Response $response
+	 * @var \Klein\ServiceProvider $service
+	 * @var \Klein\App $app
+	 */
+
 	session_start();
 
 	if (!($request->param("email", false) && $request->param("password", false)))
@@ -166,6 +224,13 @@ $router->respond("POST", "/login", function($request, $response, $service, $app)
 
 $router->respond("POST", "/register", function($request, $response, $service, $app)
 {
+	/**
+	 * @var \Klein\Request $request
+	 * @var \Klein\Response $response
+	 * @var \Klein\ServiceProvider $service
+	 * @var \Klein\App $app
+	 */
+
 	session_start();
 
 	if (!($request->param("name", false) && $request->param("email", false) && $request->param("password", false)))
@@ -220,6 +285,13 @@ $router->respond("POST", "/register", function($request, $response, $service, $a
 
 $router->respond("POST", "/precheckout", function($request, $response, $service, $app)
 {
+	/**
+	 * @var \Klein\Request $request
+	 * @var \Klein\Response $response
+	 * @var \Klein\ServiceProvider $service
+	 * @var \Klein\App $app
+	 */
+
 	session_start();
 
 	$flightDao = $app->db->flightDao;
@@ -239,6 +311,13 @@ $router->respond("POST", "/precheckout", function($request, $response, $service,
 
 $router->respond("POST", "/checkout", function($request, $response, $service, $app)
 {
+	/**
+	 * @var \Klein\Request $request
+	 * @var \Klein\Response $response
+	 * @var \Klein\ServiceProvider $service
+	 * @var \Klein\App $app
+	 */
+
 	session_start();
 
 	if (!isset($_SESSION["checkout"]) || !isset($_SESSION["auth"]))
@@ -287,6 +366,13 @@ $router->respond("POST", "/checkout", function($request, $response, $service, $a
 
 $router->respond("POST", "/cancel", function($request, $response, $service, $app)
 {
+	/**
+	 * @var \Klein\Request $request
+	 * @var \Klein\Response $response
+	 * @var \Klein\ServiceProvider $service
+	 * @var \Klein\App $app
+	 */
+
 	session_start();
 
 	$flightId = $request->param("flight", false);
