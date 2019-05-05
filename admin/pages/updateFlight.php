@@ -101,7 +101,31 @@ if (!isset ($_SESSION['username']))
                     data: { "flightNum": $("#flightNum").val() },
                     success: function(data,status) 
                     {
-                        alert(data['id']);
+                        var bStr = data['boardingTime']['date'];
+                        var dStr = data['departureTime']['date'];
+                        var aStr = data['arrivalTime']['date'];
+                        
+                        var bArray = bStr.split(" ");
+                        var dArray = dStr.split(" ");
+                        var aArray = aStr.split(" ");
+                        
+                        var holdBDay = bArray[0];
+                        var holdBTime = bArray[1];
+                        var holdDDay = dArray[0];
+                        var holdDTime = dArray[1];
+                        var holdADay = aArray[0];
+                        var holdATime = aArray[1];
+                        
+                        $("#origin").val(data['origin']);
+                        $("#destination").val(data['destination']);
+                        $("#boardingTime").val(holdBTime);
+                        $("#displayBoardingDay").html(holdBDay);
+                        $("#departureTime").val(holdDTime);
+                        $("#displayDepartureDay").html(holdDDay);
+                        $("#arrivalTime").val(holdATime);
+                        $("#displayArrivalDay").html(holdADay);
+                        $("#seats").val(data['seats']);
+                        $("#price").val(data['price']);
                     
                     },
                     complete: function(data,status) 

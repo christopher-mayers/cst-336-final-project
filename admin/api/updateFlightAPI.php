@@ -11,11 +11,11 @@ require "../../vendor/autoload.php";
     
 use Valkyrie\DB\Dao\FlightDao;
 use Valkyrie\DB\Database;
-use Valkyrie\DB\entity\flight;
+use Valkyrie\DB\Entity\Flight;
 
 $database = new Database;
 
-$dao = $database->flightDao;
+$dao = $database->FlightDao;
 
 $flightNum = $_POST['flightNum'];
 $origin = $_POST['origin'];

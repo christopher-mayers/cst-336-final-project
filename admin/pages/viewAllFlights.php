@@ -12,7 +12,7 @@ use Valkyrie\DB\Dao\FlightDao;
 use Valkyrie\DB\Database;
 use Valkyrie\DB\entity\flight;
 
-$database = new Database;
+$database = new Database();
 
 $dao = $database->flightDao; // your top variable set as static
 
@@ -21,9 +21,6 @@ $arr = array();
 $arr = json_encode($dao->findAll());
 
 $arr2 = json_decode($arr, true);
-
-//echo $arr2[0]['id'];
-
 
 ?>
 

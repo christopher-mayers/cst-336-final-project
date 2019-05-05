@@ -8,12 +8,16 @@ if (!isset ($_SESSION['username']))
 }
 
 require "../../vendor/autoload.php";
-    
+
+use Valkyrie\DB\Dao\FlightDao;
+use Valkyrie\DB\Entity\Flight;
 use Valkyrie\DB\Database;
+
+$flight = new Flight();
 
 $id = $_GET['flightNum'];
 
-$database = new Database;
+$database = new Database();
 
 //$flight = new Flight();
 
