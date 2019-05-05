@@ -6,6 +6,13 @@ function template(id)
 	return document.importNode(t.content, true)
 }
 
+function formEncode(params)
+{
+	return Object.keys(params).map((key) => {
+		return encodeURIComponent(key) + "=" + encodeURIComponent(params[key]);
+	}).join("&");
+}
+
 class FlightCard extends HTMLElement
 {
 	constructor()
@@ -76,10 +83,10 @@ class FlightCard extends HTMLElement
 		{
 			fetch(`api/precheckout`, {
 				headers: {
-					"Content-Type": "application/json"
+					"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
 				},
 				method: "POST",
-				body: JSON.stringify({flight: this._id})
+				body: formEncode({flight: this._id})
 			})
 				.then((r) => {
 					if (r.status !== 200)

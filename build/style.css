@@ -7,6 +7,11 @@ html {
     font-size: 12px;
   }
 }
+@media only screen and (min-device-width: 2560px) {
+  html {
+    font-size: 20px;
+  }
+}
 
 body {
   margin: 0;
@@ -288,7 +293,7 @@ body {
 .card .info {
   position: absolute;
   bottom: 15%;
-  left: 130px;
+  left: 8.125rem;
   animation-fill-mode: forwards;
 }
 .card .info h1, .card .info h2 {
@@ -299,12 +304,12 @@ body {
   white-space: nowrap;
 }
 .card .info h1 {
-  font-size: 90px;
+  font-size: 5.625rem;
   margin-bottom: 10px;
   font-weight: 500;
 }
 .card .info h2 {
-  font-size: 40px;
+  font-size: 2.5rem;
   text-transform: lowercase;
   font-weight: 400;
 }
@@ -323,11 +328,11 @@ body {
 }
 @keyframes info-slide {
   from {
-    left: 50px;
+    left: 3.125rem;
     opacity: 0;
   }
   to {
-    left: 130px;
+    left: 8.125rem;
     opacity: 1;
   }
 }

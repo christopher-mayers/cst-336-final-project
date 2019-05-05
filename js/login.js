@@ -6,6 +6,13 @@ function template(id)
 	return document.importNode(t.content, true)
 }
 
+function formEncode(params)
+{
+	return Object.keys(params).map((key) => {
+		return encodeURIComponent(key) + "=" + encodeURIComponent(params[key]);
+	}).join("&");
+}
+
 class LoginForm extends HTMLElement
 {
 	constructor()
@@ -54,8 +61,10 @@ class LoginForm extends HTMLElement
 
 			fetch("api/login", {
 				method: "POST",
-				headers: {"Content-Type": "application/json"},
-				body: JSON.stringify(data)
+				headers: {
+					"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+				},
+				body: formEncode(data)
 			})
 				.then((r) => r.json())
 				.then((r) =>
@@ -130,8 +139,10 @@ class RegisterForm extends HTMLElement
 
 			fetch("api/register", {
 				method: "POST",
-				headers: {"Content-Type": "application/json"},
-				body: JSON.stringify(data)
+				headers: {
+					"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+				},
+				body: formEncode(data)
 			})
 				.then((r) => r.json())
 				.then((r) =>

@@ -306,7 +306,7 @@ $picker-header: calc(8px + (15 - 8) * ((100vw - 300px) / (1920 - 300)));
 	.info {
 		position: absolute;
 		bottom: 15%;
-		left: 130px;
+		left: rem(130px);
 		animation-fill-mode: forwards;
 
 		h1, h2 {
@@ -318,13 +318,13 @@ $picker-header: calc(8px + (15 - 8) * ((100vw - 300px) / (1920 - 300)));
 		}
 
 		h1 {
-			font-size: 90px;
+			font-size: rem(90px);
 			margin-bottom: 10px;
 			font-weight: 500;
 		}
 
 		h2 {
-			font-size: 40px;
+			font-size: rem(40px);
 			text-transform: lowercase;
 			font-weight: 400;
 		}
@@ -347,12 +347,12 @@ $picker-header: calc(8px + (15 - 8) * ((100vw - 300px) / (1920 - 300)));
 
 @keyframes info-slide {
 	from {
-		left: 50px;
+		left: rem(50px);
 		opacity: 0;
 	}
 
 	to {
-		left: 130px;
+		left: rem(130px);
 		opacity: 1;
 	}
 }
