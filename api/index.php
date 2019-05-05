@@ -60,8 +60,24 @@ $router->with('/flights', function() use ($router)
 		 * @var \Klein\App $app
 		 */
 
-		$query = "SELECT destination, price FROM valkyrie_flights ORDER BY RAND() LIMIT 1;";
+		$query = "
+		SELECT destination, price FROM valkyrie_flights
+		ORDER BY RAND() LIMIT 1;
+		";
 		$stmt = $app->db->pdo->prepare($query);
+		$stmt->execute();
+
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		$query = "
+			SELECT flights.destination, flights.price FROM valkyrie_flights AS flights
+			WHERE
+			      flights.price = (SELECT MIN(price) FROM valkyrie_flights WHERE destination = :destination)
+			  AND
+			      flights.destination = :destination;
+		";
+		$stmt = $app->db->pdo->prepare($query);
+		$stmt->bindValue(":destination", $row["destination"]);
 		$stmt->execute();
 
 		$response->json($stmt->fetch(PDO::FETCH_ASSOC));
@@ -176,7 +192,10 @@ $router->respond("POST", "/login", function($request, $response, $service, $app)
 
 	session_start();
 
-	if (!($request->param("email", false) && $request->param("password", false)))
+	$email = $request->server()->get("PHP_AUTH_USER");
+	$password = $request->server()->get("PHP_AUTH_PW");
+
+	if (!($email && $password))
 	{
 		$response->code(400);
 		$response->json(["status" => "error"]);
@@ -186,9 +205,6 @@ $router->respond("POST", "/login", function($request, $response, $service, $app)
 
 	/** @var \Valkyrie\DB\Dao\UserDao $userDao */
 	$userDao = $app->db->userDao;
-
-	$email = $request->param("email");
-	$password = $request->param("password");
 
 	$user = $userDao->findByEmail($email);
 
@@ -233,7 +249,10 @@ $router->respond("POST", "/register", function($request, $response, $service, $a
 
 	session_start();
 
-	if (!($request->param("name", false) && $request->param("email", false) && $request->param("password", false)))
+	$email = $request->server()->get("PHP_AUTH_USER");
+	$password = $request->server()->get("PHP_AUTH_PW");
+
+	if (!($request->param("name", false) && $email && $password))
 	{
 		$response->code(400); // Bad Request
 		$response->json(["status" => "error"]);
@@ -247,8 +266,6 @@ $router->respond("POST", "/register", function($request, $response, $service, $a
 	$fullName = explode(" ", $request->param("name"));
 	$firstName = $fullName[0];
 	$lastName = join(" ", array_slice($fullName, 1));
-	$email = $request->param("email");
-	$password = $request->param("password");
 
 	$user = $userDao->findByEmail($email);
 

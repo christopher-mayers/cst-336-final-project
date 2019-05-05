@@ -57,14 +57,11 @@ class LoginForm extends HTMLElement
 				return
 			}
 
-			const data = {email, password}
-
 			fetch("api/login", {
 				method: "POST",
 				headers: {
-					"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
-				},
-				body: formEncode(data)
+					"Authorization": "Basic " + btoa(email + ":" + password),
+				}
 			})
 				.then((r) => r.json())
 				.then((r) =>
@@ -135,11 +132,12 @@ class RegisterForm extends HTMLElement
 				return
 			}
 
-			const data = {name, email, password}
+			const data = {name}
 
 			fetch("api/register", {
 				method: "POST",
 				headers: {
+					"Authorization": "Basic " + btoa(email + ":" + password),
 					"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
 				},
 				body: formEncode(data)
