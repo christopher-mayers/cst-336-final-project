@@ -60,20 +60,7 @@ $arr2 = json_decode($arr, true);
             echo ("<hr>");
             echo ("<br>");
         }
-        
-        /*
-        
-        'id' => 
-      'origin' => 
-      'destination' 
-      'boardingTime'
-      'departureTime'
-      'arrivalTime' 
-      'seats' 
-      'price' 
-        
-        */
-        
+    
         ?></h1>
         
         <form method="POST" action="flights.php"/>
