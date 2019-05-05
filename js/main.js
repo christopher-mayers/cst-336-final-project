@@ -53,13 +53,32 @@ function addCard(title, subtitle, image)
 	}, carouselMilli);
 }
 
+let ready = true
 
 setInterval(function()
 {
-	let rand = imageData[random(0, imageData.length - 1)].url
+	if (!document.hasFocus())
+		return
 
-	addCard("San Pedro", "from $500", rand);
-}, 5000);
+	if (!ready)
+		return
+
+	fetch("api/flights/random")
+		.then((r) => r.json())
+		.then((r) => {
+			ready = false
+
+			let image = new Image()
+			image.onload = function()
+			{
+				addCard(r.destination, "from $" + Math.floor(Number(r.price)), this.src);
+
+				ready = true
+			}
+			image.src = r.img
+			image = null
+		})
+}, 8000);
 
 for (let obj of document.querySelectorAll(".picker .field input"))
 {

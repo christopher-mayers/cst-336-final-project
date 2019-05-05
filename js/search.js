@@ -6,6 +6,13 @@ function template(id)
 	return document.importNode(t.content, true)
 }
 
+function formEncode(params)
+{
+	return Object.keys(params).map((key) => {
+		return encodeURIComponent(key) + "=" + encodeURIComponent(params[key]);
+	}).join("&");
+}
+
 class FlightCard extends HTMLElement
 {
 	constructor()
@@ -15,6 +22,7 @@ class FlightCard extends HTMLElement
 		this.content = template("flight-card")
 		this._index = 0
 		this._price = 0
+		this._id = 0
 		this._departureTime = "0000-00-00 00:00:00"
 		this._arrivalTime = "0000-00-00 00:00:00"
 	}
@@ -75,10 +83,10 @@ class FlightCard extends HTMLElement
 		{
 			fetch(`api/precheckout`, {
 				headers: {
-					"Content-Type": "application/json"
+					"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
 				},
 				method: "POST",
-				body: JSON.stringify({flight: this.id})
+				body: formEncode({flight: this._id})
 			})
 				.then((r) => {
 					if (r.status !== 200)
@@ -169,15 +177,15 @@ function populate(from, to, time, target)
 
 			for (let flight of r)
 			{
-				const departure = flight.departureTime,
-				      arrival   = flight.arrivalTime
+				const departure = flight.departureTime.date,
+				      arrival   = flight.arrivalTime.date
 
 				const card         = new FlightCard()
 				card.index         = i
 				card.price         = flight.price
 				card.departureTime = departure
 				card.arrivalTime   = arrival
-				card.id            = flight.id
+				card._id            = flight.id
 
 				target.appendChild(card)
 

@@ -1,0 +1,259 @@
+@import "config.scss";
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
+
+$nav-text-size: 1.125rem;
+$header-size: 14px;
+$name-size: 24px;
+$sub-header-size: 15px;
+
+$gutter-width: rem(140px);
+$gutter-anchor: rem(30px);
+$control-height: rem(230px);
+$date-filter-gutter: rem(34px);
+
+$info-size: 60%;
+
+$filter-margin: $date-filter-gutter - rem($sub-header-size) * 1.6;
+
+body {
+	background-color: $dimwhite;
+	overflow: hidden;
+}
+
+header {
+	position: relative;
+	background-color: $sky;
+	height: $control-height;
+	display: flex;
+	flex-direction: row;
+	box-sizing: border-box;
+
+	h1 {
+		margin: rem(40px) rem(75px);
+		font-family: "Roboto", sans-serif;
+		font-weight: 400;
+		font-style: normal;
+		color: $white;
+		align-self: flex-end;
+	}
+}
+
+.gutter {
+	width: $gutter-width;
+	position: relative;
+
+	.nav {
+		position: absolute;
+		top: calc(#{$control-height / 4} - #{rem(14px)});
+		display: inline-block;
+		right: $gutter-anchor;
+		@include text-size($header-size);
+
+		svg {
+			display: block;
+			cursor: pointer;
+			height: rem(28px);
+			width: auto;
+		}
+
+		path {
+			fill: $white;
+		}
+	}
+}
+
+.flight-list {
+	height: calc(100vh - #{$control-height});
+	width: 100%;
+}
+
+flight-card {
+	margin-bottom: rem(10px);
+	height: rem(200px);
+	background-color: $white;
+	display: flex;
+	flex-direction: row;
+
+	.card-button {
+		width: (100% - $info-size) / 2.5;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: 0 $date-filter-gutter;
+		box-sizing: border-box;
+		cursor: pointer;
+
+		&:hover {
+			background: #ED213A;  /* fallback for old browsers */
+			background: -webkit-linear-gradient(to right, #c61c17, #ED213A);  /* Chrome 10-25, Safari 5.1-6 */
+			background: linear-gradient(to right, #C61C17, #ED213A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+			.button-header {
+				color: $white;
+			}
+
+			.button-price {
+				color: $white;
+
+				.arrow path {
+					fill: $white;
+				}
+			}
+		}
+
+		.button-price {
+			height: 70%;
+			display: flex;
+			align-items: center;
+			font-family: "Roboto", sans-serif;
+			font-weight: 400;
+			@include text-size(24px);
+			position: relative;
+			color: #d91e18;
+
+			.price-content {
+				font-size: inherit;
+				width: 100%;
+				display: inline-block;
+				overflow-wrap: break-word;
+			}
+
+			.arrow {
+				position: absolute;
+				right: 0;
+				transform: rotate(180deg);
+
+				svg {
+					display: block;
+					width: auto;
+					height: 1em;
+
+					path {
+						fill: #d91e18;
+					}
+				}
+			}
+		}
+	}
+}
+
+.card-table {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	width: $info-size;
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+
+	.card-info {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		height: 30%;
+		box-sizing: border-box;
+		border-bottom: 2px solid rgba(0, 0, 0, 0.03);
+		width: 100%;
+	}
+
+	.card-header {
+		display: flex;
+		font-family: "Roboto", sans-serif;
+		font-weight: 400;
+		color: $hint;
+	}
+
+	.card-body {
+		height: 70%;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		position: relative;
+		margin-left: $gutter-width;
+	}
+
+	.card-data {
+		display: flex;
+		font-family: "Roboto", sans-serif;
+		font-weight: 400;
+		color: $slate;
+		@include text-size(28px);
+	}
+
+	.card-number {
+		width: $gutter-width;
+
+		> span {
+			margin-left: auto;
+			margin-right: $gutter-anchor;
+			text-align: right;
+		}
+	}
+
+	.card-airline {
+		width: calc((100% - #{$gutter-width}) / 2);
+
+		> span {
+			margin-left: 22.5%;
+		}
+	}
+
+	.card-time {
+		width: calc((100% - #{$gutter-width}) / 2);
+
+		.card-time-container {
+			padding: 0.2em 0.3em;
+			border: rem(2px) solid fade_out($hint, 0.5);
+			margin-left: 22.5%;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+
+			> svg {
+				display: block;
+				height: 1em;
+				width: auto;
+
+				path {
+					fill: $hint;
+				}
+			}
+
+			> span {
+				margin-left: 0.3em;
+			}
+		}
+	}
+
+	.card-departure {
+		width: 50%;
+
+		> span {
+			margin-left: 22.5%;
+		}
+	}
+
+	.card-decor {
+		position: absolute;
+		left: calc(#{25% + 11.25%} + #{(rem(69px) / 2)});
+		transform: translateX(-50%);
+		width: calc(35% - #{rem(69px)});
+		//background-image: linear-gradient(to right, $sky 10%, transparent 0%);
+		//background-position: bottom;
+		//background-size: rem(30px) rem(30px);
+		//background-repeat: repeat-x;
+		border-bottom-style: dotted;
+		border-bottom-color: $sky;
+		border-bottom-width: 4px;
+		height: 1px;
+	}
+
+	.card-arrival {
+		width: 50%;
+
+		> span {
+			margin-left: 22.5%;
+		}
+	}
+}

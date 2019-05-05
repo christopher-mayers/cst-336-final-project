@@ -62,9 +62,6 @@ if ($auth)
 				</span>
 				<ul>
 					<li>
-						<a class="navlink">Book & Manage</a>
-					</li>
-					<li>
 						<a class="navlink">Prepare</a>
 					</li>
 				</ul>
@@ -79,7 +76,7 @@ if ($auth)
 					</svg>
 				</span>
 				<div class="dropdown-content">
-					<a href="booked.php">Manage Bookings</a>
+					<a href="bookings.php">Manage Bookings</a>
 					<a href="#" name="logout">Logout</a>
 				</div>
 				<?php else: ?>
@@ -91,8 +88,8 @@ if ($auth)
 		<div class="carousel">
 			<div class="card starter">
 				<div class="info">
-					<h1>Scotland</h1>
-					<h2>from $599</h2>
+					<h1>Valkyrie Air</h1>
+					<h2>flights, simplified</h2>
 				</div>
 			</div>
 		</div>

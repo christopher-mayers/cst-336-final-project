@@ -9,6 +9,7 @@ pay.addEventListener("click", function(e)
 	})
 		.then((r) => r.json())
 		.then((r) => {
-			console.log(r.status)
+			if (r.status === "accepted")
+				window.location = "bookings.php"
 		})
 })

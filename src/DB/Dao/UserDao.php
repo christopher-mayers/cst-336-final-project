@@ -5,6 +5,7 @@
 namespace Valkyrie\DB\Dao;
 
 use PDO;
+use Valkyrie\DB\Entity\Flight;
 use Valkyrie\DB\Entity\User;
 
 /**
@@ -34,14 +35,34 @@ class UserDao
 	 */
 	public function find($id)
 	{
-		$query = "SELECT * FROM {$this->table} WHERE id=:id LIMIT 1";
+		$query = "
+		SELECT * FROM {$this->table}
+		WHERE id=:id LIMIT 1;
+		";
 
 		$stmt = $this->pdo->prepare($query);
 		$stmt->bindParam(":id", $id);
 		$stmt->execute();
 		$stmt->setFetchMode(PDO::FETCH_CLASS, User::class);
 
-		return $stmt->fetch();
+		$result = $stmt->fetch();
+
+		if ($result)
+		{
+			$query = "
+			SELECT flights.* FROM valkyrie_flights flights
+			INNER JOIN valkyrie_bookings b ON b.flight = flights.id
+			WHERE b.user=:id;
+			";
+
+			$stmt = $this->pdo->prepare($query);
+			$stmt->bindParam(":id", $id);
+			$stmt->execute();
+
+			$result->flights = $stmt->fetchAll(PDO::FETCH_CLASS, Flight::class);
+		}
+
+		return $result;
 	}
 
 	/**
@@ -57,7 +78,24 @@ class UserDao
 		$stmt->execute();
 		$stmt->setFetchMode(PDO::FETCH_CLASS, User::class);
 
-		return $stmt->fetch();
+		$result = $stmt->fetch();
+
+		if ($result)
+		{
+			$query = "
+			SELECT flights.* FROM valkyrie_flights flights
+			INNER JOIN valkyrie_bookings b ON b.flight = flights.id
+			WHERE b.user=:id;
+			";
+
+			$stmt = $this->pdo->prepare($query);
+			$stmt->bindParam(":id", $result->id);
+			$stmt->execute();
+
+			$result->flights = $stmt->fetchAll(PDO::FETCH_CLASS, Flight::class);
+		}
+
+		return $result;
 	}
 
 	/**
@@ -74,7 +112,27 @@ class UserDao
 		$stmt->execute();
 		$stmt->setFetchMode(PDO::FETCH_CLASS, User::class);
 
-		return $stmt->fetchAll(PDO::FETCH_CLASS);
+		$results = $stmt->fetchAll(PDO::FETCH_CLASS, User::class);
+
+		if (!empty($results))
+		{
+			foreach ($results as $user)
+			{
+				$query = "
+				SELECT flights.* FROM valkyrie_flights flights
+				INNER JOIN valkyrie_bookings b ON b.flight = flights.id
+				WHERE b.user=:id;
+				";
+
+				$stmt = $this->pdo->prepare($query);
+				$stmt->bindParam(":id", $user->id);
+				$stmt->execute();
+
+				$user->flights = $stmt->fetchAll(PDO::FETCH_CLASS, Flight::class);
+			}
+		}
+
+		return $results;
 	}
 
 	/**

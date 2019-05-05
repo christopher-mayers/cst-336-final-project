@@ -295,6 +295,7 @@ $picker-header: calc(8px + (15 - 8) * ((100vw - 300px) / (1920 - 300)));
 	background-image: url("https://camo.githubusercontent.com/28a47bf388bfcd75ca73cefaf3c63f9a6fdb73fc/68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f2d486643596e4362707177772f557331484e744e7a3030492f41414141414141416b46452f554a4368443762626d6d302f73313932302d77313932302d68313038302d632f4453435f303533372d456469742d456469742d456469742d456469742d456469742d456469742e4a5047");
 	background-repeat: no-repeat;
 	background-size: cover;
+	background-position: center center;
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -306,7 +307,7 @@ $picker-header: calc(8px + (15 - 8) * ((100vw - 300px) / (1920 - 300)));
 	.info {
 		position: absolute;
 		bottom: 15%;
-		left: 130px;
+		left: rem(130px);
 		animation-fill-mode: forwards;
 
 		h1, h2 {
@@ -318,13 +319,13 @@ $picker-header: calc(8px + (15 - 8) * ((100vw - 300px) / (1920 - 300)));
 		}
 
 		h1 {
-			font-size: 90px;
+			font-size: rem(90px);
 			margin-bottom: 10px;
 			font-weight: 500;
 		}
 
 		h2 {
-			font-size: 40px;
+			font-size: rem(40px);
 			text-transform: lowercase;
 			font-weight: 400;
 		}
@@ -347,12 +348,12 @@ $picker-header: calc(8px + (15 - 8) * ((100vw - 300px) / (1920 - 300)));
 
 @keyframes info-slide {
 	from {
-		left: 50px;
+		left: rem(50px);
 		opacity: 0;
 	}
 
 	to {
-		left: 130px;
+		left: rem(130px);
 		opacity: 1;
 	}
 }
