@@ -9,59 +9,117 @@ $request = \Klein\Request::createFromGlobals();
 $uri = $request->server()->get('REQUEST_URI');
 $request->server()->set('REQUEST_URI', rtrim(substr($uri, strlen(APP_PATH)), "/"));
 
+use Klein\App;
 use Klein\Klein;
+use Klein\Request;
+use Klein\Response;
+use Klein\ServiceProvider;
 use Valkyrie\DB\Database;
 use Valkyrie\DB\Entity\User;
 
+function GET($url, $options = null)
+{
+	$defaultHeader = "Content-type: application/x-www-form-urlencoded\r\n";
+
+	if ($options === null)
+		$options = [];
+
+	$header = isset($options["header"]) ? $options["header"] : $defaultHeader;
+	$queryString = isset($options["data"]) ? "?" . http_build_query($options["data"]) : "";
+
+	$model = [
+		"http" => [
+			"header" => $header,
+			"method" => "GET",
+		]
+	];
+
+	$context = stream_context_create($model);
+
+	return file_get_contents($url . $queryString, false, $context);
+}
+
 $router = new Klein();
 
-$router->respond(function($request, $response, $service, $app)
+$router->respond(function(Request $request, Response $response, ServiceProvider $service, App $app)
 {
-	/**
-	 * @var \Klein\Request $request
-	 * @var \Klein\Response $response
-	 * @var \Klein\ServiceProvider $service
-	 * @var \Klein\App $app
-	 */
-
 	$app->register("db", function()
 	{
 		return new Database();
 	});
 
-	if ($request->headers()->get('Content-Type') === "application/json" && in_array($request->method(), ['PUT', 'POST', 'DELETE']))
+//	if ($request->headers()->get('Content-Type') === "application/json" && in_array($request->method(), ['PUT', 'POST', 'DELETE']))
+//	{
+//		$request->paramsPost()->merge(json_decode($request->body(), true));
+//	}
+});
+
+$router->respond("GET", "/photo/[:city]",
+function(Request $request, Response $response, ServiceProvider $service, App $app)
+{
+	if (!$request->city)
 	{
-		$request->paramsPost()->merge(json_decode($request->body(), true));
+		$response->code(400);
+
+		return;
+	}
+
+	$result = GET("https://api.flickr.com/services/rest", [
+		"data" => [
+			"method" => "flickr.photos.search",
+			"api_key" => "2bc0c21f9891f277dda56abd8271d28c",
+			"content_type" => "1",
+			"media" => "photos",
+			"per_page" => 1,
+			"format" => "json",
+			"safe_search" => 1,
+			"tags" => $request->city,
+			"nojsoncallback" => 1
+		]
+	]);
+
+	$data = json_decode($result, true);
+
+	$id = $data["photos"]["photo"][0]["id"];
+
+	$result = GET("https://api.flickr.com/services/rest", [
+		"data" => [
+			"method" => "flickr.photos.getSizes",
+			"api_key" => "2bc0c21f9891f277dda56abd8271d28c",
+			"photo_id" => $id,
+			"format" => "json",
+			"nojsoncallback" => 1
+		]
+	]);
+
+	$data = json_decode($result, true);
+
+	$sizes = $data["sizes"]["size"];
+
+	foreach ($sizes as $obj)
+	{
+		if ($obj["label"] === "Large 1600")
+		{
+			$response->json(["img" => $obj["source"]]);
+		}
 	}
 });
 
 $router->with('/flights', function() use ($router)
 {
-	$router->respond("GET", '/?', function($request, $response, $service, $app)
+	$router->respond("GET", '/?',
+	function(Request $request, Response $response, ServiceProvider $service, App $app)
 	{
-		/**
-		 * @var \Klein\Request $request
-		 * @var \Klein\Response $response
-		 * @var \Klein\ServiceProvider $service
-		 * @var \Klein\App $app
-		 */
-
 		$dao = $app->db->flightDao;
 
 		$response->json($dao->findAll());
 	});
 
-	$router->respond("GET", '/random', function($request, $response, $service, $app)
+	$router->respond("GET", '/random',
+	function(Request $request, Response $response, ServiceProvider $service, App $app)
 	{
-		/**
-		 * @var \Klein\Request $request
-		 * @var \Klein\Response $response
-		 * @var \Klein\ServiceProvider $service
-		 * @var \Klein\App $app
-		 */
-
 		$query = "
-		SELECT destination, price FROM valkyrie_flights
+		SELECT DISTINCT destination, price FROM valkyrie_flights
 		ORDER BY RAND() LIMIT 1;
 		";
 		$stmt = $app->db->pdo->prepare($query);
@@ -80,18 +138,50 @@ $router->with('/flights', function() use ($router)
 		$stmt->bindValue(":destination", $row["destination"]);
 		$stmt->execute();
 
-		$response->json($stmt->fetch(PDO::FETCH_ASSOC));
+		$output = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		$result = GET("https://api.flickr.com/services/rest", [
+			"data" => [
+				"method" => "flickr.photos.search",
+				"api_key" => "2bc0c21f9891f277dda56abd8271d28c",
+				"content_type" => "1",
+				"media" => "photos",
+				"per_page" => 100,
+				"format" => "json",
+				"text" => $row["destination"],
+				"sort" => "interestingness-desc",
+				"nojsoncallback" => 1
+			]
+		]);
+
+		$data = json_decode($result, true);
+
+		shuffle($data["photos"]["photo"]);
+
+		$id = $data["photos"]["photo"][0]["id"];
+
+		$result = GET("https://api.flickr.com/services/rest", [
+			"data" => [
+				"method" => "flickr.photos.getSizes",
+				"api_key" => "2bc0c21f9891f277dda56abd8271d28c",
+				"photo_id" => $id,
+				"format" => "json",
+				"nojsoncallback" => 1
+			]
+		]);
+
+		$data = json_decode($result, true);
+
+		$sizes = $data["sizes"]["size"];
+
+		$output["img"] = end($sizes)["source"];
+
+		$response->json($output);
 	});
 
-	$router->respond("GET", "/search/?", function($request, $response, $service, $app)
+	$router->respond("GET", "/search/?",
+	function(Request $request, Response $response, ServiceProvider $service, App $app)
 	{
-		/**
-		 * @var \Klein\Request $request
-		 * @var \Klein\Response $response
-		 * @var \Klein\ServiceProvider $service
-		 * @var \Klein\App $app
-		 */
-
 		$origin = $request->param("origin", false);
 		$destination = $request->param("destination", false);
 		$date = $request->param("time", false);
@@ -131,30 +221,18 @@ $router->with('/flights', function() use ($router)
 		}
 	});
 
-	$router->respond("GET", '/[i:id]', function($request, $response, $service, $app)
+	$router->respond("GET", '/[i:id]',
+	function(Request $request, Response $response, ServiceProvider $service, App $app)
 	{
-		/**
-		 * @var \Klein\Request $request
-		 * @var \Klein\Response $response
-		 * @var \Klein\ServiceProvider $service
-		 * @var \Klein\App $app
-		 */
-
 		$dao = $app->db->flightDao;
 
-		$response->json($dao->find($request->param("id")));
+		$response->json($dao->find($request->id));
 	});
 });
 
-$router->respond("POST", "/logout", function($request, $response, $service, $app)
+$router->respond("POST", "/logout",
+function(Request $request, Response $response, ServiceProvider $service, App $app)
 {
-	/**
-	 * @var \Klein\Request $request
-	 * @var \Klein\Response $response
-	 * @var \Klein\ServiceProvider $service
-	 * @var \Klein\App $app
-	 */
-
 	session_start();
 
 	if (isset($_SESSION["userid"]))
@@ -181,15 +259,9 @@ $router->respond("POST", "/logout", function($request, $response, $service, $app
 	session_destroy();
 });
 
-$router->respond("POST", "/login", function($request, $response, $service, $app)
+$router->respond("POST", "/login",
+function(Request $request, Response $response, ServiceProvider $service, App $app)
 {
-	/**
-	 * @var \Klein\Request $request
-	 * @var \Klein\Response $response
-	 * @var \Klein\ServiceProvider $service
-	 * @var \Klein\App $app
-	 */
-
 	session_start();
 
 	$email = $request->server()->get("PHP_AUTH_USER");
@@ -238,15 +310,9 @@ $router->respond("POST", "/login", function($request, $response, $service, $app)
 	}
 });
 
-$router->respond("POST", "/register", function($request, $response, $service, $app)
+$router->respond("POST", "/register",
+function(Request $request, Response $response, ServiceProvider $service, App $app)
 {
-	/**
-	 * @var \Klein\Request $request
-	 * @var \Klein\Response $response
-	 * @var \Klein\ServiceProvider $service
-	 * @var \Klein\App $app
-	 */
-
 	session_start();
 
 	$email = $request->server()->get("PHP_AUTH_USER");
@@ -300,15 +366,9 @@ $router->respond("POST", "/register", function($request, $response, $service, $a
 		$response->json(["status" => "accepted"]);
 });
 
-$router->respond("POST", "/precheckout", function($request, $response, $service, $app)
+$router->respond("POST", "/precheckout",
+function(Request $request, Response $response, ServiceProvider $service, App $app)
 {
-	/**
-	 * @var \Klein\Request $request
-	 * @var \Klein\Response $response
-	 * @var \Klein\ServiceProvider $service
-	 * @var \Klein\App $app
-	 */
-
 	session_start();
 
 	$flightDao = $app->db->flightDao;
@@ -326,7 +386,8 @@ $router->respond("POST", "/precheckout", function($request, $response, $service,
 	$_SESSION["checkout"] = $flightId;
 });
 
-$router->respond("POST", "/checkout", function($request, $response, $service, $app)
+$router->respond("POST", "/checkout",
+function(Request $request, Response $response, ServiceProvider $service, App $app)
 {
 	/**
 	 * @var \Klein\Request $request
@@ -381,7 +442,8 @@ $router->respond("POST", "/checkout", function($request, $response, $service, $a
 	\Valkyrie\DB\Logger::log("purchase", "(" . $user->email . ":" . $user->id . ") purchased ticket for flight " . $flightId);
 });
 
-$router->respond("POST", "/cancel", function($request, $response, $service, $app)
+$router->respond("POST", "/cancel",
+function(Request $request, Response $response, ServiceProvider $service, App $app)
 {
 	/**
 	 * @var \Klein\Request $request

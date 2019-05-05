@@ -53,17 +53,32 @@ function addCard(title, subtitle, image)
 	}, carouselMilli);
 }
 
+let ready = true
 
 setInterval(function()
 {
-	let rand = imageData[random(0, imageData.length - 1)].url
+	if (!document.hasFocus())
+		return
+
+	if (!ready)
+		return
 
 	fetch("api/flights/random")
 		.then((r) => r.json())
 		.then((r) => {
-			addCard(r.destination, "from $" + Math.floor(Number(r.price)), rand);
+			ready = false
+
+			let image = new Image()
+			image.onload = function()
+			{
+				addCard(r.destination, "from $" + Math.floor(Number(r.price)), this.src);
+
+				ready = true
+			}
+			image.src = r.img
+			image = null
 		})
-}, 5000);
+}, 8000);
 
 for (let obj of document.querySelectorAll(".picker .field input"))
 {
