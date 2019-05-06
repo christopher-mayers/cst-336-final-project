@@ -19,8 +19,17 @@ if (!isset ($_SESSION['username']))
         <script src="https://cdn.rawgit.com/FreddyFY/material-datepicker/1.0.6/dist/material-datepicker.min.js" type="text/javascript"></script>
         <script type="text/javascript" src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-      <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/FreddyFY/material-datepicker/1.0.6/dist/material-datepicker.css">
-      <script type="text/javascript" src="https://cdn.rawgit.com/FreddyFY/material-datepicker/1.0.6/dist/material-datepicker.min.js"></script>    
+        <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/FreddyFY/material-datepicker/1.0.6/dist/material-datepicker.css">
+        <script type="text/javascript" src="https://cdn.rawgit.com/FreddyFY/material-datepicker/1.0.6/dist/material-datepicker.min.js"></script>
+        <link rel="apple-touch-icon" sizes="180x180" href="/icon/apple-touch-icon.png">
+    	<link rel="icon" type="image/png" sizes="32x32" href="/icon/favicon-32x32.png">
+    	<link rel="icon" type="image/png" sizes="16x16" href="/icon/favicon-16x16.png">
+    	<link rel="manifest" href="/icon/site.webmanifest">
+    	<link rel="mask-icon" href="/icon/safari-pinned-tab.svg" color="#406abc">
+    	<link rel="shortcut icon" href="/icon/favicon.ico">
+    	<meta name="msapplication-TileColor" content="#f2f5fb">
+    	<meta name="msapplication-config" content="/icon/browserconfig.xml">
+    	<meta name="theme-color" content="#406abc">
     </head>
     <body>
 
