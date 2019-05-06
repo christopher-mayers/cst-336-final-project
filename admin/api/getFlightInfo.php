@@ -10,7 +10,7 @@ if (!isset ($_SESSION['username']))
 require "../../vendor/autoload.php";
 
 use Valkyrie\DB\Dao\FlightDao;
-use Valkyrie\DB\entity\flight;
+use Valkyrie\DB\Entity\Flight;
 use Valkyrie\DB\Database;
 
 $flight = new Flight();

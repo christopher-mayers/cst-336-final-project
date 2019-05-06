@@ -11,7 +11,7 @@ require "../../vendor/autoload.php";
     
 use Valkyrie\DB\Dao\FlightDao;
 use Valkyrie\DB\Database;
-use Valkyrie\DB\entity\flight;
+use Valkyrie\DB\Entity\Flight;
 
 $database = new Database;
 
