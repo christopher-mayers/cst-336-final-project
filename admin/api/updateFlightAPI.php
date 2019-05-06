@@ -15,8 +15,9 @@ use Valkyrie\DB\Entity\Flight;
 
 $database = new Database;
 
-$dao = $database->flightDao;
+$dao = $database->FlightDao;
 
+$flightNum = $_POST['flightNum'];
 $origin = $_POST['origin'];
 $destination = $_POST['destination'];
 $boardingTime = $_POST['boardingTime'];
@@ -33,6 +34,7 @@ $departureDay .= " " . $departureTime;
 $arrivalDay .= " " . $arrivalTime;
 
 $flight = new Flight();
+$flight->id = $flightNum;
 $flight->origin = $origin;
 $flight->destination = $destination;
 $flight->seats = $seats;
@@ -41,6 +43,6 @@ $flight->departureTime = new DateTime($departureDay);
 $flight->arrivalTime = new DateTime($arrivalDay);
 $flight->price= $price;
 
-$dao->save($flight);
+$dao->update($flight);
 
 ?>

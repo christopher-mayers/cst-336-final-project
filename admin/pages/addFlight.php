@@ -33,8 +33,7 @@ if (!isset ($_SESSION['username']))
       'seats' 
       'price'*/ ?>
       
-        <input type="text" id = "hold" style="visibility: hidden"></input>
-        
+      
         <br>
       
         Origin: <input type="text" id="origin"/><br>
@@ -48,7 +47,7 @@ if (!isset ($_SESSION['username']))
             <br>
             
         </div>
-        Boarding Time: <input type="text" id="boardingTime"/><br>
+        Boarding Time: <input type="text" id="boardingTime"/> (Use 24 Hour Time) <br> 
         
         <br></br>
         
@@ -58,7 +57,7 @@ if (!isset ($_SESSION['username']))
             <br>
             
         </div>
-        Departure Time: <input type="text" id="departureTime"/><br>
+        Departure Time: <input type="text" id="departureTime"/> (Use 24 Hour Time)<br> 
         
         <br></br>
         
@@ -68,7 +67,7 @@ if (!isset ($_SESSION['username']))
             <br>
             
         </div>
-        Arrival Time: <input type="text" id="arrivalTime"/><br>
+        Arrival Time: <input type="text" id="arrivalTime"/> (Use 24 Hour Time)<br> 
         
         <br></br>
         
@@ -104,21 +103,14 @@ if (!isset ($_SESSION['username']))
             
             $("#boardingDay").on("click", function(){
                 
-                var monthpicker1 = new MaterialDatepicker('input', {
+                var monthpicker1 = new MaterialDatepicker('#displayBoardingDay', {
                     lang: 'en',
                     orientation: 'portrait',
                     theme: 'light',
                     color: 'red',
                     outputFormat: 'YYYY-MM-DD',
-                    outputElment: '#displayBoardingDay',
+                    outputElement: '#displayBoardingDay',
                     date: new Date,
-                    onChange: function()
-                    {
-                        
-                        $("#displayBoardingDay").html($("#hold").val())
-                        
-                    }
-                 
                 });
                 
                 monthpicker1.open();
@@ -127,19 +119,14 @@ if (!isset ($_SESSION['username']))
             
             $("#departureDay").on("click", function(){
                 
-                var monthpicker2 = new MaterialDatepicker('input', {
+                var monthpicker2 = new MaterialDatepicker('#displayDepartureDay', {
                     lang: 'en',
                     orientation: 'portrait',
                     theme: 'light',
                     color: 'red',
                     outputFormat: 'YYYY-MM-DD',
-                    outputElment: '#displayDepartureDay',
+                    outputElement: '#displayDepartureDay',
                     date: new Date,
-                    onChange: function()
-                    {
-                        $("#displayDepartureDay").html($("#hold").val())
-                    }
-                 
                 });
                 
                 monthpicker2.open();
@@ -148,19 +135,14 @@ if (!isset ($_SESSION['username']))
             
             $("#arrivalDay").on("click", function(){
                 
-                var monthpicker3 = new MaterialDatepicker('input', {
+                var monthpicker3 = new MaterialDatepicker('#displayArrivalDay', {
                     lang: 'en',
                     orientation: 'portrait',
                     theme: 'light',
                     color: 'red',
                     outputFormat: 'YYYY-MM-DD',
-                    outputElment: '#displayArrivalDay',
+                    outputElement: '#displayArrivalDay',
                     date: new Date,
-                    onChange: function()
-                    {
-                        $("#displayArrivalDay").html($("#hold").val())
-                    }
-                 
                 });
                 
                 monthpicker3.open();
@@ -184,7 +166,7 @@ if (!isset ($_SESSION['username']))
                 $.ajax({
 
                     method: "POST",
-                    url: "addFlightAPI.php",
+                    url: "../api/addFlightAPI.php",
                     dataType: "json",
                     data: { "origin": origin,
                             "destination" : destination,
