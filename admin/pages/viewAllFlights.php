@@ -10,7 +10,7 @@ require "../../vendor/autoload.php";
     
 use Valkyrie\DB\Dao\FlightDao;
 use Valkyrie\DB\Database;
-use Valkyrie\DB\entity\flight;
+use Valkyrie\DB\Entity\Flight;
 
 $database = new Database();
 
@@ -44,11 +44,11 @@ $arr2 = json_decode($arr, true);
             echo ("<br>");
             echo "Flight Destination: " . $arr2[$i]['destination'];
             echo ("<br>");
-            echo "Boarding Time: " . $arr2[$i]['boardingTime'];
+            echo "Boarding Time: " . $arr2[$i]['boardingTime']['date'];
             echo ("<br>");
-            echo "Depature Time: " . $arr2[$i]['departureTime'];
+            echo "Depature Time: " . $arr2[$i]['departureTime']['date'];
             echo ("<br>");
-            echo "Arrival Time: " . $arr2[$i]['arrivalTime'];
+            echo "Arrival Time: " . $arr2[$i]['arrivalTime']['date'];
             echo ("<br>");
             echo "Seats on Flight: " . $arr2[$i]['seats'];
             echo ("<br>");

@@ -33,6 +33,27 @@
             
         </form>
         
+        <form method="POST" action="viewOrigins.php"/>
+        
+           
+            <input id = "submitBtn" type="submit" value="View All Flight Origins!"/>
+            
+        </form>
+        
+          <form method="POST" action="viewDestinations.php"/>
+        
+           
+            <input id = "submitBtn" type="submit" value="View All Flight Destinations!"/>
+            
+        </form>
+        
+        <form method="POST" action="getLogs.php"/>
+        
+           
+            <input id = "submitBtn" type="submit" value="View All Logged Actions!"/>
+            
+        </form>
+        
     </body>
 </html>
 
