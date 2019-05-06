@@ -3,12 +3,6 @@ header("Access-Control-Allow-Methods: GET,POST,PUT,DELETE");
 
 require dirname(__DIR__) . "/vendor/autoload.php";
 
-define("APP_PATH", "api/");
-
-$request = \Klein\Request::createFromGlobals();
-$uri = $request->server()->get('REQUEST_URI');
-$request->server()->set('REQUEST_URI', rtrim(substr($uri, strlen(APP_PATH)), "/"));
-
 use Klein\App;
 use Klein\Klein;
 use Klein\Request;
@@ -16,6 +10,12 @@ use Klein\Response;
 use Klein\ServiceProvider;
 use Valkyrie\DB\Database;
 use Valkyrie\DB\Entity\User;
+
+define("APP_PATH", "api/");
+
+$request = Request::createFromGlobals();
+$uri = $request->server()->get('REQUEST_URI');
+$request->server()->set('REQUEST_URI', rtrim(substr($uri, strlen(APP_PATH)), "/"));
 
 function GET($url, $options = null)
 {

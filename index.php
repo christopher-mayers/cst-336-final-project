@@ -33,7 +33,7 @@ if ($auth)
 
 	<link rel="stylesheet" href="build/style.css">
 
-	<link rel="preconnect" href="https://lh6.googleusercontent.com/">
+	<link rel="preconnect" href="https://live.staticflickr.com/">
 	<link href="search.html" rel="prefetch">
 	<link href="login.php" rel="prefetch">
 </head>

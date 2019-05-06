@@ -80,7 +80,7 @@ setInterval(function()
 		})
 }, 8000);
 
-for (let obj of document.querySelectorAll(".picker .field input"))
+for (let obj of document.querySelectorAll(".field input"))
 {
 	obj.addEventListener("input", function(e)
 	{
