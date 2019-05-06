@@ -20,6 +20,6 @@
     }
     else
     {
-        echo ("Incorrect username of password");
+        echo ("Incorrect username or password");
     }
 ?>
