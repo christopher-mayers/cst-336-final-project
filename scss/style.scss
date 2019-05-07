@@ -54,7 +54,7 @@ $picker-header: calc(8px + (15 - 8) * ((100vw - 300px) / (1920 - 300)));
 	.navlink {
 		color: $slate;
 		font-family: 'Roboto', sans-serif;
-		font-size: inherit;
+		font-size: $nav-text-size;
 		font-weight: 400;
 		text-decoration: none;
 		cursor: pointer;
@@ -98,10 +98,10 @@ $picker-header: calc(8px + (15 - 8) * ((100vw - 300px) / (1920 - 300)));
 			background-color: $white;
 			z-index: 100;
 			box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-			padding: 0;
 			left: 50%;
 			transform: translateX(-50%);
-			border-radius: 2px;
+			border-radius: 10px;
+			padding: rem(10px) 0;
 
 			a {
 				position: relative;
@@ -116,15 +116,42 @@ $picker-header: calc(8px + (15 - 8) * ((100vw - 300px) / (1920 - 300)));
 				padding: 20px 50px;
 				white-space: nowrap;
 
-				&:nth-child(even) {
-					border-top: 1px solid rgba(0, 0, 0, 0.1);
-				}
-
 				&:hover {
 					background-color: rgba(0, 0, 0, 0.05);
 				}
 			}
 		}
+	}
+}
+
+.secret {
+	display: inline-block;
+	position: relative;
+	box-shadow: inset 0 8px 16px 0 rgba(0,0,0,0.1);
+	overflow: visible;
+	background-color: darken($dimwhite, 2%);
+
+	&:hover::before {
+		top: 100%;
+	}
+
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: $dimwhite;
+		transition: all 0.2s ease;
+		pointer-events: none;
+		z-index: 20;
+		will-change: top;
+	}
+
+	a {
+		display: block;
+		padding: rem(10px);
 	}
 }
 
@@ -201,6 +228,7 @@ $picker-header: calc(8px + (15 - 8) * ((100vw - 300px) / (1920 - 300)));
 		background-color: $coolwhite;
 		padding: textRelative(22px, 20px) textRelative(22px, 25px);
 		color: $slate;
+		font-family: "Roboto", sans-serif;
 
 		+ label {
 			left: 25px;
@@ -213,6 +241,7 @@ $picker-header: calc(8px + (15 - 8) * ((100vw - 300px) / (1920 - 300)));
 			color: lighten($slate, 30%);
 			cursor: text;
 			pointer-events: none;
+			font-family: "Roboto", sans-serif;
 		}
 
 		&:focus + label {
@@ -283,6 +312,17 @@ $picker-header: calc(8px + (15 - 8) * ((100vw - 300px) / (1920 - 300)));
 			outline: none;
 		}
 	}
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+	font-family: "Roboto", sans-serif !important;
+	font-weight: 400 !important;
+	@include text-size(22px);
+	color: $slate !important;
+	-webkit-box-shadow: 0 0 0 100px $white inset;
+	-webkit-text-fill-color: $slate;
 }
 
 .carousel {

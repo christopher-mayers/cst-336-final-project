@@ -3,6 +3,11 @@ html {
 }
 @media only screen and (max-device-width: 1023px) {
   html {
+    font-size: 10px;
+  }
+}
+@media only screen and (max-device-width: 1280px) {
+  html {
     font-size: 12px;
   }
 }

@@ -4,6 +4,11 @@ html {
 }
 @media only screen and (max-device-width: 1023px) {
   html {
+    font-size: 10px;
+  }
+}
+@media only screen and (max-device-width: 1280px) {
+  html {
     font-size: 12px;
   }
 }
@@ -61,7 +66,7 @@ body {
 .navheader .navlink {
   color: #54546A;
   font-family: "Roboto", sans-serif;
-  font-size: inherit;
+  font-size: 1.125rem;
   font-weight: 400;
   text-decoration: none;
   cursor: pointer;
@@ -100,10 +105,10 @@ body {
   background-color: #F9FBFE;
   z-index: 100;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-  padding: 0;
   left: 50%;
   transform: translateX(-50%);
-  border-radius: 2px;
+  border-radius: 10px;
+  padding: 0.625rem 0;
 }
 .navheader .profile .dropdown-content a {
   position: relative;
@@ -118,11 +123,36 @@ body {
   padding: 20px 50px;
   white-space: nowrap;
 }
-.navheader .profile .dropdown-content a:nth-child(even) {
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
 .navheader .profile .dropdown-content a:hover {
   background-color: rgba(0, 0, 0, 0.05);
+}
+
+.secret {
+  display: inline-block;
+  position: relative;
+  box-shadow: inset 0 8px 16px 0 rgba(0, 0, 0, 0.1);
+  overflow: visible;
+  background-color: #eaeff9;
+}
+.secret:hover::before {
+  top: 100%;
+}
+.secret::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #F2F5FB;
+  transition: all 0.2s ease;
+  pointer-events: none;
+  z-index: 20;
+  will-change: top;
+}
+.secret a {
+  display: block;
+  padding: 0.625rem;
 }
 
 .outer {
@@ -198,6 +228,7 @@ body {
   background-color: #F8FAFF;
   padding: 0.9090909091em 1.1363636364em;
   color: #54546A;
+  font-family: "Roboto", sans-serif;
 }
 .picker-content input[type=text] + label {
   left: 25px;
@@ -211,6 +242,7 @@ body {
   color: #a2a2b5;
   cursor: text;
   pointer-events: none;
+  font-family: "Roboto", sans-serif;
 }
 .picker-content input[type=text]:focus + label {
   display: none;
@@ -270,6 +302,18 @@ body {
 .picker-content .picker-submit:active {
   border: none;
   outline: none;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 400 !important;
+  font-size: 22px;
+  font-size: 1.375rem;
+  color: #54546A !important;
+  -webkit-box-shadow: 0 0 0 100px #F9FBFE inset;
+  -webkit-text-fill-color: #54546A;
 }
 
 .carousel {

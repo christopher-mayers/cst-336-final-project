@@ -127,6 +127,8 @@ input[type=email]{
 	background-color: $white;
 	padding: textRelative($main-size, 20px) textRelative($main-size, 25px);
 	color: $slate;
+	font-size: $main-size !important;
+	font-family: inherit;
 
 	+ label {
 		left: textRelative(14px, 25px);
@@ -144,6 +146,18 @@ input[type=email]{
 	&:focus + label {
 		display: none;
 	}
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+	$main-size: 18px;
+	font-family: "Roboto", sans-serif !important;
+	font-weight: 400 !important;
+	font-size: $main-size !important;
+	color: $slate !important;
+	-webkit-box-shadow: 0 0 0 100px $white inset;
+	-webkit-text-fill-color: $slate;
 }
 
 .form-submit {
