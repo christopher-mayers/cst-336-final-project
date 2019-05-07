@@ -26,6 +26,7 @@ class FlightCard extends HTMLElement
 		this._id = 0
 		this._origin = ""
 		this._destination = ""
+		this.dead = false
 	}
 
 	static get observedAttributes()
@@ -104,6 +105,11 @@ class FlightCard extends HTMLElement
 
 		this.querySelector(".card-button").addEventListener("click", (e) =>
 		{
+			if (this.dead)
+				return
+
+			this.dead = true
+
 			fetch("api/cancel", {
 				method: "POST",
 				headers: {
