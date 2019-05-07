@@ -43,7 +43,7 @@ login-form, register-form {
 }
 
 login-form {
-	margin-bottom: rem(18px) + rem(44px);
+	margin-bottom: rem(18px) + rem(45px);
 }
 
 .form-container {
@@ -109,6 +109,7 @@ login-form {
 	align-content: center;
 	font-family: "Roboto", sans-serif;
 	border-bottom: 1px solid darken(white, 10%);
+	box-sizing: border-box;
 
 	&:last-of-type {
 		border-bottom: none
@@ -125,9 +126,8 @@ input[type=email]{
 	@include text-size($main-size);
 	width: rem(300px);
 	background-color: $white;
-	padding: textRelative($main-size, 20px) textRelative($main-size, 25px);
+	padding: rem(20px) rem(25px);
 	color: $slate;
-	font-size: $main-size !important;
 	font-family: inherit;
 
 	+ label {

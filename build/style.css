@@ -226,12 +226,12 @@ body {
   font-size: 1.375rem;
   width: 18.75rem;
   background-color: #F8FAFF;
-  padding: 0.9090909091em 1.1363636364em;
+  padding: 1.25rem 1.5625rem;
   color: #54546A;
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto", sans-serif !important;
 }
 .picker-content input[type=text] + label {
-  left: 25px;
+  left: 1.25em;
   top: 50%;
   transform: translateY(-50%);
   position: absolute;
@@ -290,7 +290,7 @@ body {
 .picker-content .picker-submit svg {
   position: absolute;
   top: 50%;
-  right: 25px;
+  right: 1.3888888889em;
   font-size: inherit;
   height: 1.5em;
   width: 1.5em;
@@ -306,7 +306,8 @@ body {
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
-input:-webkit-autofill:focus {
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
   font-family: "Roboto", sans-serif !important;
   font-weight: 400 !important;
   font-size: 22px;
@@ -314,6 +315,7 @@ input:-webkit-autofill:focus {
   color: #54546A !important;
   -webkit-box-shadow: 0 0 0 100px #F9FBFE inset;
   -webkit-text-fill-color: #54546A;
+  -webkit-transition-delay: 99999999s;
 }
 
 .carousel {
@@ -350,7 +352,7 @@ input:-webkit-autofill:focus {
 }
 .card .info h1 {
   font-size: 5.625rem;
-  margin-bottom: 10px;
+  margin-bottom: 0.1111111111em;
   font-weight: 500;
 }
 .card .info h2 {
