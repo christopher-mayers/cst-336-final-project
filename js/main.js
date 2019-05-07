@@ -53,31 +53,33 @@ function addCard(title, subtitle, image)
 	}, carouselMilli);
 }
 
-let ready = true
-
-setInterval(function()
+function fetchCard()
 {
 	if (!document.hasFocus())
-		return
+	{
+		setTimeout(fetchCard, 8000)
 
-	if (!ready)
 		return
+	}
 
 	fetch("api/flights/random")
 		.then((r) => r.json())
 		.then((r) => {
-			ready = false
-
 			let image = new Image()
 			image.onload = function()
 			{
 				addCard(r.destination, "from $" + Math.floor(Number(r.price)), this.src);
 
-				ready = true
+				setTimeout(fetchCard, 8000)
 			}
 			image.src = r.img
 			image = null
 		})
+}
+
+setTimeout(function()
+{
+	fetchCard()
 }, 8000);
 
 for (let obj of document.querySelectorAll(".field input"))
