@@ -43,7 +43,8 @@ if (!isset ($_SESSION['username']))
         
         <br></br>
         
-        Boarding Day:  <button type="button" class="btn btn-primary">Choose Day</button>                                             
+        Boarding Day:  <input id = "submitBtn" type="submit" value="Choose Day" class="btn btn-success"/>
+        <!--<button type="button" class="btn btn-primary">Choose Day</button>                                             -->
         <div id="displayBoardingDay">
             
             <br>
@@ -53,7 +54,8 @@ if (!isset ($_SESSION['username']))
         
         <br></br>
         
-        Departure Day: <button type="button" class="btn btn-info">Choose Day</button>                      
+        Departure Day: <input id = "submitBtn" type="submit" value="Choose Day" class="btn btn-info"/>
+        <!--<button type="button" class="btn btn-info">Choose Day</button>                      -->
         <div id = "displayDepartureDay">
             
             <br>
@@ -63,7 +65,8 @@ if (!isset ($_SESSION['username']))
         
         <br></br>
         
-        Arrival Day: <button type="button" class="btn btn-info">Choose Day</button>
+        Arrival Day: <input id = "submitBtn" type="submit" value="Choose Day" class="btn btn-info"/>
+        <!--<button type="button" class="btn btn-info">Choose Day</button>-->
         <div id = "displayArrivalDay">
             
             <br>
@@ -78,7 +81,8 @@ if (!isset ($_SESSION['username']))
         </strong>
         <br></br>
         
-        <button type="button" class="btn btn-primary">Add Flight!</button>
+        <input id = "submitBtn" type="submit" value="Add Flight!" class="btn btn-primary"/>
+        <!--<button type="button" class="btn btn-primary">Add Flight!</button>-->
 
         
         <br></br>
@@ -86,8 +90,9 @@ if (!isset ($_SESSION['username']))
         
         <form method="POST" action="flights.php"/>
         
-                      
-            <button type="button" class="btn btn-primary">Done!</button>
+             
+            <input id = "submitBtn" type="submit" value="Done!" class="btn btn-primary"/>         
+            <!--<button type="button" class="btn btn-primary">Done!</button>-->
 
             
         </form>

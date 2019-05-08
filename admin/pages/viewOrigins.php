@@ -57,9 +57,9 @@ $arr = ($query->fetchAll());
         
         <form method="POST" action="flights.php"/>
         
-           <button type="button" id = "submitBtn" class="btn btn-success">Done!</button>
+           <!--<button type="button" id = "submitBtn" class="btn btn-success">Done!</button>-->
 
-            <!--<input id = "submitBtn" type="submit" value="Done!"/>-->
+            <input id = "submitBtn" type="submit" value="Done!" class="btn btn-success"/>
             
         </form>
 

@@ -74,7 +74,7 @@ $arr2 = json_decode($arr, true);
         <form method="POST" action="flights.php"/>
         
            
-            <input id = "submitBtn" type="submit" value="Done!"/>
+            <input id = "submitBtn" type="submit" value="Done!" class="btn btn-warning"/>
             
         </form>
 

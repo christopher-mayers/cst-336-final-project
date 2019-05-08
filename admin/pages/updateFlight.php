@@ -101,9 +101,9 @@ if (!isset ($_SESSION['username']))
         
         <form method="POST" action="flights.php"/>
         
-           <button type="button" id = "submitBtn" class="btn btn-danger">Done!</button>
+           <!--<button type="button" id = "submitBtn" class="btn btn-danger">Done!</button>-->
 
-            <!--<input id = "submitBtn" type="submit" value="Done!"/>-->
+            <input id = "submitBtn" type="submit" value="Done!" class="btn btn-danger"/>
             
         </form>
 

@@ -38,9 +38,9 @@ if (!isset ($_SESSION['username']))
         <br></br>
         <form method="POST" action="flights.php"/>
         
-           <button type="button" id = "submitBtn" class="btn btn-success">Done!</button>
+           <!--<button type="button" id = "submitBtn" class="btn btn-success">Done!</button>-->
 
-            <!--<input id = "submitBtn" type="submit" value="Done!"/>-->
+            <input id = "submitBtn" class="btn btn-success" type="submit" value="Done!"/>
             
         </form>
     </body>

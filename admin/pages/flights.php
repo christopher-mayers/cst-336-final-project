@@ -19,57 +19,57 @@
         <h3>Flight Management</h3><br>
          <form method="POST" action="addFlight.php"/>
         
-           <button type="button" id = "submitBtn" class="btn btn-primary">Add a Flight!</button>
+           <!--<button type="button" id = "submitBtn" class="btn btn-primary">Add a Flight!</button>-->
 
-            <!--<input id = "submitBtn" type="submit" value="Add a Flight!"/>-->
+            <input id = "submitBtn" type="submit" value="Add a Flight!" class="btn btn-primary"/>
             
         </form><br>
         
           <form method="POST" action="deleteFlight.php"/>
         
-           <button type="button" id = "submitBtn" class="btn btn-info">Delete a Flight!</button>
+           <!--<button type="button" id = "submitBtn" class="btn btn-info">Delete a Flight!</button>-->
 
-            <!--<input id = "submitBtn" type="submit" value="Delete a Flight!"/>-->
+            <input id = "submitBtn" type="submit" value="Delete a Flight!" class="btn btn-info"/>
             
         </form><br>
         
           <form method="POST" action="viewAllFlights.php"/>
         
-           <button type="button" id = "submitBtn" class="btn btn-info">View All Flights!</button>
+           <!--<button type="button" id = "submitBtn" class="btn btn-info">View All Flights!</button>-->
 
-            <!--<input id = "submitBtn" type="submit" value="View All Flights!"/>-->
+            <input id = "submitBtn" type="submit" value="View All Flights!" class="btn btn-info"/>
             
         </form><br>
         
           <form method="POST" action="updateFlight.php"/>
         
-          <button type="button" id = "submitBtn" class="btn btn-primary">Update a Flight!</button>
+          <!--<button type="button" id = "submitBtn" class="btn btn-primary">Update a Flight!</button>-->
 
-          <!--<input id = "submitBtn" type="submit" value="Update a Flight!"/>-->
+          <input id = "submitBtn" type="submit" value="Update a Flight!" class="btn btn-primary"/>
             
         </form><br>
         
         <form method="POST" action="viewOrigins.php"/>
             
-         <button type="button" id = "submitBtn" class="btn btn-primary">View All Flight Origins!</button>
+         <!--<button type="button" id = "submitBtn" class="btn btn-primary">View All Flight Origins!</button>-->
 
-            <!--<input id = "submitBtn" type="submit" value="View All Flight Origins!"/>-->
+            <input id = "submitBtn" type="submit" value="View All Flight Origins!" class="btn btn-primary"/>
             
         </form><br>
         
           <form method="POST" action="viewDestinations.php"/>
         
-           <button type="button" id = "submitBtn" class="btn btn-info">View All Flight Destinations</button>
+           <!--<button type="button" id = "submitBtn" class="btn btn-info">View All Flight Destinations</button>-->
 
-            <!--<input id = "submitBtn" type="submit" value="View All Flight Destinations!"/>-->
+            <input id = "submitBtn" type="submit" class="btn btn-info" value="View All Flight Destinations!"/>
             
         </form><br>
         
         <form method="POST" action="getLogs.php"/>
         
-                      <button id = "submitBtn" type="button" class="btn btn-info">View All Logged Actions!</button>
+                      <!--<button id = "submitBtn" type="button" class="btn btn-info">View All Logged Actions!</button>-->
 
-            <!--<input id = "submitBtn" type="submit" value="View All Logged Actions!"/>-->
+            <input id = "submitBtn" type="submit" class="btn btn-info" value="View All Logged Actions!"/>
             
         </form><br>
         
@@ -77,9 +77,9 @@
         
         <form method="POST" action="../api/logoutProcess.php"/>
         
-           <button type="button" id = "submitBtn" class="btn btn-primary">Submit</button>
+           <!--<button type="button" id = "submitBtn" class="btn btn-primary">Submit</button>-->
 
-            <!--<input id = "submitBtn" type="submit" value="Logout"/>-->
+            <input id = "submitBtn" type="submit" class="btn btn-primary" value="Logout"/>
             
         </form>
         
