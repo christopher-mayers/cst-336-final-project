@@ -43,7 +43,7 @@ login-form, register-form {
 }
 
 login-form {
-	margin-bottom: rem(18px) + rem(44px);
+	margin-bottom: rem(18px) + rem(45px);
 }
 
 .form-container {
@@ -109,6 +109,7 @@ login-form {
 	align-content: center;
 	font-family: "Roboto", sans-serif;
 	border-bottom: 1px solid darken(white, 10%);
+	box-sizing: border-box;
 
 	&:last-of-type {
 		border-bottom: none
@@ -125,8 +126,9 @@ input[type=email]{
 	@include text-size($main-size);
 	width: rem(300px);
 	background-color: $white;
-	padding: textRelative($main-size, 20px) textRelative($main-size, 25px);
+	padding: rem(20px) rem(25px);
 	color: $slate;
+	font-family: inherit;
 
 	+ label {
 		left: textRelative(14px, 25px);
@@ -144,6 +146,18 @@ input[type=email]{
 	&:focus + label {
 		display: none;
 	}
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+	$main-size: 18px;
+	font-family: "Roboto", sans-serif !important;
+	font-weight: 400 !important;
+	font-size: $main-size !important;
+	color: $slate !important;
+	-webkit-box-shadow: 0 0 0 100px $white inset;
+	-webkit-text-fill-color: $slate;
 }
 
 .form-submit {

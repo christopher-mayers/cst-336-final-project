@@ -4,6 +4,11 @@ html {
 }
 @media only screen and (max-device-width: 1023px) {
   html {
+    font-size: 10px;
+  }
+}
+@media only screen and (max-device-width: 1280px) {
+  html {
     font-size: 12px;
   }
 }
@@ -60,7 +65,7 @@ login-form, register-form {
 }
 
 login-form {
-  margin-bottom: 3.875rem;
+  margin-bottom: 3.9375rem;
 }
 
 .form-container {
@@ -123,6 +128,7 @@ login-form {
   align-content: center;
   font-family: "Roboto", sans-serif;
   border-bottom: 1px solid #e6e6e6;
+  box-sizing: border-box;
 }
 .field:last-of-type {
   border-bottom: none;
@@ -137,8 +143,9 @@ input[type=email] {
   font-size: 1.125rem;
   width: 18.75rem;
   background-color: #F9FBFE;
-  padding: 1.1111111111em 1.3888888889em;
+  padding: 1.25rem 1.5625rem;
   color: #54546A;
+  font-family: inherit;
 }
 input[type=text] + label,
 input[type=password] + label,
@@ -159,6 +166,17 @@ input[type=text]:focus + label,
 input[type=password]:focus + label,
 input[type=email]:focus + label {
   display: none;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 400 !important;
+  font-size: 18px !important;
+  color: #54546A !important;
+  -webkit-box-shadow: 0 0 0 100px #F9FBFE inset;
+  -webkit-text-fill-color: #54546A;
 }
 
 .form-submit {

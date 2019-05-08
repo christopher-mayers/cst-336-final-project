@@ -62,7 +62,9 @@ if ($auth)
 				</span>
 				<ul>
 					<li>
-						<a class="navlink">Prepare</a>
+						<div class="secret">
+							<a class="navlink" href="admin/login.html">Admin</a>
+						</div>
 					</li>
 				</ul>
 			</nav>

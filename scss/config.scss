@@ -46,6 +46,10 @@ html {
 	font-size: 16px;
 
 	@media only screen and (max-device-width: 1023px) {
+		font-size: 10px;
+	}
+
+	@media only screen and (max-device-width: 1280px) {
 		font-size: 12px;
 	}
 

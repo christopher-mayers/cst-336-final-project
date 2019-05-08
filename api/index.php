@@ -492,12 +492,13 @@ function(Request $request, Response $response, ServiceProvider $service, App $ap
 
 	$query = "
 	DELETE FROM valkyrie_bookings
-	WHERE flight=:id
+	WHERE flight=:flightId AND user=:userId
 	LIMIT 1
 	";
 
 	$stmt = $db->pdo->prepare($query);
-	$stmt->bindParam(":id", $flightId);
+	$stmt->bindParam(":flightId", $flightId);
+	$stmt->bindParam(":userId", $user->id);
 	$stmt->execute();
 
 	\Valkyrie\DB\Logger::log("cancellation", "(" . $user->email . ":" . $user->id . ") canceled reservation for flight " . $flightId);
