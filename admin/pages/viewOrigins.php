@@ -1,7 +1,32 @@
+<?php
+session_start();
+
+if (!isset ($_SESSION['username']))
+{
+    header('Location: ../login.html');
+}
+
+require "../../vendor/autoload.php";
+    
+use Valkyrie\DB\Dao\FlightDao;
+use Valkyrie\DB\Database;
+use Valkyrie\DB\Entity\Flight;
+
+$database = new Database();
+
+$pdo = $database->pdo;
+
+$query = $pdo->prepare("SELECT DISTINCT origin FROM valkyrie_flights");
+$query->execute();
+$arr = array();
+$arr = ($query->fetchAll());
+
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
-        <title> Valkyrie Air Admin Login</title>
+        <title> All Flight Origins</title>
         <link rel="stylesheet" href="css/styles.css">
         <link href="https://fonts.googleapis.com/css?family=Rajdhani" rel="stylesheet">
         <link rel="apple-touch-icon" sizes="180x180" href="/icon/apple-touch-icon.png">
@@ -17,20 +42,26 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </head>
     <body>
-    
-    <h3>Login Page</h3><br>
-
-        <form action="api/loginProcess.php" method="POST"/>
-            <strong>
-            Username: <input type="text" name="username" id="username"/><br><br>
-            
-            Password: <input type="password" name="password" id="password"/><br><br>
-            </strong>
-            <!--<input id = "submitBtn" type="submit" value="Login!"/>-->
-            <button type="button" id = "submitBtn" class="btn btn-warning">Login!</button>
-
-        </form>
         
+        <h1>All Flight Origins</h1>
+
+        <?php
+        
+        for ($i = 0; $i < count($arr); $i++)
+        {
+            echo $arr[$i]['origin'] . "<br>";
+        }
+        ?>
+        
+        <br></br>
+        
+        <form method="POST" action="flights.php"/>
+        
+           <button type="button" id = "submitBtn" class="btn btn-success">Done!</button>
+
+            <!--<input id = "submitBtn" type="submit" value="Done!"/>-->
+            
+        </form>
 
     </body>
 </html>

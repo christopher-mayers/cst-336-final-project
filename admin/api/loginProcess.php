@@ -16,7 +16,7 @@
         echo ("Success");
         
         $_SESSION['username'] = $username;
-        header('location: flights.php');
+        header('location: ../pages/flights.php');
     }
     else
     {

@@ -6,6 +6,7 @@
         "klein/klein": "^2.1"
     },
     "autoload": {
+        "files": ["src/boot.php"],
         "psr-4": {
             "Valkyrie\\": "src/"
         }
