@@ -29,26 +29,24 @@ This will ensure you have the latest code.
 ### Dylan
 - [x] General site design, UI/UX
   - Search System
-    - [ ] Filter by price
-    - [ ] Date picker
+    - [x] Date picker
     - [x] Use real data
-    - [ ] Lead to checkout process
+    - [x] Lead to checkout process
 - [x] Database management
 - [x] PHP resources (DAO classes, framework)
 - [x] General API (WIP but basically done)
 
 ### Chris & Jerry
 - Admin page
-  - [ ] Sign-in
-  - [ ] Sign-out
-  - [ ] Overall design (can use Bootstrap)
+  - [x] Sign-in
+  - [x] Sign-out
+  - [x] Overall design (can use Bootstrap)
 - Data management
-  - [ ] Add objects
-  - [ ] Delete objects
-  - [ ] Update objects
+  - [x] Add objects
+  - [x] Delete objects
+  - [x] Update objects
 
 ### Junior
-- Cart management
-  - Test different ways to store user's cart data. You should probably only store the IDs of flights, and then ask the API for the details of each flight whenever necessary.
-    - Could probably just use `localStorage.setItem("cart", JSON.stringify(listOfFlightIDs));`
-- JavaScript interaction for pages, if needed
+- [x] Cart management
+  - [x] Test different ways to store user's cart data. You should probably only store the IDs of flights, and then ask the API for the details of each flight whenever necessary.
+- [x] JavaScript interaction for pages, if needed
