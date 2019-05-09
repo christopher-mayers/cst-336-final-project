@@ -25,6 +25,7 @@ class FlightCard extends HTMLElement
 		this._id = 0
 		this._departureTime = "0000-00-00 00:00:00"
 		this._arrivalTime = "0000-00-00 00:00:00"
+		this.dead = false
 	}
 
 	static get observedAttributes()
@@ -81,6 +82,11 @@ class FlightCard extends HTMLElement
 
 		this.querySelector(".card-button").addEventListener("click", (e) =>
 		{
+			if (this.dead)
+				return
+
+			this.dead = true
+
 			fetch(`api/precheckout`, {
 				headers: {
 					"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"

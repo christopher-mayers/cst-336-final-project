@@ -1,21 +1,7 @@
 "use strict";
 
-const other = "https://camo.githubusercontent.com/0fa6afcb113bd8cdcf805fb9a47d472869abeaa7/68747470733a2f2f6c68342e676f6f676c6575736572636f6e74656e742e636f6d2f2d335377693777464d4f4d452f554f3554664a6e464845492f41414141414141414537772f452d64466c36724741726f2f73313932302d77313932302d68313038302d632f486f72736573686f6525324242656e6425324253756e7365742e6a7067";
 const carouselMilli = 800;
-const carouselSeconds = carouselMilli / 1000;
-var imageData;
-
-fetch("https://raw.githubusercontent.com/dconnolly/chromecast-backgrounds/master/backgrounds.json")
-	.then(result => result.json())
-	.then(result => imageData = result);
-
-function random(min, max)
-{
-	min = Math.ceil(min);
-	max = Math.floor(max);
-
-	return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+const carouselSeconds = carouselMilli / 1000
 
 function addCard(title, subtitle, image)
 {
